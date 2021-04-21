@@ -1,14 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MemorizacaoNumeros.src.util;
 
 namespace MemorizacaoNumeros.src.model {
 	public class ExperimentoUm : Experimento {
 
-		public int CriterioAcertoPreTreino { get; set; }
-		public int CriterioTalvezLinhaDeBase { get; set; }
-		public int CriterioReforcoFaseExperiemntal { get; set; }
+		private int criterioAcertoPreTreino;
+		public int CriterioAcertoPreTreino {
+			get => criterioAcertoPreTreino;
+			set => criterioAcertoPreTreino = NumericUtils.ValidarNatural(value, "Critério acerto Pré-Treino");
+		}
+
+		private int criterioTalvezLinhaDeBase;
+		public int CriterioTalvezLinhaDeBase { 
+			get => criterioTalvezLinhaDeBase;
+			set => criterioTalvezLinhaDeBase = NumericUtils.ValidarNaturalDentroDeLimite(value, 100, "Critério talvez Linha de Base");
+		}
+
+		private int criterioReforcoFaseExperimental;
+		public int CriterioReforcoFaseExperimental { 
+			get => criterioReforcoFaseExperimental;
+			set => criterioReforcoFaseExperimental = NumericUtils.ValidarNaturalDentroDeLimite(value, 100, "Critério Reforço Fase Experimental");
+		}
 	}
 }

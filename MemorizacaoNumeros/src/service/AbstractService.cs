@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MemorizacaoNumeros.src.model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -39,7 +40,7 @@ namespace MemorizacaoNumeros.src.service {
 
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				if (objetoExistente == null) {
-					long id = cnn.Query<long>(sqlInsert, objeto).Single();
+					long id = cnn.Query<long>(sqlInsert + "; SELECT CAST(last_insert_rowid() as int)", objeto).Single();
 					objeto.Id = id;
 				}
 				else {
@@ -61,6 +62,70 @@ namespace MemorizacaoNumeros.src.service {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				cnn.Execute($"DELETE FROM {nomeTabela} WHERE Id = {id}");
 			}
+		}
+
+		protected static List<string> GetNomeColunas(Type type) {
+			var colunas = new List<string>();
+
+			foreach (var p in type.GetProperties()) {
+				if (p.Name != "Id") {
+					colunas.Add(p.Name);
+				}
+			}
+
+			return colunas;
+		}
+
+		protected static string GeraSqlInsert(Type type) {
+			return GeraSqlInsert(type.Name, GetNomeColunas(type));
+		}
+
+		protected static string GeraSqlUpdate(Type type) {
+			return GeraSqlUpdate(type.Name, GetNomeColunas(type));
+		}
+
+		protected static string GeraSqlInsert(string nomeTabela, List<string> colunas) {
+			var sqlInsert = $"INSERT INTO {nomeTabela} (";
+
+			for (int i = 0; i < colunas.Count; i++) {
+				var coluna = colunas[i];
+
+				sqlInsert += coluna;
+
+				if (i != colunas.Count - 1) {
+					sqlInsert += ", ";
+				}
+			}
+
+			sqlInsert += ") VALUES (";
+
+			for (int i = 0; i < colunas.Count; i++) {
+				var coluna = colunas[i];
+
+				sqlInsert += "@" + coluna;
+
+				if (i != colunas.Count - 1) {
+					sqlInsert += ", ";
+				}
+			}
+
+			return sqlInsert + ")";
+		}
+
+		protected static string GeraSqlUpdate(string nomeTabela, List<string> colunas) {
+			var sqlUpdate = $"UPDATE {nomeTabela} SET ";
+
+			for (int i = 0; i < colunas.Count; i++) {
+				var coluna = colunas[i];
+
+				sqlUpdate += coluna + " = @" + coluna;
+
+				if (i != colunas.Count - 1) {
+					sqlUpdate += ", ";
+				}
+			}
+
+			return sqlUpdate + " WHERE Id = @Id";
 		}
 	}
 }
