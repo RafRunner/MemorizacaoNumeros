@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using MemorizacaoNumeros.src.dao;
+using MemorizacaoNumeros.src.model;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -53,10 +53,8 @@ namespace MemorizacaoNumeros.src.service {
 				return;
 			}
 
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				cnn.Execute($"DELETE FROM {nomeTabela} WHERE Id = @Id", objeto);
-				objeto.Id = 0;
-			}
+			DeletarPorId(objeto.Id, nomeTabela);
+			objeto.Id = 0;
 		}
 
 		protected static void DeletarPorId(long id, string nomeTabela) {

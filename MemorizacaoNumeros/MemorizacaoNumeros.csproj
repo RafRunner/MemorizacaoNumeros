@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\model\ElementoDeBanco.cs" />
+    <Compile Include="src\model\Experimento.cs" />
+    <Compile Include="src\model\ExperimentoUm.cs" />
     <Compile Include="src\model\GeradorNumeros.cs" />
     <Compile Include="src\service\AbstractService.cs" />
     <Compile Include="src\util\NumericUtils.cs" />

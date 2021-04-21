@@ -16,12 +16,6 @@ namespace MemorizacaoNumeros {
 		static void Main() {
 			Application.ThreadException += new ThreadExceptionEventHandler(Form1_UIThreadException);
 
-			var g = new GeradorNumeros();
-
-			for (int i = 0; i < 1000; i++) {
-				Console.WriteLine(g.GerarNumero(2));
-			}
-
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MenuInicial());

@@ -30,7 +30,9 @@ namespace MemorizacaoNumeros.src.model {
 				for (int i = 0; i < tamanho; i++) {
 					var novoDigito = random.Next(0, 10);
 
-					if ((i == 0 && novoDigito == 0) || (tamanho < 10 && num.Contains(novoDigito.ToString()))) {
+					if ((num.Length > 0 && Math.Abs(Convert.ToInt32(num.Substring(i - 1, 1)) - novoDigito) < 2) || 
+						(i == 0 && novoDigito == 0) || 
+						(tamanho < 10 && num.Contains(novoDigito.ToString()))) {
 						i--;
 						continue;
 					}
