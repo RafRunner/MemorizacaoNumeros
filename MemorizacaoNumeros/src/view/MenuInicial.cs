@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MemorizacaoNumeros.src.model;
+using MemorizacaoNumeros.src.service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,10 @@ namespace MemorizacaoNumeros.src.view {
 	public partial class MenuInicial : Form {
 		public MenuInicial() {
 			InitializeComponent();
+
+			List<ExperimentoUm> experimentos = ExperimentoUmService.GetAll();
+
+			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
 		}
 	}
 }
