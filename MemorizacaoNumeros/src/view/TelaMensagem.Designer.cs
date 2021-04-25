@@ -33,9 +33,9 @@
 			this.lblMensagem.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblMensagem.Location = new System.Drawing.Point(363, 180);
 			this.lblMensagem.Name = "lblMensagem";
-			this.lblMensagem.Size = new System.Drawing.Size(111, 41);
+			this.lblMensagem.Size = new System.Drawing.Size(188, 41);
 			this.lblMensagem.TabIndex = 0;
-			this.lblMensagem.Text = "label1";
+			this.lblMensagem.Text = "Mensagem";
 			// 
 			// btnOk
 			// 
@@ -43,9 +43,10 @@
 			this.btnOk.Location = new System.Drawing.Point(886, 255);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Padding = new System.Windows.Forms.Padding(10);
-			this.btnOk.Size = new System.Drawing.Size(150, 64);
+			this.btnOk.Size = new System.Drawing.Size(150, 79);
 			this.btnOk.TabIndex = 1;
 			this.btnOk.Text = "OK";
+			this.btnOk.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.btnOk.UseVisualStyleBackColor = true;
 			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
 			// 

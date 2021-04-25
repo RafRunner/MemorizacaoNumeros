@@ -18,6 +18,7 @@ namespace MemorizacaoNumeros.src.view {
 			List<ExperimentoUm> experimentos = ExperimentoUmService.GetAll();
 
 			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
+			new ExperimentoView().ShowDialog();
 		}
 	}
 }

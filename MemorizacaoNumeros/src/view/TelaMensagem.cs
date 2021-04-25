@@ -1,12 +1,6 @@
 ﻿using MemorizacaoNumeros.src.util;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemorizacaoNumeros.src.view {
@@ -25,7 +19,6 @@ namespace MemorizacaoNumeros.src.view {
 			var widthRatio = width / 1920.0;
 
 			ViewUtils.CorrigeTamanhoPosicaoFonte(lblMensagem, heightRatio, widthRatio);
-			ViewUtils.CorrigeTamanhoPosicaoFonte(btnOk, heightRatio, widthRatio);
 
 			lblMensagem.MaximumSize = new Size((int)(width * 0.8), 0);
 			lblMensagem.AutoSize = true;
@@ -33,6 +26,7 @@ namespace MemorizacaoNumeros.src.view {
 			lblMensagem.Location = new Point((width - lblMensagem.Width) / 2, lblMensagem.Location.Y);
 
 			if (mostrarBotao) {
+				ViewUtils.CorrigeTamanhoPosicaoFonte(btnOk, heightRatio, widthRatio);
 				btnOk.Location = new Point {
 					X = btnOk.Location.X,
 					Y = lblMensagem.Location.Y + lblMensagem.Height

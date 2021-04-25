@@ -33,6 +33,27 @@ namespace MemorizacaoNumeros.src.util {
             controle.Font = new Font(controle.Font.Name, Convert.ToInt32(controle.Font.Size * heightRatio));
         }
 
+        public static List<Control> GetAllFilhos(Control root) {
+            var filhos = new List<Control>();
+
+            StepGetAllFilhos(root, filhos);
+
+            return filhos;
+        }
+
+        private static void StepGetAllFilhos(Control root, List<Control> filhos) {
+            foreach (Control filho in root.Controls) {
+                filhos.Add(filho);
+                StepGetAllFilhos(filho, filhos);
+			}
+        }
+
+        public static void CorrigeEscalaTodosOsFilhos(Control root, double heightRatio, double widthRatio) {
+            foreach (Control filho in GetAllFilhos(root)) {
+                CorrigeTamanhoPosicaoFonte(filho, heightRatio, widthRatio);
+            }
+        }
+
         public static void Justify(Label label) {
             var blocks = label.Text.Split(new[] { "\r\n" }, StringSplitOptions.None).Select(l => l.Trim()).ToArray();
 

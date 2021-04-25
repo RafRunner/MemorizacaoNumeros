@@ -23,22 +23,111 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.pnNumero = new System.Windows.Forms.Panel();
+			this.lblNumero = new System.Windows.Forms.Label();
+			this.btnCerteza = new System.Windows.Forms.Button();
+			this.btnTalvez = new System.Windows.Forms.Button();
+			this.tbInput = new System.Windows.Forms.TextBox();
+			this.lblCorreto = new System.Windows.Forms.Label();
+			this.pnNumero.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// pnNumero
+			// 
+			this.pnNumero.BackColor = System.Drawing.SystemColors.Desktop;
+			this.pnNumero.Controls.Add(this.lblNumero);
+			this.pnNumero.Location = new System.Drawing.Point(768, 259);
+			this.pnNumero.Name = "pnNumero";
+			this.pnNumero.Size = new System.Drawing.Size(384, 179);
+			this.pnNumero.TabIndex = 1;
+			// 
+			// lblNumero
+			// 
+			this.lblNumero.AutoSize = true;
+			this.lblNumero.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblNumero.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+			this.lblNumero.Location = new System.Drawing.Point(83, 53);
+			this.lblNumero.Name = "lblNumero";
+			this.lblNumero.Size = new System.Drawing.Size(225, 83);
+			this.lblNumero.TabIndex = 0;
+			this.lblNumero.Text = "12345";
+			// 
+			// btnCerteza
+			// 
+			this.btnCerteza.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnCerteza.Font = new System.Drawing.Font("Microsoft YaHei", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCerteza.Location = new System.Drawing.Point(110, 400);
+			this.btnCerteza.Name = "btnCerteza";
+			this.btnCerteza.Size = new System.Drawing.Size(341, 120);
+			this.btnCerteza.TabIndex = 2;
+			this.btnCerteza.Text = "Certeza";
+			this.btnCerteza.UseVisualStyleBackColor = false;
+			// 
+			// btnTalvez
+			// 
+			this.btnTalvez.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.btnTalvez.Font = new System.Drawing.Font("Microsoft YaHei", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnTalvez.Location = new System.Drawing.Point(1470, 400);
+			this.btnTalvez.Name = "btnTalvez";
+			this.btnTalvez.Size = new System.Drawing.Size(340, 120);
+			this.btnTalvez.TabIndex = 3;
+			this.btnTalvez.Text = "Talvez";
+			this.btnTalvez.UseVisualStyleBackColor = false;
+			// 
+			// tbInput
+			// 
+			this.tbInput.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbInput.Location = new System.Drawing.Point(768, 639);
+			this.tbInput.Name = "tbInput";
+			this.tbInput.Size = new System.Drawing.Size(384, 92);
+			this.tbInput.TabIndex = 4;
+			this.tbInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.tbInput.WordWrap = false;
+			this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
+			this.tbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyDown);
+			// 
+			// lblCorreto
+			// 
+			this.lblCorreto.AutoSize = true;
+			this.lblCorreto.BackColor = System.Drawing.SystemColors.Desktop;
+			this.lblCorreto.Font = new System.Drawing.Font("Microsoft YaHei", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCorreto.ForeColor = System.Drawing.Color.Yellow;
+			this.lblCorreto.Location = new System.Drawing.Point(851, 73);
+			this.lblCorreto.Name = "lblCorreto";
+			this.lblCorreto.Size = new System.Drawing.Size(217, 62);
+			this.lblCorreto.TabIndex = 5;
+			this.lblCorreto.Text = "Correto!";
 			// 
 			// ExperimentoView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1920, 1080);
+			this.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.ClientSize = new System.Drawing.Size(1920, 1061);
+			this.Controls.Add(this.lblCorreto);
+			this.Controls.Add(this.tbInput);
+			this.Controls.Add(this.btnTalvez);
+			this.Controls.Add(this.btnCerteza);
+			this.Controls.Add(this.pnNumero);
 			this.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Name = "ExperimentoView";
 			this.Text = "ExperimentoView";
+			this.pnNumero.ResumeLayout(false);
+			this.pnNumero.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Panel pnNumero;
+		private System.Windows.Forms.Label lblNumero;
+		private System.Windows.Forms.Button btnCerteza;
+		private System.Windows.Forms.Button btnTalvez;
+		private System.Windows.Forms.TextBox tbInput;
+		private System.Windows.Forms.Label lblCorreto;
 	}
 }
