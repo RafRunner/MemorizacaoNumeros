@@ -17,6 +17,9 @@ namespace MemorizacaoNumeros.src.view {
 
 			List<ExperimentoUm> experimentos = ExperimentoUmService.GetAll();
 
+			var telaBackgroud = new TelaMensagem("", false);
+			telaBackgroud.BackColor = Color.Black;
+			telaBackgroud.Show();
 			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView().ShowDialog();
 		}

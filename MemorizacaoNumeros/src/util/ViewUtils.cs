@@ -30,7 +30,7 @@ namespace MemorizacaoNumeros.src.util {
 				X = Convert.ToInt32(controle.Location.X * widthRatio),
 				Y = Convert.ToInt32(controle.Location.Y * heightRatio)
 			};
-            controle.Font = new Font(controle.Font.Name, Convert.ToInt32(controle.Font.Size * heightRatio));
+            controle.Font = new Font(controle.Font.Name, Convert.ToInt32(controle.Font.Size * heightRatio), controle.Font.Style);
         }
 
         public static List<Control> GetAllFilhos(Control root) {
@@ -45,7 +45,7 @@ namespace MemorizacaoNumeros.src.util {
             foreach (Control filho in root.Controls) {
                 filhos.Add(filho);
                 StepGetAllFilhos(filho, filhos);
-			}
+            }
         }
 
         public static void CorrigeEscalaTodosOsFilhos(Control root, double heightRatio, double widthRatio) {
