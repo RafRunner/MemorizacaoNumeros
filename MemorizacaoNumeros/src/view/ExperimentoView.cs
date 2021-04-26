@@ -1,4 +1,5 @@
-﻿using MemorizacaoNumeros.src.util;
+﻿using MemorizacaoNumeros.src.model;
+using MemorizacaoNumeros.src.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
 
 		private readonly Random random = new Random();
+		private readonly GeradorNumeros geradorNumeros;
+		private readonly Experimento experimento;
 
 		private string inputAnterior = "";
 
@@ -24,7 +27,7 @@ namespace MemorizacaoNumeros.src.view {
 		private bool fadingIn;
 		private Form whatToFade;
 
-		public ExperimentoView() {
+		public ExperimentoView(Experimento experimento, GeradorNumeros geradorNumeros) {
 			InitializeComponent();
 
 			Location = new Point(0, 0);
@@ -33,18 +36,41 @@ namespace MemorizacaoNumeros.src.view {
 			var heightRatio = height / 1080.0;
 			var widthRatio = width / 1920.0;
 
+			this.geradorNumeros = geradorNumeros;
+			this.experimento = experimento;
+
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
+			IniciarNovaFase();
+		}
+
+		private async void IniciarNovaFase() {
+			Opacity = 0;
+			await Task.Delay(experimento.TempoTelaPretaInicial);
+			FadeIn(this, 1);
+
+			IniciarNovoNumero();
+		}
+
+		private async void IniciarNovoNumero() {
+			tbInput.Text = "";
+			pnNumero.Visible = true;
+			btnCerteza.Enabled = true;
+			btnTalvez.Enabled = true;
 			pnCorreto.Visible = false;
 			btnCerteza.Visible = false;
 			btnTalvez.Visible = false;
 			pnInput.Visible = false;
+			SortearPosicaoBotoes();
 
-			IniciarExperimento();
-		}
+			lblNumero.Text = geradorNumeros.GerarNumero(2);
+			lblNumero.Location = new Point {
+				Y = lblNumero.Location.Y,
+				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
+			};
 
-		private async void IniciarExperimento() {
-			await Task.Delay(5000);
+			await Task.Delay(experimento.TempoApresentacaoEstimulo);
+
 			pnNumero.Visible = false;
 			btnCerteza.Visible = true;
 			btnTalvez.Visible = true;
@@ -66,6 +92,54 @@ namespace MemorizacaoNumeros.src.view {
 			tbInput.Focus();
 		}
 
+		private void SortearPosicaoBotoes() {
+			var deveTrocar = random.Next(2) == 1;
+			
+			if (deveTrocar) {
+				var temp = btnCerteza.Location;
+				btnCerteza.Location = btnTalvez.Location;
+				btnTalvez.Location = temp;
+			}
+		}
+
+		private async void tbInput_KeyDown(object sender, KeyEventArgs e) {
+			if (e.KeyData == Keys.Enter) {
+				// Enter foi pressionado
+				var sequenciaDigitada = tbInput.Text;
+
+				if (string.IsNullOrWhiteSpace(sequenciaDigitada)) return;
+
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+
+				if (sequenciaDigitada == lblNumero.Text) {
+					pnCorreto.Visible = true;
+					await Task.Delay(5000);
+					pnCorreto.Visible = true;
+				}
+				else {
+					FadeOut(this, 1);
+					await Task.Delay(5000);
+					FadeIn(this, 1);
+				}
+
+				IniciarNovoNumero();
+			}
+		}
+
+		private void tbInput_TextChanged(object sender, EventArgs e) {
+			if (tbInput.Text != "" && Regex.IsMatch(tbInput.Text, "[^0-9]")) {
+				var startAnterior = tbInput.SelectionStart - 1;
+				var lengthAnterior = tbInput.SelectionLength;
+				tbInput.Text = inputAnterior;
+				tbInput.SelectionStart = startAnterior;
+				tbInput.SelectionLength = lengthAnterior;
+			} else {
+				inputAnterior = tbInput.Text;
+			}
+		}
+
+		// TODO: melhorar essa parte do fade para ser mais genérica, útil e segura
 		private void FadeIn(Form whatToFade, int time) {
 			fadingIn = true;
 			Fade(whatToFade, time);
@@ -98,37 +172,6 @@ namespace MemorizacaoNumeros.src.view {
 				else {
 					timerFade.Stop();
 				}
-			}
-		}
-
-		private void SortearPosicaoBotoes() {
-			var deveTrocar = random.Next(2) == 1;
-			
-			if (deveTrocar) {
-				var temp = btnCerteza.Location;
-				btnCerteza.Location = btnTalvez.Location;
-				btnTalvez.Location = temp;
-			}
-		}
-
-		private void tbInput_KeyDown(object sender, KeyEventArgs e) {
-			if (e.KeyData == Keys.Enter) {
-				// Enter foi pressionado
-				SortearPosicaoBotoes();
-				e.Handled = true;
-				e.SuppressKeyPress = true;
-			}
-		}
-
-		private void tbInput_TextChanged(object sender, EventArgs e) {
-			if (Regex.IsMatch(tbInput.Text, "[^0-9]")) {
-				var startAnterior = tbInput.SelectionStart - 1;
-				var lengthAnterior = tbInput.SelectionLength;
-				tbInput.Text = inputAnterior;
-				tbInput.SelectionStart = startAnterior;
-				tbInput.SelectionLength = lengthAnterior;
-			} else {
-				inputAnterior = tbInput.Text;
 			}
 		}
 	}

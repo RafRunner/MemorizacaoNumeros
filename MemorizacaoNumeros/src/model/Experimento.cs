@@ -33,5 +33,11 @@ namespace MemorizacaoNumeros.src.model {
 			set => tamanhoBlocoTentativas =  NumericUtils.ValidarNatural(value, "Tamanho do bloco de tentativas");
 		}
 
+		private int tamanhoSequenciaInicial;
+		public int TamanhoSequenciaInicial {
+			get => tamanhoSequenciaInicial;
+			set => tamanhoSequenciaInicial = NumericUtils.ValidarNatural(value, "Tamanho da sequência inicial");
+		}
+
 	}
 }
