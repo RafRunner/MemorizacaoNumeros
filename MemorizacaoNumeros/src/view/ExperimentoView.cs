@@ -46,7 +46,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private async void IniciarNovaFase() {
 			Opacity = 0;
-			await Task.Delay(experimento.TempoTelaPretaInicial);
+			await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
 			FadeIn(this, 1);
 
 			IniciarNovoNumero();
@@ -69,7 +69,7 @@ namespace MemorizacaoNumeros.src.view {
 				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
 			};
 
-			await Task.Delay(experimento.TempoApresentacaoEstimulo);
+			await Task.Delay(experimento.TempoApresentacaoEstimulo * 1000);
 
 			pnNumero.Visible = false;
 			btnCerteza.Visible = true;
@@ -114,12 +114,12 @@ namespace MemorizacaoNumeros.src.view {
 
 				if (sequenciaDigitada == lblNumero.Text) {
 					pnCorreto.Visible = true;
-					await Task.Delay(5000);
+					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
 					pnCorreto.Visible = true;
 				}
 				else {
 					FadeOut(this, 1);
-					await Task.Delay(5000);
+					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
 					FadeIn(this, 1);
 				}
 
@@ -140,19 +140,19 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		// TODO: melhorar essa parte do fade para ser mais genérica, útil e segura
-		private void FadeIn(Form whatToFade, int time) {
+		private void FadeIn(Form whatToFade, int seconds) {
 			fadingIn = true;
-			Fade(whatToFade, time);
+			Fade(whatToFade, seconds);
 		}
 
-		private void FadeOut(Form whatToFade, int time) {
+		private void FadeOut(Form whatToFade, int seconds) {
 			fadingIn = false;
-			Fade(whatToFade, time);
+			Fade(whatToFade, seconds);
 		}
 
-		private void Fade(Form whatToFade, int time) {
+		private void Fade(Form whatToFade, int seconds) {
 			this.whatToFade = whatToFade;
-			timerFade.Interval = time * 1000 / (int)(1 / 0.025);
+			timerFade.Interval = seconds * 1000 / (int)(1 / 0.025);
 			timerFade.Start();
 		}
 

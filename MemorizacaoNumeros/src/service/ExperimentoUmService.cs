@@ -19,5 +19,13 @@ namespace MemorizacaoNumeros.src.service {
 		public static void Salvar(ExperimentoUm experimento) {
 			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
 		}
+
+		public static void DeletarPorId(long id) {
+			DeletarPorId(id, nomeTabela);
+		}
+
+		public static void Deletar(ExperimentoUm experimento) {
+			Deletar(experimento, nomeTabela);
+		}
 	}
 }

@@ -57,11 +57,16 @@
   <ItemGroup>
     <Compile Include="src\arquivos\Ambiente.cs" />
     <Compile Include="src\model\ElementoDeBanco.cs" />
+    <Compile Include="src\model\Experimentador.cs" />
     <Compile Include="src\model\Experimento.cs" />
     <Compile Include="src\model\ExperimentoUm.cs" />
     <Compile Include="src\model\GeradorNumeros.cs" />
+    <Compile Include="src\model\Participante.cs" />
+    <Compile Include="src\model\Pessoa.cs" />
     <Compile Include="src\service\AbstractService.cs" />
+    <Compile Include="src\service\ExperimentadorService.cs" />
     <Compile Include="src\service\ExperimentoUmService.cs" />
+    <Compile Include="src\service\ParticipanteService.cs" />
     <Compile Include="src\util\NumericUtils.cs" />
     <Compile Include="src\util\StringUtils.cs" />
     <Compile Include="src\util\ViewUtils.cs" />
