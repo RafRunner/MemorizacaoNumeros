@@ -27,5 +27,12 @@ namespace MemorizacaoNumeros.src.util {
 			}
 			return numero;
 		}
+
+		public static int ValidarNaoNegativo(int numero, string nomeCampo) {
+			if (numero < 0) {
+				throw new Exception($"Campo numérico {nomeCampo} não pode ser negativo!");
+			}
+			return numero;
+		}
 	}
 }

@@ -1,12 +1,7 @@
 ﻿using MemorizacaoNumeros.src.model;
 using MemorizacaoNumeros.src.util;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +15,7 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly Random random = new Random();
 		private readonly GeradorNumeros geradorNumeros;
 		private readonly Experimento experimento;
+		private readonly ExperimentoUmRealizado experimentoRealizado;
 
 		private string inputAnterior = "";
 
@@ -39,20 +35,27 @@ namespace MemorizacaoNumeros.src.view {
 			this.geradorNumeros = geradorNumeros;
 			this.experimento = experimento;
 
+			var experimentoRealizado = new ExperimentoUmRealizado();
+			experimentoRealizado.ExperimentoUm = (ExperimentoUm) experimento;
+
+			this.experimentoRealizado = experimentoRealizado;
+
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
 			IniciarNovaFase();
 		}
 
 		private async void IniciarNovaFase() {
-			Opacity = 0;
-			await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
-			FadeIn(this, 1);
+			if (experimento.TempoTelaPretaInicial > 0) {
+				Opacity = 0;
+				await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
+				FadeIn(this, 1);
+			}
 
-			IniciarNovoNumero();
+			IniciarNovoNumero(true, false, false);
 		}
 
-		private async void IniciarNovoNumero() {
+		private async void IniciarNovoNumero(bool novaFase, bool acertou, bool certeza) {
 			tbInput.Text = "";
 			pnNumero.Visible = true;
 			btnCerteza.Enabled = true;
@@ -63,7 +66,15 @@ namespace MemorizacaoNumeros.src.view {
 			pnInput.Visible = false;
 			SortearPosicaoBotoes();
 
-			lblNumero.Text = geradorNumeros.GerarNumero(2);
+			var novoNumero = experimentoRealizado.GeraNumero(novaFase, acertou, certeza);
+
+			// Estamos em uma nova fase
+			if (novoNumero == null) {
+				IniciarNovaFase();
+				return;
+			}
+
+			lblNumero.Text = novoNumero;
 			lblNumero.Location = new Point {
 				Y = lblNumero.Location.Y,
 				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
@@ -112,18 +123,23 @@ namespace MemorizacaoNumeros.src.view {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
-				if (sequenciaDigitada == lblNumero.Text) {
-					pnCorreto.Visible = true;
-					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
-					pnCorreto.Visible = true;
-				}
-				else {
-					FadeOut(this, 1);
-					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
-					FadeIn(this, 1);
+				// TODO o comportamente aqui vai depender da fase atual
+				if (experimento.TempoTelaPretaITI > 0) {
+					tbInput.Enabled = false;
+					if (sequenciaDigitada == lblNumero.Text) {
+						pnCorreto.Visible = true;
+						await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+						pnCorreto.Visible = true;
+					}
+					else {
+						FadeOut(this, 1);
+						await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+						FadeIn(this, 1);
+					}
+					tbInput.Enabled = true;
 				}
 
-				IniciarNovoNumero();
+				IniciarNovoNumero(false, sequenciaDigitada == lblNumero.Text, btnCerteza.Enabled);
 			}
 		}
 

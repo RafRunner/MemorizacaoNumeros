@@ -13,7 +13,7 @@ namespace MemorizacaoNumeros.src.service {
 			return ConfigurationManager.ConnectionStrings[id].ConnectionString;
 		}
 
-		protected static T GetById<T>(long id, string nomeTabela) where T : ElementoDeBanco {
+		protected static T GetById<T>(long id, string nomeTabela) where T : EntidadeDeBanco {
 			if (id == 0) {
 				return default(T);
 			}
@@ -29,13 +29,13 @@ namespace MemorizacaoNumeros.src.service {
 			}
 		}
 
-		protected static List<T> GetAll<T>(string nomeTabela) where T : ElementoDeBanco {
+		protected static List<T> GetAll<T>(string nomeTabela) where T : EntidadeDeBanco {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				return cnn.Query<T>($"SELECT * FROM {nomeTabela}").ToList<T>();
 			}
 		}
 
-		protected static void Salvar<T>(T objeto, string nomeTabela, string sqlInsert, string sqlUpdate) where T : ElementoDeBanco {
+		protected static void Salvar<T>(T objeto, string nomeTabela, string sqlInsert, string sqlUpdate) where T : EntidadeDeBanco {
 			T objetoExistente = GetById<T>(objeto.Id, nomeTabela);
 
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
@@ -49,7 +49,7 @@ namespace MemorizacaoNumeros.src.service {
 			}
 		}
 
-		protected static void Deletar(ElementoDeBanco objeto, string nomeTabela) {
+		protected static void Deletar(EntidadeDeBanco objeto, string nomeTabela) {
 			if (objeto == null) {
 				return;
 			}

@@ -1,7 +1,7 @@
 ﻿using MemorizacaoNumeros.src.util;
 
 namespace MemorizacaoNumeros.src.model {
-	public class Experimento : ElementoDeBanco {
+	public class Experimento : EntidadeDeBanco {
 
 		private string instrucaoInicial;
 		public string InstrucaoInicial { 
@@ -12,13 +12,13 @@ namespace MemorizacaoNumeros.src.model {
 		private int tempoTelaPretaInicial;
 		public int TempoTelaPretaInicial { 
 			get => tempoTelaPretaInicial;
-			set => tempoTelaPretaInicial = NumericUtils.ValidarNatural(value, "Tempo tela preta inicial"); 
+			set => tempoTelaPretaInicial = NumericUtils.ValidarNaoNegativo(value, "Tempo tela preta inicial"); 
 		}
 
 		private int tempoTelaPretaITI;
 		public int TempoTelaPretaITI {
 			get => tempoTelaPretaITI;
-			set => tempoTelaPretaITI = NumericUtils.ValidarNatural(value, "Tempo tela preta ITI");
+			set => tempoTelaPretaITI = NumericUtils.ValidarNaoNegativo(value, "Tempo tela preta ITI");
 		}
 
 		private int tempoApresentacaoEstimulo;

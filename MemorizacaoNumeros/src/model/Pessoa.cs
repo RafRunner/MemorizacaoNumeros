@@ -1,7 +1,7 @@
 ﻿using MemorizacaoNumeros.src.util;
 
 namespace MemorizacaoNumeros.src.model {
-	public abstract class Pessoa : ElementoDeBanco {
+	public abstract class Pessoa : EntidadeDeBanco {
 
 		private string nome;
 		public string Nome {
