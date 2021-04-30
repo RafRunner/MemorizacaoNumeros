@@ -86,17 +86,32 @@ namespace MemorizacaoNumeros.src.model {
 
 		// Inicio da parte do comportamento do experimento
 
-		private GeradorNumeros geradorNumeros = new GeradorNumeros();
+		private readonly GeradorNumeros geradorNumeros = new GeradorNumeros();
+		private readonly Random random = new Random();
+
 
 		// 0 - Pré treino, 1 - Linha de Base, 2 - Fase Experimental
 		public int faseAtual = 0;
 
-		private int corretasConsecutivasPreTreino = 0;
 		private int tamanhoAtualSequencia;
-		private int tamanhoMaximoLinhaDeBase;
-		private int talvezUltimoBlocoLinhaDeBase = 0;
 		private int tentativaBlocoAtual = 0;
 
+		private int corretasConsecutivasPreTreino = 0;
+
+		private int tamanhoMaximoLinhaDeBase;
+		private int talvezUltimoBlocoLinhaDeBase = 0;
+
+		private int digitosASeremVariados = 1;
+		private int quantidadeEstimulosFracos = 0;
+		private int talvezEstimulosFracos = 0;
+		private int blocosExecutados = 0;
+
+		// TODO seperar a lógica nessas duas funções
+		public void RegistrarResposta(string sequenciaModelo, string sequenciaInput, bool certeza) {
+
+		}
+
+		// Função que vai gerando os números para o experimento e controla em que fase estamos
 		public string GeraNumero(bool novaFase, bool acertou, bool certeza) {
 			// Pré treino
 			if (faseAtual == 0) {
@@ -123,7 +138,7 @@ namespace MemorizacaoNumeros.src.model {
 				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 			}
 			// Linha de Base
-			if (faseAtual == 1) {
+			else if (faseAtual == 1) {
 				if (novaFase) {
 					return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 				}
@@ -137,7 +152,7 @@ namespace MemorizacaoNumeros.src.model {
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					// O participante escolheu talvez acima do trashold
-					if (talvezUltimoBlocoLinhaDeBase >= Math.Ceiling(ExperimentoUm.TamanhoBlocoTentativas * ((float)ExperimentoUm.CriterioTalvezLinhaDeBase / 100))) {
+					if (talvezUltimoBlocoLinhaDeBase >= ExperimentoUm.CalculaCriterioTalvezLinhaDeBase()) {
 						tentativaBlocoAtual = 0;
 						talvezUltimoBlocoLinhaDeBase = 0;
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
@@ -152,6 +167,48 @@ namespace MemorizacaoNumeros.src.model {
 						talvezUltimoBlocoLinhaDeBase = 0;
 
 						return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
+					}
+				}
+
+				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
+			}
+
+			// Fase Experimental
+			else if (faseAtual == 2) {
+				if (!novaFase && tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase && !certeza) {
+					talvezEstimulosFracos++;
+				}
+
+				tamanhoAtualSequencia = tamanhoMaximoLinhaDeBase + digitosASeremVariados * (random.Next(1) == 1 ? -1 : 1);
+				if (tamanhoAtualSequencia < 1) {
+					tamanhoAtualSequencia = 1;
+				}
+
+				if (tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase) {
+					quantidadeEstimulosFracos++;
+				}
+
+				if (novaFase) {
+					return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
+				}
+
+				tentativaBlocoAtual++;
+
+				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
+					blocosExecutados++;
+
+					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
+						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
+							digitosASeremVariados++;
+							tentativaBlocoAtual = 0;
+							blocosExecutados = 0;
+							quantidadeEstimulosFracos = 0;
+							talvezEstimulosFracos = 0;
+
+							return null;
+						}
+
+						return "acabou";
 					}
 				}
 
