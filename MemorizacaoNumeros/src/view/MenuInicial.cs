@@ -21,7 +21,7 @@ namespace MemorizacaoNumeros.src.view {
 			telaBackgroud.BackColor = Color.Black;
 			telaBackgroud.Show();
 			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
-			new ExperimentoView(experimentos.First(), new GeradorNumeros()).ShowDialog();
+			new ExperimentoView(experimentos.First()).ShowDialog();
 		}
 	}
 }

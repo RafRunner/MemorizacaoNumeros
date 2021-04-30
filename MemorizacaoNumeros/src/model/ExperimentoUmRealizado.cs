@@ -93,7 +93,7 @@ namespace MemorizacaoNumeros.src.model {
 		// 0 - Pré treino, 1 - Linha de Base, 2 - Fase Experimental
 		public int faseAtual = 0;
 
-		private int tamanhoAtualSequencia;
+		private int tamanhoAtualSequencia = 0;
 		private int tentativaBlocoAtual = 0;
 
 		private int corretasConsecutivasPreTreino = 0;
@@ -106,43 +106,28 @@ namespace MemorizacaoNumeros.src.model {
 		private int talvezEstimulosFracos = 0;
 		private int blocosExecutados = 0;
 
-		// TODO seperar a lógica nessas duas funções
-		public void RegistrarResposta(string sequenciaModelo, string sequenciaInput, bool certeza) {
-
-		}
-
-		// Função que vai gerando os números para o experimento e controla em que fase estamos
-		public string GeraNumero(bool novaFase, bool acertou, bool certeza) {
+		// Retorna true se terminamos uma fase/fomos para uma nova
+		public bool RegistrarResposta(bool acertou, bool certeza) {
 			// Pré treino
 			if (faseAtual == 0) {
 				tamanhoAtualSequencia = ExperimentoUm.TamanhoSequenciaInicial;
 
-				if (novaFase) {
-					return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
-				}
-
 				if (acertou) {
 					corretasConsecutivasPreTreino++;
 
+					// O participante acertou quantidade necessária de vezes consecutivas, vamos para a próxima fase
 					if (corretasConsecutivasPreTreino == ExperimentoUm.CriterioAcertoPreTreino) {
 						corretasConsecutivasPreTreino = 0;
 						faseAtual++;
-
-						return null;
+						return true;
 					}
 				}
 				else {
 					corretasConsecutivasPreTreino = 0;
 				}
-
-				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 			}
 			// Linha de Base
 			else if (faseAtual == 1) {
-				if (novaFase) {
-					return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
-				}
-
 				tentativaBlocoAtual++;
 
 				if (!certeza) {
@@ -157,46 +142,33 @@ namespace MemorizacaoNumeros.src.model {
 						talvezUltimoBlocoLinhaDeBase = 0;
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
 						faseAtual++;
-
-						return null;
+						return true;
 					}
 					// O tamanho da sequência aumenta
 					else {
 						tamanhoAtualSequencia++;
 						tentativaBlocoAtual = 0;
 						talvezUltimoBlocoLinhaDeBase = 0;
-
-						return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 					}
 				}
-
-				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 			}
 
 			// Fase Experimental
 			else if (faseAtual == 2) {
-				if (!novaFase && tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase && !certeza) {
-					talvezEstimulosFracos++;
-				}
-
-				tamanhoAtualSequencia = tamanhoMaximoLinhaDeBase + digitosASeremVariados * (random.Next(1) == 1 ? -1 : 1);
-				if (tamanhoAtualSequencia < 1) {
-					tamanhoAtualSequencia = 1;
-				}
+				tentativaBlocoAtual++;
 
 				if (tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase) {
 					quantidadeEstimulosFracos++;
+					if (!certeza) {
+						talvezEstimulosFracos++;
+					}
 				}
 
-				if (novaFase) {
-					return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
-				}
-
-				tentativaBlocoAtual++;
-
+				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					blocosExecutados++;
 
+					// Terminamos o número de blocos previstos
 					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
 							digitosASeremVariados++;
@@ -205,18 +177,37 @@ namespace MemorizacaoNumeros.src.model {
 							quantidadeEstimulosFracos = 0;
 							talvezEstimulosFracos = 0;
 
-							return null;
+							return true;
 						}
-
-						return "acabou";
 					}
 				}
+			}
 
+			return false;
+		}
+
+		// Função que vai gerando os números para o experimento. Se retornar null, o experimento acabou (talvez mudar isso)
+		public string GeraNumero() {
+			// Acabou o experimento
+			if (faseAtual > 2) {
 				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 			}
 
+			// Inicializando o tamanho da sequência
+			if (faseAtual == 0 && tamanhoAtualSequencia == 0) {
+				tamanhoAtualSequencia = ExperimentoUm.TamanhoSequenciaInicial;
+			}
+
+			// Fase Experimental
+			if (faseAtual == 2) {
+				tamanhoAtualSequencia = tamanhoMaximoLinhaDeBase + digitosASeremVariados * (random.Next(2) == 1 ? -1 : 1);
+				if (tamanhoAtualSequencia < 1) {
+					tamanhoAtualSequencia = 1;
+				}
+			}
+
 			// Experimento acabou
-			return "acabou";
+			return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 		}
 	}
 }

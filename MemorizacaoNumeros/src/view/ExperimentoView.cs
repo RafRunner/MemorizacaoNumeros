@@ -13,7 +13,6 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
 
 		private readonly Random random = new Random();
-		private readonly GeradorNumeros geradorNumeros;
 		private readonly Experimento experimento;
 		private readonly ExperimentoUmRealizado experimentoRealizado;
 
@@ -23,7 +22,7 @@ namespace MemorizacaoNumeros.src.view {
 		private bool fadingIn;
 		private Form whatToFade;
 
-		public ExperimentoView(Experimento experimento, GeradorNumeros geradorNumeros) {
+		public ExperimentoView(Experimento experimento) {
 			InitializeComponent();
 
 			Location = new Point(0, 0);
@@ -32,7 +31,6 @@ namespace MemorizacaoNumeros.src.view {
 			var heightRatio = height / 1080.0;
 			var widthRatio = width / 1920.0;
 
-			this.geradorNumeros = geradorNumeros;
 			this.experimento = experimento;
 
 			var experimentoRealizado = new ExperimentoUmRealizado();
@@ -52,10 +50,10 @@ namespace MemorizacaoNumeros.src.view {
 				FadeIn(this, 1);
 			}
 
-			IniciarNovoNumero(true, false, false);
+			IniciarNovoNumero();
 		}
 
-		private async void IniciarNovoNumero(bool novaFase, bool acertou, bool certeza) {
+		private async void IniciarNovoNumero() {
 			tbInput.Text = "";
 			pnNumero.Visible = true;
 			btnCerteza.Enabled = true;
@@ -66,11 +64,11 @@ namespace MemorizacaoNumeros.src.view {
 			pnInput.Visible = false;
 			SortearPosicaoBotoes();
 
-			var novoNumero = experimentoRealizado.GeraNumero(novaFase, acertou, certeza);
+			var novoNumero = experimentoRealizado.GeraNumero();
 
-			// Estamos em uma nova fase
+			// Acabou o experimento
 			if (novoNumero == null) {
-				IniciarNovaFase();
+				Close();
 				return;
 			}
 
@@ -123,6 +121,12 @@ namespace MemorizacaoNumeros.src.view {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
+				var faseAnterior = experimentoRealizado.faseAtual;
+
+				experimentoRealizado.RegistrarResposta(sequenciaDigitada == lblNumero.Text, btnCerteza.Enabled);
+
+				var novaFase = experimentoRealizado.faseAtual;
+
 				// TODO o comportamente aqui vai depender da fase atual
 				if (experimento.TempoTelaPretaITI > 0) {
 					tbInput.Enabled = false;
@@ -139,7 +143,11 @@ namespace MemorizacaoNumeros.src.view {
 					tbInput.Enabled = true;
 				}
 
-				IniciarNovoNumero(false, sequenciaDigitada == lblNumero.Text, btnCerteza.Enabled);
+				if (faseAnterior == novaFase) {
+					IniciarNovoNumero();
+				} else {
+					IniciarNovaFase();
+				}
 			}
 		}
 
