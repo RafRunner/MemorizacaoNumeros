@@ -17,6 +17,7 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly ExperimentoUmRealizado experimentoRealizado;
 
 		private string inputAnterior = "";
+		private float tamanhoFonteOriginal;
 
 		// Variáveis do timer de fade
 		private bool fadingIn;
@@ -40,15 +41,15 @@ namespace MemorizacaoNumeros.src.view {
 
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
+			tamanhoFonteOriginal = lblNumero.Font.Size;
+
 			IniciarNovaFase();
 		}
 
 		private async void IniciarNovaFase() {
-			if (experimento.TempoTelaPretaInicial > 0) {
-				Opacity = 0;
-				await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
-				FadeIn(this, 1);
-			}
+			Opacity = 0;
+			await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
+			FadeIn(this, 1);
 
 			IniciarNovoNumero();
 		}
@@ -62,7 +63,6 @@ namespace MemorizacaoNumeros.src.view {
 			btnCerteza.Visible = false;
 			btnTalvez.Visible = false;
 			pnInput.Visible = false;
-			SortearPosicaoBotoes();
 
 			var novoNumero = experimentoRealizado.GeraNumero();
 
@@ -72,17 +72,32 @@ namespace MemorizacaoNumeros.src.view {
 				return;
 			}
 
+			lblNumero.Font = new Font(lblNumero.Font.Name, tamanhoFonteOriginal, lblNumero.Font.Style);
 			lblNumero.Text = novoNumero;
+
+			while (TextRenderer.MeasureText(lblNumero.Text, lblNumero.Font).Width >= pnNumero.Size.Width) {
+				var novaFonte = new Font(lblNumero.Font.Name, lblNumero.Font.Size - 1, lblNumero.Font.Style);
+				lblNumero.Font = novaFonte;
+				tbInput.Font = novaFonte;
+			}
+			
 			lblNumero.Location = new Point {
-				Y = lblNumero.Location.Y,
+				Y = (pnNumero.Size.Height - lblNumero.Size.Height) / 2,
 				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
 			};
 
 			await Task.Delay(experimento.TempoApresentacaoEstimulo * 1000);
 
-			pnNumero.Visible = false;
-			btnCerteza.Visible = true;
-			btnTalvez.Visible = true;
+			if (experimentoRealizado.faseAtual != 0) {
+				SortearPosicaoBotoes();
+				pnNumero.Visible = false;
+				btnCerteza.Visible = true;
+				btnTalvez.Visible = true;
+			}
+			else {
+				pnInput.Visible = true;
+				tbInput.Focus();
+			}
 		}
 
 		private void btnCerteza_Click(object sender, EventArgs e) {
@@ -122,26 +137,25 @@ namespace MemorizacaoNumeros.src.view {
 				e.SuppressKeyPress = true;
 
 				var faseAnterior = experimentoRealizado.faseAtual;
+				var acertou = sequenciaDigitada == lblNumero.Text;
+				var certeza = btnCerteza.Enabled;
 
-				experimentoRealizado.RegistrarResposta(sequenciaDigitada == lblNumero.Text, btnCerteza.Enabled);
+				experimentoRealizado.RegistrarResposta(acertou, certeza);
 
 				var novaFase = experimentoRealizado.faseAtual;
 
-				// TODO o comportamente aqui vai depender da fase atual
-				if (experimento.TempoTelaPretaITI > 0) {
-					tbInput.Enabled = false;
-					if (sequenciaDigitada == lblNumero.Text) {
-						pnCorreto.Visible = true;
-						await Task.Delay(experimento.TempoTelaPretaITI * 1000);
-						pnCorreto.Visible = true;
-					}
-					else {
-						FadeOut(this, 1);
-						await Task.Delay(experimento.TempoTelaPretaITI * 1000);
-						FadeIn(this, 1);
-					}
-					tbInput.Enabled = true;
+				tbInput.Enabled = false;
+				if (acertou) {
+					pnCorreto.Visible = true;
+					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+					pnCorreto.Visible = true;
 				}
+				else if (experimentoRealizado.faseAtual != 1 || (experimentoRealizado.faseAtual == 1 && certeza)) {
+					FadeOut(this, 1);
+					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+					FadeIn(this, 1);
+				}
+				tbInput.Enabled = true;
 
 				if (faseAnterior == novaFase) {
 					IniciarNovoNumero();
