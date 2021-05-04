@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MemorizacaoNumeros.src.model {
+﻿namespace MemorizacaoNumeros.src.model {
 	public class Evento : EntidadeDeBanco {
 		//Construtor vazio para o Dapper
 		public Evento() { }
@@ -19,9 +13,9 @@ namespace MemorizacaoNumeros.src.model {
 		public string Origem { get; set; }
 
 		public long IdExperimento { get; set; }
-		private ExperimentoUmRealizado experimento;
+		private ExperimentoRealizado experimento;
 		//TODO terminar depois
-		public ExperimentoUmRealizado ExperimentoRealizado {
+		public ExperimentoRealizado ExperimentoRealizado {
 			get;
 			set;
 		}

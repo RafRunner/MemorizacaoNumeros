@@ -1,5 +1,5 @@
 ﻿namespace MemorizacaoNumeros.src.view {
-	partial class ExperimentoView {
+	partial class ExperimentoUmView {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>

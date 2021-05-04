@@ -4,6 +4,12 @@ using System;
 namespace MemorizacaoNumeros.src.model {
 	public class ExperimentoUm : Experimento {
 
+		private int tamanhoSequenciaInicial;
+		public int TamanhoSequenciaInicial {
+			get => tamanhoSequenciaInicial;
+			set => tamanhoSequenciaInicial = NumericUtils.ValidarNatural(value, "Tamanho da sequência inicial");
+		}
+
 		private int criterioAcertoPreTreino;
 		public int CriterioAcertoPreTreino {
 			get => criterioAcertoPreTreino;

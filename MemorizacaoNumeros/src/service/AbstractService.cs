@@ -85,31 +85,22 @@ namespace MemorizacaoNumeros.src.service {
 		}
 
 		protected static string GeraSqlInsert(string nomeTabela, List<string> colunas) {
-			var sqlInsert = $"INSERT INTO {nomeTabela} (";
+			var parteDireita = "";
+			var parteEsquerda = "";
 
 			for (int i = 0; i < colunas.Count; i++) {
 				var coluna = colunas[i];
 
-				sqlInsert += coluna;
+				parteDireita += coluna;
+				parteEsquerda += "@" + coluna;
 
 				if (i != colunas.Count - 1) {
-					sqlInsert += ", ";
+					parteDireita += ", ";
+					parteEsquerda += ", ";
 				}
 			}
 
-			sqlInsert += ") VALUES (";
-
-			for (int i = 0; i < colunas.Count; i++) {
-				var coluna = colunas[i];
-
-				sqlInsert += "@" + coluna;
-
-				if (i != colunas.Count - 1) {
-					sqlInsert += ", ";
-				}
-			}
-
-			return sqlInsert + ")";
+			return $"INSERT INTO {nomeTabela} ({parteDireita}) VALUES ({parteEsquerda})";
 		}
 
 		protected static string GeraSqlUpdate(string nomeTabela, List<string> colunas) {

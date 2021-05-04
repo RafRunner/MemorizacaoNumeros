@@ -6,16 +6,11 @@ using System.Globalization;
 namespace MemorizacaoNumeros.src.model {
 	public class ExperimentoUmRealizado : EntidadeDeBanco {
 
-		private static readonly string FORMATO_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
-		private static readonly string FORMATO_DATE_TIME_ARQUIVO = "yyyy-MM-dd HH-mm-ss";
-
 		public long IdExperimentoUm { get; set; }
 		private ExperimentoUm experimentoUm;
 		public ExperimentoUm ExperimentoUm {
 			get {
-				if (experimentoUm == null) {
-					experimentoUm = ExperimentoUmService.GetById(IdExperimentoUm);
-				}
+				if (experimentoUm == null) experimentoUm = ExperimentoUmService.GetById(IdExperimentoUm);
 				return experimentoUm;
 			}
 			set {
@@ -24,41 +19,11 @@ namespace MemorizacaoNumeros.src.model {
 			}
 		}
 
-		public long IdExperimentador { get; set; }
-		private Experimentador experimentador;
-		public Experimentador Experimentador {
-			get {
-				if (experimentador == null) {
-					ExperimentadorService.GetById(IdExperimentador);
-				}
-				return experimentador;
-			}
-			set {
-				IdExperimentador = GetId(value);
-				experimentador = value;
-			}
-		}
-
-		public long IdParticipante { get; set; }
-		private Participante participante;
-		public Participante Participante {
-			get {
-				if (participante == null) {
-					participante = ParticipanteService.GetById(IdParticipante);
-				}
-				return participante;
-			}
-			set {
-				IdParticipante = GetId(value);
-				participante = value;
-			}
-		}
-
 		public string DataHoraInicio { get; set; }
 
 		public DateTime DateTimeInicio {
 			get => Convert.ToDateTime(DataHoraInicio, new CultureInfo("pt-BR"));
-			set => DataHoraInicio = value.ToString(FORMATO_DATE_TIME);
+			set => DataHoraInicio = value.ToString(ExperimentoRealizado.FORMATO_DATE_TIME);
 		}
 
 		private List<Evento> eventos = new List<Evento>();
@@ -74,14 +39,6 @@ namespace MemorizacaoNumeros.src.model {
 
 		public void SetListaEventos(List<Evento> eventos) {
 			this.eventos = eventos;
-		}
-
-		public string GetNomeArquivo() {
-			return $"{DateTimeInicio.ToString(FORMATO_DATE_TIME_ARQUIVO)} - {Participante.Nome} - {Experimentador.Nome}";
-		}
-
-		public string Nome {
-			get => $"{DataHoraInicio} - {Participante.Nome} - {Experimentador.Nome}";
 		}
 
 		// Inicio da parte do comportamento do experimento

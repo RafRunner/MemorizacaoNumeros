@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemorizacaoNumeros.src.view {
-	public partial class ExperimentoView : Form {
+	public partial class ExperimentoUmView : Form {
 
 		private readonly int height = Screen.PrimaryScreen.Bounds.Height;
 		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
 
 		private readonly Random random = new Random();
-		private readonly Experimento experimento;
-		private readonly ExperimentoUmRealizado experimentoRealizado;
+		private readonly Experimento experimentoUm;
+		private readonly ExperimentoUmRealizado experimentoUmRealizado;
 
 		private string inputAnterior = "";
 		private float tamanhoFonteOriginal;
@@ -23,7 +23,7 @@ namespace MemorizacaoNumeros.src.view {
 		private bool fadingIn;
 		private Form whatToFade;
 
-		public ExperimentoView(Experimento experimento) {
+		public ExperimentoUmView(Experimento experimentoUm) {
 			InitializeComponent();
 
 			Location = new Point(0, 0);
@@ -32,12 +32,12 @@ namespace MemorizacaoNumeros.src.view {
 			var heightRatio = height / 1080.0;
 			var widthRatio = width / 1920.0;
 
-			this.experimento = experimento;
+			this.experimentoUm = experimentoUm;
 
 			var experimentoRealizado = new ExperimentoUmRealizado();
-			experimentoRealizado.ExperimentoUm = (ExperimentoUm) experimento;
+			experimentoRealizado.ExperimentoUm = (ExperimentoUm) experimentoUm;
 
-			this.experimentoRealizado = experimentoRealizado;
+			this.experimentoUmRealizado = experimentoRealizado;
 
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
@@ -48,7 +48,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private async void IniciarNovaFase() {
 			Opacity = 0;
-			await Task.Delay(experimento.TempoTelaPretaInicial * 1000);
+			await Task.Delay(experimentoUm.TempoTelaPretaInicial * 1000);
 			FadeIn(this, 1);
 
 			IniciarNovoNumero();
@@ -64,7 +64,7 @@ namespace MemorizacaoNumeros.src.view {
 			btnTalvez.Visible = false;
 			pnInput.Visible = false;
 
-			var novoNumero = experimentoRealizado.GeraNumero();
+			var novoNumero = experimentoUmRealizado.GeraNumero();
 
 			// Acabou o experimento
 			if (novoNumero == null) {
@@ -86,9 +86,9 @@ namespace MemorizacaoNumeros.src.view {
 				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
 			};
 
-			await Task.Delay(experimento.TempoApresentacaoEstimulo * 1000);
+			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
 
-			if (experimentoRealizado.faseAtual != 0) {
+			if (experimentoUmRealizado.faseAtual != 0) {
 				SortearPosicaoBotoes();
 				pnNumero.Visible = false;
 				btnCerteza.Visible = true;
@@ -136,23 +136,23 @@ namespace MemorizacaoNumeros.src.view {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
-				var faseAnterior = experimentoRealizado.faseAtual;
+				var faseAnterior = experimentoUmRealizado.faseAtual;
 				var acertou = sequenciaDigitada == lblNumero.Text;
 				var certeza = btnCerteza.Enabled;
 
-				experimentoRealizado.RegistrarResposta(acertou, certeza);
+				experimentoUmRealizado.RegistrarResposta(acertou, certeza);
 
-				var novaFase = experimentoRealizado.faseAtual;
+				var novaFase = experimentoUmRealizado.faseAtual;
 
 				tbInput.Enabled = false;
 				if (acertou) {
 					pnCorreto.Visible = true;
-					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
 					pnCorreto.Visible = true;
 				}
-				else if (experimentoRealizado.faseAtual != 1 || (experimentoRealizado.faseAtual == 1 && certeza)) {
+				else {
 					FadeOut(this, 1);
-					await Task.Delay(experimento.TempoTelaPretaITI * 1000);
+					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
 					FadeIn(this, 1);
 				}
 				tbInput.Enabled = true;
