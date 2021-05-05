@@ -12,13 +12,9 @@
 
 		public string Origem { get; set; }
 
-		public long IdExperimento { get; set; }
-		private ExperimentoRealizado experimento;
-		//TODO terminar depois
-		public ExperimentoRealizado ExperimentoRealizado {
-			get;
-			set;
-		}
+		public long IdExperimentoUmRealizado { get; set; }
+
+		public long IdExperimentoDoisRealizado { get; set; }
 
 		//Na verdade é apenas o offset em segundos a partir do início do experimento
 		public long Horario { get; set; }

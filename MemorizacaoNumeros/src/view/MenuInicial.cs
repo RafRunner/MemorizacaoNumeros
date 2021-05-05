@@ -17,11 +17,20 @@ namespace MemorizacaoNumeros.src.view {
 
 			List<ExperimentoUm> experimentos = ExperimentoUmService.GetAll();
 
+			var experimento = experimentos.First();
+			var experimentoUmRealizado = new ExperimentoUmRealizado() {
+				ExperimentoUm = experimento
+			};
+
+			var experimentoRealizado = new ExperimentoRealizado {
+				ExperimentoUmRealizado = experimentoUmRealizado
+			};
+
 			var telaBackgroud = new TelaMensagem("", false);
 			telaBackgroud.BackColor = Color.Black;
 			telaBackgroud.Show();
 			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
-			new ExperimentoUmView(experimentos.First()).ShowDialog();
+			new ExperimentoView(experimentoRealizado).ShowDialog();
 		}
 	}
 }

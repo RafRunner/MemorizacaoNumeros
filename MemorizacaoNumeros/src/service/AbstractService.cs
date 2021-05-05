@@ -24,6 +24,10 @@ namespace MemorizacaoNumeros.src.service {
 		}
 
 		protected static List<T> GetByObj<T>(string sql, object obj) {
+			if (obj == null) {
+				return new List<T>();
+			}
+
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				return cnn.Query<T>(sql, obj).ToList();
 			}

@@ -13,22 +13,47 @@ namespace MemorizacaoNumeros.src.service {
 		private static readonly string sqlUpdate = GeraSqlUpdate(nomeTabela, colunas);
 
 		public static ExperimentoUmRealizado GetById(long id) {
-			return GetById<ExperimentoUmRealizado>(id, nomeTabela);
+			var experimento = GetById<ExperimentoUmRealizado>(id, nomeTabela);
+
+			if (experimento == null) {
+				return null;
+			}
+
+			var eventos = EventoService.GetAllByExperimentoUmRealizado(experimento);
+
+			experimento.SetListaEventos(eventos);
+
+			return experimento;
 		}
 
 		public static List<ExperimentoUmRealizado> GetAll() {
-			return GetAll<ExperimentoUmRealizado>(nomeTabela);
+			var experimentos = GetAll<ExperimentoUmRealizado>(nomeTabela);
+
+			foreach (var experimento in experimentos) {
+				var eventos = EventoService.GetAllByExperimentoUmRealizado(experimento);
+				experimento.SetListaEventos(eventos);
+			}
+
+			return experimentos;
 		}
 
 		public static void Salvar(ExperimentoUmRealizado experimento) {
 			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
+
+			foreach (var evento in experimento.GetListaEventos()) {
+				EventoService.Salvar(evento);
+			}
 		}
 
 		public static void DeletarPorId(long id) {
-			DeletarPorId(id, nomeTabela);
+			Deletar(GetById(id));
 		}
 
 		public static void Deletar(ExperimentoUmRealizado experimento) {
+			foreach (var evento in experimento.GetListaEventos()) {
+				EventoService.Deletar(evento);
+			}
+
 			Deletar(experimento, nomeTabela);
 		}
 	}

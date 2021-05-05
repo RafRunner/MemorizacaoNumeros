@@ -28,10 +28,12 @@ namespace MemorizacaoNumeros.src.service {
 		}
 
 		public static void DeletarPorId(long id) {
-			DeletarPorId(id, nomeTabela);
+			Deletar(GetById(id));
 		}
 
 		public static void Deletar(ExperimentoRealizado experimento) {
+			ExperimentoUmRealizadoService.Deletar(experimento.ExperimentoUmRealizado);
+			ExperimentoDoisRealizadoService.Deletar(experimento.ExperimentoDoisRealizado);
 			Deletar(experimento, nomeTabela);
 		}
 	}

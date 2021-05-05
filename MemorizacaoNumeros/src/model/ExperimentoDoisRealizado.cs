@@ -40,5 +40,35 @@ namespace MemorizacaoNumeros.src.model {
 		public void SetListaEventos(List<Evento> eventos) {
 			this.eventos = eventos;
 		}
+
+		// Inicio da parte do comportamento do experimento
+
+		private readonly GeradorNumeros geradorNumeros = new GeradorNumeros();
+		private readonly Random random = new Random();
+
+
+		// 0 - Pré treino, 1 - Linha de Base, 2 - Fase Experimental
+		public int faseAtual = 0;
+
+		private int tamanhoAtualSequencia = 0;
+		private int tentativaBlocoAtual = 0;
+
+		private int corretasConsecutivasPreTreino = 0;
+
+		private int tamanhoMaximoLinhaDeBase;
+		private int talvezUltimoBlocoLinhaDeBase = 0;
+
+		private int digitosASeremVariados = 1;
+		private int quantidadeEstimulosFracos = 0;
+		private int talvezEstimulosFracos = 0;
+		private int blocosExecutados = 0;
+
+		public bool RegistrarResposta(bool acertou, bool certeza) {
+			return false;
+		}
+
+		public string GerarNumero() {
+			return "coca cola espumente";
+		}
 	}
 }
