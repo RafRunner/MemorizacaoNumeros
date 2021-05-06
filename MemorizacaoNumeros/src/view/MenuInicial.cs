@@ -1,13 +1,7 @@
 ﻿using MemorizacaoNumeros.src.model;
 using MemorizacaoNumeros.src.service;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MemorizacaoNumeros.src.view {
@@ -15,21 +9,28 @@ namespace MemorizacaoNumeros.src.view {
 		public MenuInicial() {
 			InitializeComponent();
 
-			List<ExperimentoUm> experimentos = ExperimentoUmService.GetAll();
+			var experimentosUm = ExperimentoUmService.GetAll();
+			var experimentosDois = ExperimentoDoisService.GetAll();
 
-			var experimento = experimentos.First();
+			var experimentoUm = experimentosUm.First();
 			var experimentoUmRealizado = new ExperimentoUmRealizado() {
-				ExperimentoUm = experimento
+				ExperimentoUm = experimentoUm
+			};
+
+			var experimentoDois = experimentosDois.First();
+			var experimentoDoisRealizado = new ExperimentoDoisRealizado() {
+				ExperimentoDois = experimentoDois
 			};
 
 			var experimentoRealizado = new ExperimentoRealizado {
-				ExperimentoUmRealizado = experimentoUmRealizado
+				ExperimentoUmRealizado = experimentoUmRealizado,
+				ExperimentoDoisRealizado = experimentoDoisRealizado
 			};
 
 			var telaBackgroud = new TelaMensagem("", false);
 			telaBackgroud.BackColor = Color.Black;
 			telaBackgroud.Show();
-			new TelaMensagem(experimentos.First().InstrucaoInicial, true).ShowDialog();
+			new TelaMensagem(experimentosUm.First().InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView(experimentoRealizado).ShowDialog();
 		}
 	}

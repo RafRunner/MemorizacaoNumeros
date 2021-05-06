@@ -75,7 +75,9 @@ namespace MemorizacaoNumeros.src.view {
 				// Iniciamos o experimento 2
 				if (novoNumero == null) {
 					experimentoAtual++;
-					IniciarNovoNumero();
+					experimentoDoisRealizado.SetTamanhoSequencia(experimentoUmRealizado.tamanhoMaximoLinhaDeBase);
+					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
+					IniciarNovaFase();
 					return;
 				}
 			}
@@ -87,6 +89,8 @@ namespace MemorizacaoNumeros.src.view {
 					Close();
 					return;
 				}
+
+				pnGrau.Visible = true;
 			}
 
 			tbInput.Text = "";
@@ -115,9 +119,10 @@ namespace MemorizacaoNumeros.src.view {
 			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
 
 			if (experimentoAtual == 1) {
+				pnNumero.Visible = false;
+
 				if (experimentoUmRealizado.faseAtual != 0) {
 					SortearPosicaoBotoes();
-					pnNumero.Visible = false;
 					btnCerteza.Visible = true;
 					btnTalvez.Visible = true;
 				}
@@ -172,32 +177,38 @@ namespace MemorizacaoNumeros.src.view {
 
 				var acertou = sequenciaDigitada == lblNumero.Text;
 				var certeza = btnCerteza.Enabled;
-				var novaFase = false;
+				bool novaFase;
 
 				if (experimentoAtual == 1) {
 					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza);
-
-					tbInput.Enabled = false;
-					if (acertou) {
-						pnCorreto.Visible = true;
-						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-						pnCorreto.Visible = true;
-					}
-					else {
-						FadeOut(this, 1);
-						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-						FadeIn(this, 1);
-					}
-					tbInput.Enabled = true;
 				}
 				else {
+					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza);
 
+					lblGrau.Text = experimentoDoisRealizado.GrauAtual();
+					lblGrau.Location = new Point {
+						Y = lblGrau.Location.Y,
+						X = (pnGrau.Width - lblGrau.Width) / 2
+					};
 				}
 
+				tbInput.Enabled = false;
+				if (acertou) {
+					pnGrau.Visible = false;
+					pnCorreto.Visible = true;
+					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+				}
+				else {
+					FadeOut(this, 1);
+					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+					FadeIn(this, 1);
+				}
+				tbInput.Enabled = true;
+
 				if (novaFase) {
-					IniciarNovoNumero();
-				} else {
 					IniciarNovaFase();
+				} else {
+					IniciarNovoNumero();
 				}
 			}
 		}

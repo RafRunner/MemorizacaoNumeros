@@ -70,5 +70,11 @@ namespace MemorizacaoNumeros.src.model {
 			get => pontosCertezaAcerto2;
 			set => pontosCertezaAcerto2 = NumericUtils.ValidarNaoNegativo(value, "Pontos Certeza Acerto Condição 2");
 		}
+
+		private int pontosPorGrau;
+		public int PontosPorGrau {
+			get => pontosPorGrau;
+			set => pontosPorGrau = NumericUtils.ValidarNatural(value, "Pontos por Grau");
+		}
 	}
 }

@@ -55,7 +55,7 @@ namespace MemorizacaoNumeros.src.model {
 
 		private int corretasConsecutivasPreTreino = 0;
 
-		private int tamanhoMaximoLinhaDeBase;
+		public int tamanhoMaximoLinhaDeBase;
 		private int talvezUltimoBlocoLinhaDeBase = 0;
 
 		private int digitosASeremVariados = 1;
@@ -93,10 +93,11 @@ namespace MemorizacaoNumeros.src.model {
 
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
+					tentativaBlocoAtual = 0;
+					talvezUltimoBlocoLinhaDeBase = 0;
+
 					// O participante escolheu talvez acima do trashold
 					if (talvezUltimoBlocoLinhaDeBase >= ExperimentoUm.CalculaCriterioTalvezLinhaDeBase()) {
-						tentativaBlocoAtual = 0;
-						talvezUltimoBlocoLinhaDeBase = 0;
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
 						faseAtual++;
 						return true;
@@ -104,8 +105,6 @@ namespace MemorizacaoNumeros.src.model {
 					// O tamanho da sequência aumenta
 					else {
 						tamanhoAtualSequencia++;
-						tentativaBlocoAtual = 0;
-						talvezUltimoBlocoLinhaDeBase = 0;
 					}
 				}
 			}
@@ -124,16 +123,19 @@ namespace MemorizacaoNumeros.src.model {
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					blocosExecutados++;
+					tentativaBlocoAtual = 0;
 
 					// Terminamos o número de blocos previstos
 					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
+						tentativaBlocoAtual = 0;
+						blocosExecutados = 0;
+						quantidadeEstimulosFracos = 0;
+						talvezEstimulosFracos = 0;
+
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
 							digitosASeremVariados++;
-							tentativaBlocoAtual = 0;
-							blocosExecutados = 0;
-							quantidadeEstimulosFracos = 0;
-							talvezEstimulosFracos = 0;
-
+						}
+						else {
 							return true;
 						}
 					}

@@ -33,9 +33,12 @@
 			this.timerFade = new System.Windows.Forms.Timer(this.components);
 			this.pnCorreto = new System.Windows.Forms.Panel();
 			this.pnInput = new System.Windows.Forms.Panel();
+			this.pnGrau = new System.Windows.Forms.Panel();
+			this.lblGrau = new System.Windows.Forms.Label();
 			this.pnNumero.SuspendLayout();
 			this.pnCorreto.SuspendLayout();
 			this.pnInput.SuspendLayout();
+			this.pnGrau.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pnNumero
@@ -114,8 +117,9 @@
 			// pnCorreto
 			// 
 			this.pnCorreto.BackColor = System.Drawing.SystemColors.Desktop;
+			this.pnCorreto.Controls.Add(this.pnGrau);
 			this.pnCorreto.Controls.Add(this.lblCorreto);
-			this.pnCorreto.Location = new System.Drawing.Point(1450, 27);
+			this.pnCorreto.Location = new System.Drawing.Point(1430, 46);
 			this.pnCorreto.Name = "pnCorreto";
 			this.pnCorreto.Size = new System.Drawing.Size(384, 179);
 			this.pnCorreto.TabIndex = 2;
@@ -129,6 +133,28 @@
 			this.pnInput.Name = "pnInput";
 			this.pnInput.Size = new System.Drawing.Size(384, 179);
 			this.pnInput.TabIndex = 5;
+			// 
+			// pnGrau
+			// 
+			this.pnGrau.BackColor = System.Drawing.SystemColors.Desktop;
+			this.pnGrau.Controls.Add(this.lblGrau);
+			this.pnGrau.Location = new System.Drawing.Point(0, 0);
+			this.pnGrau.Name = "pnGrau";
+			this.pnGrau.Size = new System.Drawing.Size(384, 179);
+			this.pnGrau.TabIndex = 6;
+			this.pnGrau.Visible = false;
+			// 
+			// lblGrau
+			// 
+			this.lblGrau.AutoSize = true;
+			this.lblGrau.BackColor = System.Drawing.SystemColors.Desktop;
+			this.lblGrau.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblGrau.ForeColor = System.Drawing.Color.Yellow;
+			this.lblGrau.Location = new System.Drawing.Point(96, 45);
+			this.lblGrau.Name = "lblGrau";
+			this.lblGrau.Size = new System.Drawing.Size(181, 83);
+			this.lblGrau.TabIndex = 5;
+			this.lblGrau.Text = "Grau";
 			// 
 			// ExperimentoView
 			// 
@@ -152,6 +178,8 @@
 			this.pnCorreto.PerformLayout();
 			this.pnInput.ResumeLayout(false);
 			this.pnInput.PerformLayout();
+			this.pnGrau.ResumeLayout(false);
+			this.pnGrau.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -167,5 +195,7 @@
 		private System.Windows.Forms.Timer timerFade;
 		private System.Windows.Forms.Panel pnCorreto;
 		private System.Windows.Forms.Panel pnInput;
+		private System.Windows.Forms.Panel pnGrau;
+		private System.Windows.Forms.Label lblGrau;
 	}
 }

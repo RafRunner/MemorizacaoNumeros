@@ -44,31 +44,122 @@ namespace MemorizacaoNumeros.src.model {
 		// Inicio da parte do comportamento do experimento
 
 		private readonly GeradorNumeros geradorNumeros = new GeradorNumeros();
-		private readonly Random random = new Random();
 
-
-		// 0 - Pré treino, 1 - Linha de Base, 2 - Fase Experimental
+		// 0 - Linha de Base, 1 - Condição 1, 2 - Condição 2
 		public int faseAtual = 0;
+		public int pontos = 0;
 
-		private int tamanhoAtualSequencia = 0;
+		// Eferivamente uma constante, não é constante pois não sabemos ao criar o objeto.
+		private int tamanhoSequencia = 0;
 		private int tentativaBlocoAtual = 0;
 
-		private int corretasConsecutivasPreTreino = 0;
+		private int blocoAtual = 0;
 
-		private int tamanhoMaximoLinhaDeBase;
-		private int talvezUltimoBlocoLinhaDeBase = 0;
-
-		private int digitosASeremVariados = 1;
-		private int quantidadeEstimulosFracos = 0;
-		private int talvezEstimulosFracos = 0;
-		private int blocosExecutados = 0;
+		public void SetTamanhoSequencia(int tamanho) {
+			if (tamanhoSequencia == 0) {
+				tamanhoSequencia = tamanho;
+			}
+		}
 
 		public bool RegistrarResposta(bool acertou, bool certeza) {
+			// Linha de Base
+			if (faseAtual == 0) {
+				tentativaBlocoAtual++;
+
+				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+					blocoAtual++;
+
+					if (blocoAtual == experimentoDois.QuantidadeBlocosLinhaDeBase) {
+						blocoAtual = 0;
+						tentativaBlocoAtual = 0;
+						faseAtual++;
+
+						return true;
+					}
+				}
+			}
+
+			// Condição 1
+			else if (faseAtual == 1) {
+				if (acertou) {
+					if (certeza) {
+						pontos += experimentoDois.PontosCertezaAcerto1;
+					}
+					else {
+						pontos += experimentoDois.PontosTalvezAcerto1;
+					}
+				}
+				else {
+					if (certeza) {
+						pontos += experimentoDois.PontosCertezaErro1;
+					}
+					else {
+						pontos += experimentoDois.PontosTalvezErro1;
+					}
+				}
+
+				tentativaBlocoAtual++;
+
+				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+					blocoAtual++;
+
+					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao1) {
+						blocoAtual = 0;
+						tentativaBlocoAtual = 0;
+						faseAtual++;
+
+						return true;
+					}
+				}
+			}
+
+			// Condição 2
+			else if (faseAtual == 2) {
+				if (acertou) {
+					if (certeza) {
+						pontos += experimentoDois.PontosCertezaAcerto2;
+					}
+					else {
+						pontos += experimentoDois.PontosTalvezAcerto2;
+					}
+				}
+				else {
+					if (certeza) {
+						pontos += experimentoDois.PontosCertezaErro2;
+					}
+					else {
+						pontos += experimentoDois.PontosTalvezErro2;
+					}
+				}
+
+				tentativaBlocoAtual++;
+
+				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+					blocoAtual++;
+
+					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao2) {
+						blocoAtual = 0;
+						tentativaBlocoAtual = 0;
+						faseAtual++;
+
+						return true;
+					}
+				}
+			}
+
 			return false;
 		}
 
 		public string GerarNumero() {
-			return "coca cola espumente";
+			if (faseAtual <= 2) {
+				return geradorNumeros.GerarNumero(tamanhoSequencia);
+			}
+
+			return null;
+		}
+
+		public string GrauAtual() {
+			return ExperimentoDois.graus[Math.Min(pontos / experimentoDois.PontosPorGrau, ExperimentoDois.graus.Length)];
 		}
 	}
 }
