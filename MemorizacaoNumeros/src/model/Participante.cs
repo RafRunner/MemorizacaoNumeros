@@ -4,6 +4,19 @@
 namespace MemorizacaoNumeros.src.model {
 	public class Participante : Pessoa {
 
+		public static string[] escolaridades = new string[] { 
+		"Fundamental Incompleto",
+		"Fundamental Completo",
+		"Ensino Médio Incompleto",
+		"Ensino Médio Completo",
+		"Superior Incompleto",
+		"Superior Completo",
+		"Pós Graduação",
+		"Mestrado",
+		"Doutorado",
+		"Pós Doutorado"
+		};
+
 		private string endereco;
 		public string Endereco {
 			get => endereco;
@@ -19,7 +32,7 @@ namespace MemorizacaoNumeros.src.model {
 		private string escolaridade;
 		public string Escolaridade {
 			get => escolaridade;
-			set => escolaridade = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Escolaridade do Participante");
+			set => escolaridade = StringUtils.ValidarSeNaLista(value, escolaridades, "Escolaridade do Participante");
 		}
 
 		private string curso;

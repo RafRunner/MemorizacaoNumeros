@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace MemorizacaoNumeros.src.util {
@@ -35,6 +36,14 @@ namespace MemorizacaoNumeros.src.util {
 			}
 
 			return telefone;
+		}
+
+		public static string ValidarSeNaLista(string valor, string[] valoresValidos, string nomeCampo) {
+			if (!new List<string>(valoresValidos).Contains(valor)) {
+				throw new Exception($"O campo {nomeCampo} deve ser um entre: {valoresValidos}.");
+			}
+
+			return valor;
 		}
 
 		public static bool HasUniqueCharacters(string str) {
