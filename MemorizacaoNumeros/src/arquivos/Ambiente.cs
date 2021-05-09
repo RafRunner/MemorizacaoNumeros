@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -17,7 +18,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 			return nome.Value;
 		}
 
-		public static string GetFullPath(string nomePasta, string nomeArquivo = "") {
+		public static string GetCaminhoAbsoluto(string nomePasta, string nomeArquivo = "") {
 			string caminhoPasta = GetDiretorioDeTrabalho() + "\\" + nomePasta;
 			if (string.IsNullOrEmpty(nomeArquivo)) {
 				return caminhoPasta;
@@ -25,10 +26,26 @@ namespace MemorizacaoNumeros.src.arquivos {
 			return caminhoPasta + "\\" + nomeArquivo;
 		}
 
-		public static DirectoryInfo CriaDiretorioSeNaoExistir(string diretorio) {
-			var fullPath = GetFullPath(diretorio);
+		public static DirectoryInfo CriaDiretorioAmbiente(string diretorio) {
+			var fullPath = GetCaminhoAbsoluto(diretorio);
 
 			return Directory.CreateDirectory(fullPath);
+		}
+
+		public static List<string> LerArquivo(string caminhoArquivo) {
+			var linhas = new List<string>();
+
+			using (var sr = new StreamReader(caminhoArquivo)) {
+				while (!sr.EndOfStream) {
+					linhas.Add(sr.ReadLine());
+				}
+			}
+
+			return linhas;
+		}
+
+		public static List<string> LerArquivoRelativo(string nomePasta, string nomeArquivo) {
+			return LerArquivo(GetCaminhoAbsoluto(nomePasta, nomeArquivo));
 		}
 	}
 }

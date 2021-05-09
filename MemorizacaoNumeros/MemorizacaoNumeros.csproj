@@ -86,6 +86,12 @@
     <Compile Include="src\view\ExperimentoView.Designer.cs">
       <DependentUpon>ExperimentoView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\view\GridCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\view\GridCrud.Designer.cs">
+      <DependentUpon>GridCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\view\MenuInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="src\view\ExperimentoView.resx">
       <DependentUpon>ExperimentoView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\view\GridCrud.resx">
+      <DependentUpon>GridCrud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\view\MenuInicial.resx">
       <DependentUpon>MenuInicial.cs</DependentUpon>

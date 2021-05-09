@@ -54,6 +54,10 @@ namespace MemorizacaoNumeros.src.util {
             }
         }
 
+        public static long GetIdColunaSelecionada(DataGridView dataGrid) {
+            return long.Parse(dataGrid.SelectedRows[0].Cells["Id"].Value.ToString());
+        }
+
         public static void Justify(Label label) {
             var blocks = label.Text.Split(new[] { "\r\n" }, StringSplitOptions.None).Select(l => l.Trim()).ToArray();
 
