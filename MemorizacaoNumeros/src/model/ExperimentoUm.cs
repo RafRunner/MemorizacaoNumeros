@@ -4,6 +4,43 @@ using System;
 namespace MemorizacaoNumeros.src.model {
 	public class ExperimentoUm : Experimento {
 
+		public static string[] ordemColunas = new string[] {
+			"InstrucaoInicial",
+			"TempoTelaPretaInicial",
+			"TempoTelaPretaITI",
+			"TempoApresentacaoEstimulo",
+			"TamanhoBlocoTentativas",
+			"TamanhoSequenciaInicial",
+			"CriterioAcertoPreTreino",
+			"CriterioTalvezLinhaDeBase",
+			"CriterioReforcoFaseExperimental",
+			"NumeroBlocosFaseExperimental"
+		};
+
+		private int tempoTelaPretaInicial;
+		public int TempoTelaPretaInicial {
+			get => tempoTelaPretaInicial;
+			set => tempoTelaPretaInicial = NumericUtils.ValidarNatural(value, "Tempo tela preta inicial");
+		}
+
+		private int tempoTelaPretaITI;
+		public int TempoTelaPretaITI {
+			get => tempoTelaPretaITI;
+			set => tempoTelaPretaITI = NumericUtils.ValidarNatural(value, "Tempo tela preta ITI");
+		}
+
+		private int tempoApresentacaoEstimulo;
+		public int TempoApresentacaoEstimulo {
+			get => tempoApresentacaoEstimulo;
+			set => tempoApresentacaoEstimulo = NumericUtils.ValidarNatural(value, "Tempo apresentação estímulo");
+		}
+
+		private int tamanhoBlocoTentativas;
+		public int TamanhoBlocoTentativas {
+			get => tamanhoBlocoTentativas;
+			set => tamanhoBlocoTentativas = NumericUtils.ValidarNatural(value, "Tamanho do bloco de tentativas");
+		}
+
 		private int tamanhoSequenciaInicial;
 		public int TamanhoSequenciaInicial {
 			get => tamanhoSequenciaInicial;

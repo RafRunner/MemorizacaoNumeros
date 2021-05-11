@@ -32,7 +32,7 @@ namespace MemorizacaoNumeros.src.util {
 			telefone = Normalize(telefone);
 
 			if (!Regex.IsMatch(telefone, @"\+?(55)?((\d{2})|(\(\d{2}\)))?\d{4,5}-?\d{4}")) {
-				throw new Exception($"Telefone '{telefone}' inválido! Por vafor insire um telefone válido");
+				throw new Exception($"Telefone '{telefone}' inválido! Por favor insira um telefone válido");
 			}
 
 			return telefone;

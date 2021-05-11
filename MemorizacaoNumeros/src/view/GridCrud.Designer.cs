@@ -1,28 +1,28 @@
-﻿namespace Pactolo {
-    partial class GridCrud {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+﻿namespace MemorizacaoNumeros.src.view {
+	partial class GridCrud {
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing) {
+			if (disposing && (components != null)) {
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent() {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent() {
 			this.dataGrid = new System.Windows.Forms.DataGridView();
 			this.textBoxFiltro = new System.Windows.Forms.TextBox();
 			this.buttonEditar = new System.Windows.Forms.Button();
@@ -41,6 +41,7 @@
 			this.dataGrid.MultiSelect = false;
 			this.dataGrid.Name = "dataGrid";
 			this.dataGrid.ReadOnly = true;
+			this.dataGrid.RowHeadersWidth = 40;
 			this.dataGrid.Size = new System.Drawing.Size(904, 471);
 			this.dataGrid.TabIndex = 0;
 			// 
@@ -52,6 +53,7 @@
 			this.textBoxFiltro.Name = "textBoxFiltro";
 			this.textBoxFiltro.Size = new System.Drawing.Size(611, 29);
 			this.textBoxFiltro.TabIndex = 1;
+			this.textBoxFiltro.TextChanged += new System.EventHandler(this.textBoxFiltro_TextChanged_1);
 			this.textBoxFiltro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFiltro_KeyDown);
 			// 
 			// buttonEditar
@@ -101,19 +103,20 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Name = "GridCrud";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Gerenciador";
 			((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.DataGridView dataGrid;
-        private System.Windows.Forms.TextBox textBoxFiltro;
-        private System.Windows.Forms.Button buttonEditar;
-        private System.Windows.Forms.Button buttonDeletar;
-        private System.Windows.Forms.Button buttonSelecionar;
-    }
+		private System.Windows.Forms.DataGridView dataGrid;
+		private System.Windows.Forms.TextBox textBoxFiltro;
+		private System.Windows.Forms.Button buttonEditar;
+		private System.Windows.Forms.Button buttonDeletar;
+		private System.Windows.Forms.Button buttonSelecionar;
+	}
 }

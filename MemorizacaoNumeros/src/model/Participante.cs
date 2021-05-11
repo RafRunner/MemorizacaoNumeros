@@ -17,6 +17,10 @@ namespace MemorizacaoNumeros.src.model {
 		"Pós Doutorado"
 		};
 
+		public static string[] odemColunasGrid = new string[] {
+			"Nome", "Email", "Telefone", "Endereco", "Idade", "Curso", "Escolaridade"
+		};
+
 		private string endereco;
 		public string Endereco {
 			get => endereco;

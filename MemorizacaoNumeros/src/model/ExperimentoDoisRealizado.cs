@@ -51,6 +51,8 @@ namespace MemorizacaoNumeros.src.model {
 
 		// Eferivamente uma constante, não é constante pois não sabemos ao criar o objeto.
 		private int tamanhoSequencia = 0;
+		// Deve ser informado pelo experimento Um
+		private int tamanhoBlocoTentativas = 0;
 		private int tentativaBlocoAtual = 0;
 
 		private int blocoAtual = 0;
@@ -61,12 +63,18 @@ namespace MemorizacaoNumeros.src.model {
 			}
 		}
 
+		public void SetTamanhoBlocoTentativas(int tamanho) {
+			if (tamanhoBlocoTentativas == 0) {
+				tamanhoBlocoTentativas = tamanho;
+			}
+		}
+
 		public bool RegistrarResposta(bool acertou, bool certeza) {
 			// Linha de Base
 			if (faseAtual == 0) {
 				tentativaBlocoAtual++;
 
-				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosLinhaDeBase) {
@@ -100,7 +108,7 @@ namespace MemorizacaoNumeros.src.model {
 
 				tentativaBlocoAtual++;
 
-				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao1) {
@@ -134,7 +142,7 @@ namespace MemorizacaoNumeros.src.model {
 
 				tentativaBlocoAtual++;
 
-				if (tentativaBlocoAtual == experimentoDois.TamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao2) {

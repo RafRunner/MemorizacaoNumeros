@@ -53,6 +53,14 @@ namespace MemorizacaoNumeros.src.service {
 			}
 		}
 
+		protected static void SalvarSeNaoRepetido<T>(T objeto, string nomeTabela, string sqlInsert, string sqlUpdate, List<string> colunas) where T : EntidadeDeBanco {
+			if (GetObjetosIdenticos(objeto, nomeTabela, colunas).Count != 0) {
+				return;
+			}
+
+			Salvar(objeto, nomeTabela, sqlInsert, sqlUpdate);
+		}
+
 		protected static void Deletar(EntidadeDeBanco objeto, string nomeTabela) {
 			if (objeto == null) {
 				return;
@@ -65,6 +73,39 @@ namespace MemorizacaoNumeros.src.service {
 		protected static void DeletarPorId(long id, string nomeTabela) {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				cnn.Execute($"DELETE FROM {nomeTabela} WHERE Id = {id}");
+			}
+		}
+
+		public static List<object> FilterDataTable(List<object> itens, string textoDeBusca) {
+			if (itens.Count == 0) return itens;
+
+			var type = itens.First().GetType();
+
+			return itens.FindAll(item => {
+				foreach (var p in type.GetProperties()) {
+					if (p.GetValue(item).ToString().ToLower().Contains(textoDeBusca)) {
+						return true;
+					}
+				}
+
+				return false;
+			});
+		}
+
+		protected static List<T> GetObjetosIdenticos<T>(T objeto, string nomeTabela, List<string> colunas) where T : EntidadeDeBanco {
+			var sqlSelect = $"SELECT * FROM {nomeTabela} WHERE ";
+
+			for (int i = 0; i < colunas.Count; i++) {
+				var coluna = colunas[i];
+				sqlSelect += $"{coluna} = @{coluna}";
+
+				if (i != colunas.Count - 1) {
+					sqlSelect += " AND ";
+				}
+			}
+
+			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+				return cnn.Query<T>(sqlSelect, objeto).ToList();
 			}
 		}
 

@@ -24,30 +24,6 @@ namespace MemorizacaoNumeros.src.view {
 			cbEscolaridadeParticipante.Items.AddRange(Participante.escolaridades);
 
 			CarregarUltimaConfig();
-
-			var experimentosUm = ExperimentoUmService.GetAll();
-			var experimentosDois = ExperimentoDoisService.GetAll();
-
-			var experimentoUm = experimentosUm.First();
-			var experimentoUmRealizado = new ExperimentoUmRealizado() {
-				ExperimentoUm = experimentoUm
-			};
-
-			var experimentoDois = experimentosDois.First();
-			var experimentoDoisRealizado = new ExperimentoDoisRealizado() {
-				ExperimentoDois = experimentoDois
-			};
-
-			var experimentoRealizado = new ExperimentoRealizado {
-				ExperimentoUmRealizado = experimentoUmRealizado,
-				ExperimentoDoisRealizado = experimentoDoisRealizado
-			};
-
-			var telaBackgroud = new TelaMensagem("", false);
-			telaBackgroud.BackColor = Color.Black;
-			telaBackgroud.Show();
-			new TelaMensagem(experimentosUm.First().InstrucaoInicial, true).ShowDialog();
-			new ExperimentoView(experimentoRealizado).ShowDialog();
 		}
 
 		private void MenuInicial_FormClosing(object sender, FormClosingEventArgs e) {
@@ -55,7 +31,7 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private void SalvarConfigAtual() {
-			var configAtual = $"{idParticipante};${idExperimentador};${idExperimentoUm};{idExperimentoDois}";
+			var configAtual = $"{idParticipante};{idExperimentador};{idExperimentoUm};{idExperimentoDois}";
 
 			var arquivoCache = Ambiente.CriaDiretorioAmbiente(PASTA_CACHE) + $"\\{ARQUIVO_ULTIMA_CONFIG}";
 			File.WriteAllText(arquivoCache, configAtual);
@@ -69,54 +45,10 @@ namespace MemorizacaoNumeros.src.view {
 			var configAnterior = Ambiente.LerArquivoRelativo(PASTA_CACHE, ARQUIVO_ULTIMA_CONFIG);
 			var ids = configAnterior.First().Split(new char[] { ';' }).Select(id => Convert.ToInt32(id)).ToList();
 
-			var participante = ParticipanteService.GetById(ids[0]);
-			var experimentador = ExperimentadorService.GetById(ids[1]);
-			var experimentoUm = ExperimentoUmService.GetById(ids[2]);
-			var experimentoDois = ExperimentoDoisService.GetById(ids[3]);
-
-			if (participante != null) {
-				tbNomeParticipante.Text = participante.Nome;
-				tbTelefoneParticipante.Text = participante.Telefone;
-				tbEmailParticipante.Text = participante.Email;
-				tbEnderecoParticipante.Text = participante.Endereco;
-				nudIdadeParticipante.Value = participante.Idade;
-				cbEscolaridadeParticipante.SelectedItem = participante.Escolaridade;
-				tbCursoParticipante.Text = participante.Curso;
-			}
-
-			if (experimentador != null) {
-				tbNomeParticipante.Text = experimentador.Nome;
-				tbTelefoneParticipante.Text = experimentador.Telefone;
-				tbEmailParticipante.Text = experimentador.Email;
-			}
-
-			if (experimentoUm != null) {
-				 tbInstrucao1.Text = experimentoUm.InstrucaoInicial;
-				 nudTelaPretaInicial1.Value = experimentoUm.TempoTelaPretaInicial;
-				 nudTelaPretaITI.Value = experimentoUm.TempoTelaPretaITI;
-				 nudTempoEstimulo.Value = experimentoUm.TempoApresentacaoEstimulo;
-				 nudTamanhoBloco.Value = experimentoUm.TamanhoBlocoTentativas;
-				 nudSequenciaInicial.Value = experimentoUm.TamanhoSequenciaInicial;
-				 nudAcertosPreTreino.Value = experimentoUm.CriterioAcertoPreTreino;
-				 nudTalvezLinhaDeBase.Value = experimentoUm.CriterioTalvezLinhaDeBase;
-				 nudBlocosFaseExperimental.Value = experimentoUm.NumeroBlocosFaseExperimental;
-				 nudReforcoFaseExperimental.Value = experimentoUm.CriterioReforcoFaseExperimental;
-			}
-
-			if (experimentoDois != null) {
-				tbInstrucao2.Text = experimentoDois.InstrucaoInicial;
-				nudBlocosLinhaDeBase.Value = experimentoDois.QuantidadeBlocosLinhaDeBase;
-				nudBlocosCondicao1.Value = experimentoDois.QuantidadeBlocosCondicao1;
-				nudTalvezErro1.Value = experimentoDois.PontosTalvezErro1;
-				nudTalvezAcerto1.Value = experimentoDois.PontosTalvezAcerto1;
-				nudCertezaErro1.Value = experimentoDois.PontosCertezaErro1;
-				nudCertezaAcerto1.Value = experimentoDois.PontosCertezaAcerto1;
-				nudTalvezErro2.Value = experimentoDois.PontosTalvezErro2;
-				nudTalvezAcerto2.Value = experimentoDois.PontosTalvezAcerto2;
-				nudCertezaErro2.Value = experimentoDois.PontosCertezaErro2;
-				nudCertezaAcerto2.Value = experimentoDois.PontosCertezaAcerto2;
-				nudPontosPorGrau.Value = experimentoDois.PontosPorGrau;
-			}
+			CarregaInfoParticipante(ids[0]);
+			CarregaInfoExperimentador(ids[1]);
+			CarregaInfoExperimentoUm(ids[2]);
+			CarregaInfoExperimentoDois(ids[3]);
 		}
 
 		private Participante CriaParticipantePelosCampos() {
@@ -131,7 +63,9 @@ namespace MemorizacaoNumeros.src.view {
 			};
 
 			ParticipanteService.Salvar(participante);
-			idParticipante = participante.Id;
+			if (participante.Id != 0) {
+				idParticipante = participante.Id;
+			}
 
 			return participante;
 		}
@@ -144,13 +78,15 @@ namespace MemorizacaoNumeros.src.view {
 			};
 
 			ExperimentadorService.Salvar(experimentador);
-			idExperimentador = experimentador.Id;
+			if (experimentador.Id != 0) {
+				idExperimentador = experimentador.Id;
+			}
 
 			return experimentador;
 		}
 
 		private ExperimentoUm CriaExperimentoUmPelosCampos() {
-			var ExperimentoUm = new ExperimentoUm {
+			var experimentoUm = new ExperimentoUm {
 				InstrucaoInicial = tbInstrucao1.Text,
 				TempoTelaPretaInicial = Convert.ToInt32(nudTelaPretaInicial1.Value),
 				TempoTelaPretaITI = Convert.ToInt32(nudTelaPretaITI.Value),
@@ -163,25 +99,24 @@ namespace MemorizacaoNumeros.src.view {
 				CriterioReforcoFaseExperimental = Convert.ToInt32(nudReforcoFaseExperimental.Value)
 			};
 
-			ExperimentoUmService.Salvar(ExperimentoUm);
-			idExperimentoUm = ExperimentoUm.Id;
+			ExperimentoUmService.Salvar(experimentoUm);
+			if (experimentoUm.Id != 0) {
+				idExperimentoUm = experimentoUm.Id;
+			}
 
-			return ExperimentoUm;
+			return experimentoUm;
 		}
 
-		private ExperimentoDois CriarExperimentoDoisPelosCampos(ExperimentoUm experimentoUm) {
+		private ExperimentoDois CriarExperimentoDoisPelosCampos() {
 			var experimentoDois = new ExperimentoDois {
 				InstrucaoInicial = tbInstrucao2.Text,
-				TempoTelaPretaInicial = experimentoUm.TempoTelaPretaInicial,
-				TempoTelaPretaITI = experimentoUm.TempoTelaPretaITI,
-				TempoApresentacaoEstimulo = experimentoUm.TempoApresentacaoEstimulo,
-				TamanhoBlocoTentativas = experimentoUm.TamanhoBlocoTentativas,
 				QuantidadeBlocosLinhaDeBase = Convert.ToInt32(nudBlocosLinhaDeBase.Value),
 				QuantidadeBlocosCondicao1 = Convert.ToInt32(nudBlocosCondicao1.Value),
 				PontosTalvezErro1 = Convert.ToInt32(nudTalvezErro1.Value),
 				PontosTalvezAcerto1 = Convert.ToInt32(nudTalvezAcerto1.Value),
 				PontosCertezaErro1 = Convert.ToInt32(nudCertezaErro1.Value),
 				PontosCertezaAcerto1 = Convert.ToInt32(nudCertezaAcerto1.Value),
+				QuantidadeBlocosCondicao2 = Convert.ToInt32(nudBlocosCondicao2.Value),
 				PontosTalvezErro2 = Convert.ToInt32(nudTalvezErro2.Value),
 				PontosTalvezAcerto2 = Convert.ToInt32(nudTalvezAcerto2.Value),
 				PontosCertezaErro2 = Convert.ToInt32(nudCertezaErro2.Value),
@@ -190,7 +125,9 @@ namespace MemorizacaoNumeros.src.view {
 			};
 
 			ExperimentoDoisService.Salvar(experimentoDois);
-			idExperimentoDois = experimentoDois.Id;
+			if (experimentoDois.Id != 0) {
+				idExperimentoDois = experimentoDois.Id;
+			}
 
 			return experimentoDois;
 		}
@@ -209,7 +146,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private void btnSalvarExperimento_Click(object sender, EventArgs e) {
 			var experimentoUm = CriaExperimentoUmPelosCampos();
-			var experimentoDois = CriarExperimentoDoisPelosCampos(experimentoUm);
+			var experimentoDois = CriarExperimentoDoisPelosCampos();
 
 			ExperimentoUmService.Salvar(experimentoUm);
 			ExperimentoDoisService.Salvar(experimentoDois);
@@ -221,7 +158,7 @@ namespace MemorizacaoNumeros.src.view {
 			var participante = CriaParticipantePelosCampos();
 			var experimentador = CriaExperimentadorPelosCampos();
 			var experimentoUm = CriaExperimentoUmPelosCampos();
-			var experimentoDois = CriarExperimentoDoisPelosCampos(experimentoUm);
+			var experimentoDois = CriarExperimentoDoisPelosCampos();
 
 			var experimentoUmRealizado = new ExperimentoUmRealizado() {
 				ExperimentoUm = experimentoUm
@@ -246,6 +183,123 @@ namespace MemorizacaoNumeros.src.view {
 
 			new TelaMensagem(experimentoUm.InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView(experimentoRealizado).ShowDialog();
+		}
+
+		private void btnVerParticipantes_Click(object sender, EventArgs e) {
+			new GridCrud(
+				"Participante",
+				ParticipanteService.GetAllAsObj,
+				Participante.odemColunasGrid,
+				AbstractService.FilterDataTable,
+				null,
+				ParticipanteService.DeletarPorId,
+				CarregaInfoParticipante
+			);
+		}
+
+		private void CarregaInfoParticipante(long idParticipante) {
+			var participante = ParticipanteService.GetById(idParticipante);
+
+			if (participante != null) {
+				this.idParticipante = idParticipante;
+
+				tbNomeParticipante.Text = participante.Nome;
+				tbTelefoneParticipante.Text = participante.Telefone;
+				tbEmailParticipante.Text = participante.Email;
+				tbEnderecoParticipante.Text = participante.Endereco;
+				nudIdadeParticipante.Value = participante.Idade;
+				cbEscolaridadeParticipante.SelectedItem = participante.Escolaridade;
+				tbCursoParticipante.Text = participante.Curso;
+			}
+		}
+
+		private void btnVerExperimentadores_Click(object sender, EventArgs e) {
+			new GridCrud(
+				"Experimentador",
+				ExperimentadorService.GetAllAsObj,
+				Experimentador.odemColunasGrid,
+				AbstractService.FilterDataTable,
+				null,
+				ExperimentadorService.DeletarPorId,
+				CarregaInfoExperimentador
+			);
+		}
+
+		private void CarregaInfoExperimentador(long idExperimentador) {
+			var experimentador = ExperimentadorService.GetById(idExperimentador);
+
+			if (experimentador != null) {
+				this.idExperimentador = idExperimentador;
+
+				tbNomeExperimentador.Text = experimentador.Nome;
+				tbTelefoneExperimentador.Text = experimentador.Telefone;
+				tbEmailExperimentador.Text = experimentador.Email;
+			}
+		}
+
+		private void btnVerExperimentos1_Click(object sender, EventArgs e) {
+			new GridCrud(
+				"Experimento Um",
+				ExperimentoUmService.GetAllAsObj,
+				ExperimentoUm.ordemColunas,
+				AbstractService.FilterDataTable,
+				null,
+				ExperimentoUmService.DeletarPorId,
+				CarregaInfoExperimentoUm
+			);
+		}
+
+		private void CarregaInfoExperimentoUm(long idExperimento) {
+			var experimentoUm = ExperimentoUmService.GetById(idExperimento);
+
+			if (experimentoUm != null) {
+				idExperimentoUm = idExperimento;
+
+				tbInstrucao1.Text = experimentoUm.InstrucaoInicial;
+				nudTelaPretaInicial1.Value = experimentoUm.TempoTelaPretaInicial;
+				nudTelaPretaITI.Value = experimentoUm.TempoTelaPretaITI;
+				nudTempoEstimulo.Value = experimentoUm.TempoApresentacaoEstimulo;
+				nudTamanhoBloco.Value = experimentoUm.TamanhoBlocoTentativas;
+				nudSequenciaInicial.Value = experimentoUm.TamanhoSequenciaInicial;
+				nudAcertosPreTreino.Value = experimentoUm.CriterioAcertoPreTreino;
+				nudTalvezLinhaDeBase.Value = experimentoUm.CriterioTalvezLinhaDeBase;
+				nudBlocosFaseExperimental.Value = experimentoUm.NumeroBlocosFaseExperimental;
+				nudReforcoFaseExperimental.Value = experimentoUm.CriterioReforcoFaseExperimental;
+			}
+		}
+
+		private void btnVerExperimentos2_Click(object sender, EventArgs e) {
+			new GridCrud(
+				"Experimento Dois",
+				ExperimentoDoisService.GetAllAsObj,
+				ExperimentoDois.ordemColunas,
+				AbstractService.FilterDataTable,
+				null,
+				ExperimentoDoisService.DeletarPorId,
+				CarregaInfoExperimentoDois
+			);
+		}
+
+		private void CarregaInfoExperimentoDois(long idExperimento) {
+			var experimentoDois = ExperimentoDoisService.GetById(idExperimento);
+
+			if (experimentoDois != null) {
+				idExperimentoDois = idExperimento;
+
+				tbInstrucao2.Text = experimentoDois.InstrucaoInicial;
+				nudBlocosLinhaDeBase.Value = experimentoDois.QuantidadeBlocosLinhaDeBase;
+				nudBlocosCondicao1.Value = experimentoDois.QuantidadeBlocosCondicao1;
+				nudTalvezErro1.Value = experimentoDois.PontosTalvezErro1;
+				nudTalvezAcerto1.Value = experimentoDois.PontosTalvezAcerto1;
+				nudCertezaErro1.Value = experimentoDois.PontosCertezaErro1;
+				nudCertezaAcerto1.Value = experimentoDois.PontosCertezaAcerto1;
+				nudBlocosCondicao2.Value = experimentoDois.QuantidadeBlocosCondicao2;
+				nudTalvezErro2.Value = experimentoDois.PontosTalvezErro2;
+				nudTalvezAcerto2.Value = experimentoDois.PontosTalvezAcerto2;
+				nudCertezaErro2.Value = experimentoDois.PontosCertezaErro2;
+				nudCertezaAcerto2.Value = experimentoDois.PontosCertezaAcerto2;
+				nudPontosPorGrau.Value = experimentoDois.PontosPorGrau;
+			}
 		}
 	}
 }

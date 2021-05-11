@@ -5,6 +5,22 @@ namespace MemorizacaoNumeros.src.model {
 
 		public static readonly string[] graus = new string[] { "Iniciante", "Aprendiz", "Graduado", "Mestre" };
 
+		public static string[] ordemColunas = new string[] {
+			"InstrucaoInicial",
+			"QuantidadeBlocosLinhaDeBase",
+			"QuantidadeBlocosCondicao1",
+			"QuantidadeBlocosCondicao2",
+			"PontosTalvezErro1",
+			"PontosTalvezAcerto1",
+			"PontosCertezaErro1",
+			"PontosCertezaAcerto1",
+			"PontosTalvezErro2",
+			"PontosTalvezAcerto2",
+			"PontosCertezaErro2",
+			"PontosCertezaAcerto2",
+			"PontosPorGrau",
+		};
+
 		private int quantidadeBlocosLinhaDeBase;
 		public int QuantidadeBlocosLinhaDeBase {
 			get => quantidadeBlocosLinhaDeBase;

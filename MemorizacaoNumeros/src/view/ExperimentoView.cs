@@ -51,16 +51,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private async void IniciarNovaFase() {
 			Opacity = 0;
-
-			int tempo;
-			if (experimentoAtual == 1) {
-				tempo = experimentoUm.TempoTelaPretaInicial;
-			}
-			else {
-				tempo = experimentoDois.TempoTelaPretaInicial;
-			}
-			await Task.Delay(tempo * 1000);
-
+			await Task.Delay(experimentoUm.TempoTelaPretaInicial * 1000);
 			FadeIn(this, 1);
 
 			IniciarNovoNumero();
@@ -76,6 +67,7 @@ namespace MemorizacaoNumeros.src.view {
 				if (novoNumero == null) {
 					experimentoAtual++;
 					experimentoDoisRealizado.SetTamanhoSequencia(experimentoUmRealizado.tamanhoMaximoLinhaDeBase);
+					experimentoDoisRealizado.SetTamanhoBlocoTentativas(experimentoUm.TamanhoBlocoTentativas);
 					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
 					IniciarNovaFase();
 					return;

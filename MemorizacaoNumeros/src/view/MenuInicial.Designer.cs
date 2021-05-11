@@ -52,6 +52,7 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.btnVerExperimentos2 = new System.Windows.Forms.Button();
 			this.btnIniciarExperimento = new System.Windows.Forms.Button();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.label40 = new System.Windows.Forms.Label();
@@ -110,7 +111,6 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
-			this.btnVerExperimentos2 = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudIdadeParticipante)).BeginInit();
 			this.panel2.SuspendLayout();
@@ -188,6 +188,7 @@
 			this.btnVerParticipantes.TabIndex = 14;
 			this.btnVerParticipantes.Text = "Ver Cadastrados";
 			this.btnVerParticipantes.UseVisualStyleBackColor = true;
+			this.btnVerParticipantes.Click += new System.EventHandler(this.btnVerParticipantes_Click);
 			// 
 			// btnSalvarParticipante
 			// 
@@ -352,6 +353,7 @@
 			this.btnVerExperimentadores.TabIndex = 14;
 			this.btnVerExperimentadores.Text = "Ver Cadastrados";
 			this.btnVerExperimentadores.UseVisualStyleBackColor = true;
+			this.btnVerExperimentadores.Click += new System.EventHandler(this.btnVerExperimentadores_Click);
 			// 
 			// btnSalvarExperimentador
 			// 
@@ -468,6 +470,16 @@
 			this.panel3.Size = new System.Drawing.Size(829, 682);
 			this.panel3.TabIndex = 18;
 			// 
+			// btnVerExperimentos2
+			// 
+			this.btnVerExperimentos2.Location = new System.Drawing.Point(393, 639);
+			this.btnVerExperimentos2.Name = "btnVerExperimentos2";
+			this.btnVerExperimentos2.Size = new System.Drawing.Size(136, 23);
+			this.btnVerExperimentos2.TabIndex = 61;
+			this.btnVerExperimentos2.Text = "Ver Cadastrados Ex. 2";
+			this.btnVerExperimentos2.UseVisualStyleBackColor = true;
+			this.btnVerExperimentos2.Click += new System.EventHandler(this.btnVerExperimentos2_Click);
+			// 
 			// btnIniciarExperimento
 			// 
 			this.btnIniciarExperimento.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -546,6 +558,7 @@
 			this.btnVerExperimentos1.TabIndex = 18;
 			this.btnVerExperimentos1.Text = "Ver Cadastrados Ex. 1";
 			this.btnVerExperimentos1.UseVisualStyleBackColor = true;
+			this.btnVerExperimentos1.Click += new System.EventHandler(this.btnVerExperimentos1_Click);
 			// 
 			// btnSalvarExperimento
 			// 
@@ -697,6 +710,11 @@
 			// nudPontosPorGrau
 			// 
 			this.nudPontosPorGrau.Location = new System.Drawing.Point(19, 611);
+			this.nudPontosPorGrau.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
 			this.nudPontosPorGrau.Name = "nudPontosPorGrau";
 			this.nudPontosPorGrau.Size = new System.Drawing.Size(190, 22);
 			this.nudPontosPorGrau.TabIndex = 32;
@@ -956,15 +974,6 @@
 			this.label10.TabIndex = 1;
 			this.label10.Text = "Experimento 1";
 			// 
-			// btnVerExperimentos2
-			// 
-			this.btnVerExperimentos2.Location = new System.Drawing.Point(393, 639);
-			this.btnVerExperimentos2.Name = "btnVerExperimentos2";
-			this.btnVerExperimentos2.Size = new System.Drawing.Size(136, 23);
-			this.btnVerExperimentos2.TabIndex = 61;
-			this.btnVerExperimentos2.Text = "Ver Cadastrados Ex. 2";
-			this.btnVerExperimentos2.UseVisualStyleBackColor = true;
-			// 
 			// MenuInicial
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -978,6 +987,7 @@
 			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.MaximizeBox = false;
 			this.Name = "MenuInicial";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Menu Inicial";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicial_FormClosing);
 			this.panel1.ResumeLayout(false);
