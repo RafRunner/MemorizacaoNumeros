@@ -81,11 +81,11 @@ namespace MemorizacaoNumeros.src.model {
 				tentativaBlocoAtual++;
 
 				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosLinhaDeBase) {
 						blocoAtual = 0;
-						tentativaBlocoAtual = 0;
 						faseAtual++;
 
 						return true;
@@ -115,11 +115,11 @@ namespace MemorizacaoNumeros.src.model {
 				tentativaBlocoAtual++;
 
 				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao1) {
 						blocoAtual = 0;
-						tentativaBlocoAtual = 0;
 						faseAtual++;
 
 						return true;
@@ -149,11 +149,11 @@ namespace MemorizacaoNumeros.src.model {
 				tentativaBlocoAtual++;
 
 				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao2) {
 						blocoAtual = 0;
-						tentativaBlocoAtual = 0;
 						faseAtual++;
 
 						return true;

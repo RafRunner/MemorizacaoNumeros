@@ -80,6 +80,7 @@
 			this.btnTalvez.TabIndex = 3;
 			this.btnTalvez.Text = "Talvez";
 			this.btnTalvez.UseVisualStyleBackColor = false;
+			this.btnTalvez.Visible = false;
 			this.btnTalvez.Click += new System.EventHandler(this.btnTalvez_Click);
 			// 
 			// tbInput
@@ -101,7 +102,7 @@
 			this.lblMensagem.BackColor = System.Drawing.SystemColors.Desktop;
 			this.lblMensagem.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblMensagem.ForeColor = System.Drawing.Color.Yellow;
-			this.lblMensagem.Location = new System.Drawing.Point(50, 45);
+			this.lblMensagem.Location = new System.Drawing.Point(76, 45);
 			this.lblMensagem.Name = "lblMensagem";
 			this.lblMensagem.Size = new System.Drawing.Size(288, 83);
 			this.lblMensagem.TabIndex = 5;
@@ -115,9 +116,9 @@
 			// 
 			this.pnMensagem.BackColor = System.Drawing.SystemColors.Desktop;
 			this.pnMensagem.Controls.Add(this.lblMensagem);
-			this.pnMensagem.Location = new System.Drawing.Point(1430, 46);
+			this.pnMensagem.Location = new System.Drawing.Point(1386, 48);
 			this.pnMensagem.Name = "pnMensagem";
-			this.pnMensagem.Size = new System.Drawing.Size(384, 179);
+			this.pnMensagem.Size = new System.Drawing.Size(442, 179);
 			this.pnMensagem.TabIndex = 2;
 			this.pnMensagem.Visible = false;
 			// 

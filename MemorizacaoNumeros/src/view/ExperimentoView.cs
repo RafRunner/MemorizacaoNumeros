@@ -58,6 +58,16 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private async void IniciarNovoNumero() {
+			tbInput.Text = "";
+
+			pnNumero.Visible = true;
+			btnCerteza.Visible = false;
+			btnTalvez.Visible = false;
+			pnInput.Visible = false;
+
+			btnCerteza.Enabled = true;
+			btnTalvez.Enabled = true;
+
 			string novoNumero;
 
 			if (experimentoAtual == 1) {
@@ -84,16 +94,6 @@ namespace MemorizacaoNumeros.src.view {
 
 				MostrarMensagem(experimentoDoisRealizado.GrauAtual());
 			}
-
-			tbInput.Text = "";
-
-			pnNumero.Visible = true;
-			btnCerteza.Visible = false;
-			btnTalvez.Visible = false;
-			pnInput.Visible = false;
-
-			btnCerteza.Enabled = true;
-			btnTalvez.Enabled = true;
 
 			lblNumero.Font = new Font(lblNumero.Font.Name, tamanhoFonteOriginal, lblNumero.Font.Style);
 			lblNumero.Text = novoNumero;
@@ -162,10 +162,10 @@ namespace MemorizacaoNumeros.src.view {
 			if (e.KeyData == Keys.Enter) {
 				// Enter foi pressionado
 				var sequenciaDigitada = tbInput.Text;
-				tbInput.Enabled = false;
 
 				if (string.IsNullOrWhiteSpace(sequenciaDigitada)) return;
 
+				tbInput.Enabled = false;
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
@@ -173,7 +173,9 @@ namespace MemorizacaoNumeros.src.view {
 				var certeza = btnCerteza.Enabled;
 				bool novaFase;
 
-				if (experimentoAtual == 1 || experimentoDoisRealizado.faseAtual == 0) {
+				if (experimentoAtual == 1) {
+					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza);
+
 					if (acertou || !certeza) {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
 					}
@@ -183,23 +185,23 @@ namespace MemorizacaoNumeros.src.view {
 						FadeIn(this, 1);
 					}
 				}
-
-				if (experimentoAtual == 1) {
-					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza);
-				}
 				else {
+					var faseAtual = experimentoDoisRealizado.faseAtual;
 					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza);
 
 					MostrarMensagem(experimentoDoisRealizado.GrauAtual());
 
-					if (experimentoDoisRealizado.faseAtual > 0) {
+					if (faseAtual > 0) {
 						await MostrarMensagemTempo($"+{experimentoDoisRealizado.ultimosPontosGanhos} pontos", experimentoUm.TempoTelaPretaITI);
+					}
+					else if (acertou) {
+						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
+					}
 
-						if (!acertou) {
-							FadeOut(this, 1);
-							await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-							FadeIn(this, 1);
-						}
+					if (!acertou) {
+						FadeOut(this, 1);
+						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+						FadeIn(this, 1);
 					}
 				}
 				

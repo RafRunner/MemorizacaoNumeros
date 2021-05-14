@@ -128,7 +128,6 @@ namespace MemorizacaoNumeros.src.model {
 
 					// Terminamos o número de blocos previstos
 					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
-						tentativaBlocoAtual = 0;
 						blocosExecutados = 0;
 
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
