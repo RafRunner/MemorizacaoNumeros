@@ -48,6 +48,7 @@ namespace MemorizacaoNumeros.src.model {
 		// 0 - Linha de Base, 1 - Condição 1, 2 - Condição 2
 		public int faseAtual = 0;
 		public int pontos = 0;
+		public int ultimosPontosGanhos = 0;
 
 		// Eferivamente uma constante, não é constante pois não sabemos ao criar o objeto.
 		private int tamanhoSequencia = 0;
@@ -67,6 +68,11 @@ namespace MemorizacaoNumeros.src.model {
 			if (tamanhoBlocoTentativas == 0) {
 				tamanhoBlocoTentativas = tamanho;
 			}
+		}
+
+		private void SomarPontos(int quantidade) {
+			pontos += quantidade;
+			ultimosPontosGanhos = quantidade;
 		}
 
 		public bool RegistrarResposta(bool acertou, bool certeza) {
@@ -91,18 +97,18 @@ namespace MemorizacaoNumeros.src.model {
 			else if (faseAtual == 1) {
 				if (acertou) {
 					if (certeza) {
-						pontos += experimentoDois.PontosCertezaAcerto1;
+						SomarPontos(experimentoDois.PontosCertezaAcerto1);
 					}
 					else {
-						pontos += experimentoDois.PontosTalvezAcerto1;
+						SomarPontos(experimentoDois.PontosTalvezAcerto1);
 					}
 				}
 				else {
 					if (certeza) {
-						pontos += experimentoDois.PontosCertezaErro1;
+						SomarPontos(experimentoDois.PontosCertezaErro1);
 					}
 					else {
-						pontos += experimentoDois.PontosTalvezErro1;
+						SomarPontos(experimentoDois.PontosTalvezErro1);
 					}
 				}
 
@@ -125,18 +131,18 @@ namespace MemorizacaoNumeros.src.model {
 			else if (faseAtual == 2) {
 				if (acertou) {
 					if (certeza) {
-						pontos += experimentoDois.PontosCertezaAcerto2;
+						SomarPontos(experimentoDois.PontosCertezaAcerto2);
 					}
 					else {
-						pontos += experimentoDois.PontosTalvezAcerto2;
+						SomarPontos(experimentoDois.PontosTalvezAcerto2);
 					}
 				}
 				else {
 					if (certeza) {
-						pontos += experimentoDois.PontosCertezaErro2;
+						SomarPontos(experimentoDois.PontosCertezaErro2);
 					}
 					else {
-						pontos += experimentoDois.PontosTalvezErro2;
+						SomarPontos(experimentoDois.PontosTalvezErro2);
 					}
 				}
 
@@ -153,6 +159,11 @@ namespace MemorizacaoNumeros.src.model {
 						return true;
 					}
 				}
+			}
+
+			// Nunca deve acontecer
+			else if (faseAtual > 2) {
+				return true;
 			}
 
 			return false;

@@ -82,17 +82,18 @@ namespace MemorizacaoNumeros.src.view {
 					return;
 				}
 
-				pnGrau.Visible = true;
+				MostrarMensagem(experimentoDoisRealizado.GrauAtual());
 			}
 
 			tbInput.Text = "";
+
 			pnNumero.Visible = true;
-			btnCerteza.Enabled = true;
-			btnTalvez.Enabled = true;
-			pnCorreto.Visible = false;
 			btnCerteza.Visible = false;
 			btnTalvez.Visible = false;
 			pnInput.Visible = false;
+
+			btnCerteza.Enabled = true;
+			btnTalvez.Enabled = true;
 
 			lblNumero.Font = new Font(lblNumero.Font.Name, tamanhoFonteOriginal, lblNumero.Font.Style);
 			lblNumero.Text = novoNumero;
@@ -140,7 +141,7 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private void btnTalvez_Click(object sender, EventArgs e) {
-			if (!btnTalvez.Enabled) return;
+			if (!btnCerteza.Enabled) return;
 
 			btnCerteza.Enabled = false;
 			pnInput.Visible = true;
@@ -161,6 +162,7 @@ namespace MemorizacaoNumeros.src.view {
 			if (e.KeyData == Keys.Enter) {
 				// Enter foi pressionado
 				var sequenciaDigitada = tbInput.Text;
+				tbInput.Enabled = false;
 
 				if (string.IsNullOrWhiteSpace(sequenciaDigitada)) return;
 
@@ -171,32 +173,37 @@ namespace MemorizacaoNumeros.src.view {
 				var certeza = btnCerteza.Enabled;
 				bool novaFase;
 
+				if (experimentoAtual == 1 || experimentoDoisRealizado.faseAtual == 0) {
+					if (acertou || !certeza) {
+						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
+					}
+					else {
+						FadeOut(this, 1);
+						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+						FadeIn(this, 1);
+					}
+				}
+
 				if (experimentoAtual == 1) {
 					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza);
 				}
 				else {
 					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza);
 
-					lblGrau.Text = experimentoDoisRealizado.GrauAtual();
-					lblGrau.Location = new Point {
-						Y = lblGrau.Location.Y,
-						X = (pnGrau.Width - lblGrau.Width) / 2
-					};
-				}
+					MostrarMensagem(experimentoDoisRealizado.GrauAtual());
 
-				tbInput.Enabled = false;
-				if (acertou) {
-					pnGrau.Visible = false;
-					pnCorreto.Visible = true;
-					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+					if (experimentoDoisRealizado.faseAtual > 0) {
+						await MostrarMensagemTempo($"+{experimentoDoisRealizado.ultimosPontosGanhos} pontos", experimentoUm.TempoTelaPretaITI);
+
+						if (!acertou) {
+							FadeOut(this, 1);
+							await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+							FadeIn(this, 1);
+						}
+					}
 				}
-				else {
-					FadeOut(this, 1);
-					await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-					FadeIn(this, 1);
-				}
+				
 				tbInput.Enabled = true;
-
 				if (novaFase) {
 					IniciarNovaFase();
 				} else {
@@ -215,6 +222,26 @@ namespace MemorizacaoNumeros.src.view {
 			} else {
 				inputAnterior = tbInput.Text;
 			}
+		}
+
+		private void MostrarMensagem(string mensagem) {
+			pnMensagem.Visible = true;
+
+			lblMensagem.Text = mensagem;
+			lblMensagem.Location = new Point {
+				Y = lblMensagem.Location.Y,
+				X = (pnMensagem.Width - lblMensagem.Width) / 2
+			};
+		}
+
+		private void EsconderMensagem() {
+			pnMensagem.Visible = false;
+		}
+
+		private async Task MostrarMensagemTempo(string mensagem, int tempo) {
+			MostrarMensagem(mensagem);
+			await Task.Delay(tempo * 1000);
+			EsconderMensagem();
 		}
 
 		// TODO: melhorar essa parte do fade para ser mais genérica, útil e segura

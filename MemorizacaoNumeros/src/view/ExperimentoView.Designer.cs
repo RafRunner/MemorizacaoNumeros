@@ -29,16 +29,13 @@
 			this.btnCerteza = new System.Windows.Forms.Button();
 			this.btnTalvez = new System.Windows.Forms.Button();
 			this.tbInput = new System.Windows.Forms.TextBox();
-			this.lblCorreto = new System.Windows.Forms.Label();
+			this.lblMensagem = new System.Windows.Forms.Label();
 			this.timerFade = new System.Windows.Forms.Timer(this.components);
-			this.pnCorreto = new System.Windows.Forms.Panel();
+			this.pnMensagem = new System.Windows.Forms.Panel();
 			this.pnInput = new System.Windows.Forms.Panel();
-			this.pnGrau = new System.Windows.Forms.Panel();
-			this.lblGrau = new System.Windows.Forms.Label();
 			this.pnNumero.SuspendLayout();
-			this.pnCorreto.SuspendLayout();
+			this.pnMensagem.SuspendLayout();
 			this.pnInput.SuspendLayout();
-			this.pnGrau.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pnNumero
@@ -98,31 +95,31 @@
 			this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
 			this.tbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyDown);
 			// 
-			// lblCorreto
+			// lblMensagem
 			// 
-			this.lblCorreto.AutoSize = true;
-			this.lblCorreto.BackColor = System.Drawing.SystemColors.Desktop;
-			this.lblCorreto.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCorreto.ForeColor = System.Drawing.Color.Yellow;
-			this.lblCorreto.Location = new System.Drawing.Point(50, 45);
-			this.lblCorreto.Name = "lblCorreto";
-			this.lblCorreto.Size = new System.Drawing.Size(288, 83);
-			this.lblCorreto.TabIndex = 5;
-			this.lblCorreto.Text = "Correto!";
+			this.lblMensagem.AutoSize = true;
+			this.lblMensagem.BackColor = System.Drawing.SystemColors.Desktop;
+			this.lblMensagem.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMensagem.ForeColor = System.Drawing.Color.Yellow;
+			this.lblMensagem.Location = new System.Drawing.Point(50, 45);
+			this.lblMensagem.Name = "lblMensagem";
+			this.lblMensagem.Size = new System.Drawing.Size(288, 83);
+			this.lblMensagem.TabIndex = 5;
+			this.lblMensagem.Text = "Correto!";
 			// 
 			// timerFade
 			// 
 			this.timerFade.Tick += new System.EventHandler(this.timerFade_Tick);
 			// 
-			// pnCorreto
+			// pnMensagem
 			// 
-			this.pnCorreto.BackColor = System.Drawing.SystemColors.Desktop;
-			this.pnCorreto.Controls.Add(this.pnGrau);
-			this.pnCorreto.Controls.Add(this.lblCorreto);
-			this.pnCorreto.Location = new System.Drawing.Point(1430, 46);
-			this.pnCorreto.Name = "pnCorreto";
-			this.pnCorreto.Size = new System.Drawing.Size(384, 179);
-			this.pnCorreto.TabIndex = 2;
+			this.pnMensagem.BackColor = System.Drawing.SystemColors.Desktop;
+			this.pnMensagem.Controls.Add(this.lblMensagem);
+			this.pnMensagem.Location = new System.Drawing.Point(1430, 46);
+			this.pnMensagem.Name = "pnMensagem";
+			this.pnMensagem.Size = new System.Drawing.Size(384, 179);
+			this.pnMensagem.TabIndex = 2;
+			this.pnMensagem.Visible = false;
 			// 
 			// pnInput
 			// 
@@ -134,28 +131,6 @@
 			this.pnInput.Size = new System.Drawing.Size(384, 179);
 			this.pnInput.TabIndex = 5;
 			// 
-			// pnGrau
-			// 
-			this.pnGrau.BackColor = System.Drawing.SystemColors.Desktop;
-			this.pnGrau.Controls.Add(this.lblGrau);
-			this.pnGrau.Location = new System.Drawing.Point(0, 0);
-			this.pnGrau.Name = "pnGrau";
-			this.pnGrau.Size = new System.Drawing.Size(384, 179);
-			this.pnGrau.TabIndex = 6;
-			this.pnGrau.Visible = false;
-			// 
-			// lblGrau
-			// 
-			this.lblGrau.AutoSize = true;
-			this.lblGrau.BackColor = System.Drawing.SystemColors.Desktop;
-			this.lblGrau.Font = new System.Drawing.Font("Microsoft YaHei", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblGrau.ForeColor = System.Drawing.Color.Yellow;
-			this.lblGrau.Location = new System.Drawing.Point(96, 45);
-			this.lblGrau.Name = "lblGrau";
-			this.lblGrau.Size = new System.Drawing.Size(181, 83);
-			this.lblGrau.TabIndex = 5;
-			this.lblGrau.Text = "Grau";
-			// 
 			// ExperimentoView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -163,7 +138,7 @@
 			this.BackColor = System.Drawing.SystemColors.AppWorkspace;
 			this.ClientSize = new System.Drawing.Size(1920, 1061);
 			this.Controls.Add(this.pnInput);
-			this.Controls.Add(this.pnCorreto);
+			this.Controls.Add(this.pnMensagem);
 			this.Controls.Add(this.btnTalvez);
 			this.Controls.Add(this.btnCerteza);
 			this.Controls.Add(this.pnNumero);
@@ -174,12 +149,10 @@
 			this.Text = "ExperimentoView";
 			this.pnNumero.ResumeLayout(false);
 			this.pnNumero.PerformLayout();
-			this.pnCorreto.ResumeLayout(false);
-			this.pnCorreto.PerformLayout();
+			this.pnMensagem.ResumeLayout(false);
+			this.pnMensagem.PerformLayout();
 			this.pnInput.ResumeLayout(false);
 			this.pnInput.PerformLayout();
-			this.pnGrau.ResumeLayout(false);
-			this.pnGrau.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -191,11 +164,9 @@
 		private System.Windows.Forms.Button btnCerteza;
 		private System.Windows.Forms.Button btnTalvez;
 		private System.Windows.Forms.TextBox tbInput;
-		private System.Windows.Forms.Label lblCorreto;
+		private System.Windows.Forms.Label lblMensagem;
 		private System.Windows.Forms.Timer timerFade;
-		private System.Windows.Forms.Panel pnCorreto;
+		private System.Windows.Forms.Panel pnMensagem;
 		private System.Windows.Forms.Panel pnInput;
-		private System.Windows.Forms.Panel pnGrau;
-		private System.Windows.Forms.Label lblGrau;
 	}
 }

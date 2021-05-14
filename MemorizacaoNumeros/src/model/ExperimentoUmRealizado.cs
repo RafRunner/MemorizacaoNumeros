@@ -94,17 +94,18 @@ namespace MemorizacaoNumeros.src.model {
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
-					talvezUltimoBlocoLinhaDeBase = 0;
 
 					// O participante escolheu talvez acima do trashold
 					if (talvezUltimoBlocoLinhaDeBase >= ExperimentoUm.CalculaCriterioTalvezLinhaDeBase()) {
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
+						talvezUltimoBlocoLinhaDeBase = 0;
 						faseAtual++;
 						return true;
 					}
 					// O tamanho da sequência aumenta
 					else {
 						tamanhoAtualSequencia++;
+						talvezUltimoBlocoLinhaDeBase = 0;
 					}
 				}
 			}
@@ -129,17 +130,25 @@ namespace MemorizacaoNumeros.src.model {
 					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
 						tentativaBlocoAtual = 0;
 						blocosExecutados = 0;
-						quantidadeEstimulosFracos = 0;
-						talvezEstimulosFracos = 0;
 
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
+							quantidadeEstimulosFracos = 0;
+							talvezEstimulosFracos = 0;
 							digitosASeremVariados++;
 						}
 						else {
+							quantidadeEstimulosFracos = 0;
+							talvezEstimulosFracos = 0;
+							faseAtual++;
 							return true;
 						}
 					}
 				}
+			}
+
+			// Supostamente nunca deve acontecer
+			else if (faseAtual > 2) {
+				return true;
 			}
 
 			return false;
@@ -149,7 +158,7 @@ namespace MemorizacaoNumeros.src.model {
 		public string GeraNumero() {
 			// Acabou o experimento
 			if (faseAtual > 2) {
-				return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
+				return null;
 			}
 
 			// Inicializando o tamanho da sequência
