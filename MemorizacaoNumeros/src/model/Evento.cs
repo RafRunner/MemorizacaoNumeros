@@ -3,7 +3,7 @@
 		//Construtor vazio para o Dapper
 		public Evento() { }
 
-		public Evento(string texto, string origem) {
+		public Evento(string origem, string texto) {
 			Texto = texto;
 			Origem = origem;
 		}

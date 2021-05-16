@@ -19,11 +19,11 @@ namespace MemorizacaoNumeros.src.arquivos {
 		}
 
 		public static string GetCaminhoAbsoluto(string nomePasta, string nomeArquivo = "") {
-			string caminhoPasta = GetDiretorioDeTrabalho() + "\\" + nomePasta;
+			string caminhoPasta = GetDiretorioDeTrabalho() + @"\" + nomePasta;
 			if (string.IsNullOrEmpty(nomeArquivo)) {
 				return caminhoPasta;
 			}
-			return caminhoPasta + "\\" + nomeArquivo;
+			return caminhoPasta + @"\" + nomeArquivo;
 		}
 
 		public static DirectoryInfo CriaDiretorioAmbiente(string diretorio) {

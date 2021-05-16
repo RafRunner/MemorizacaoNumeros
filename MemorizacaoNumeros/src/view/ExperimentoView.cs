@@ -169,12 +169,13 @@ namespace MemorizacaoNumeros.src.view {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
-				var acertou = sequenciaDigitada == lblNumero.Text;
+				var sequenciaModelo = lblNumero.Text;
+				var acertou = sequenciaDigitada == sequenciaModelo;
 				var certeza = btnCerteza.Enabled;
 				bool novaFase;
 
 				if (experimentoAtual == 1) {
-					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza);
+					novaFase = experimentoUmRealizado.RegistrarResposta(acertou, certeza, sequenciaModelo, sequenciaDigitada);
 
 					if (acertou || !certeza) {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
@@ -187,7 +188,7 @@ namespace MemorizacaoNumeros.src.view {
 				}
 				else {
 					var faseAtual = experimentoDoisRealizado.faseAtual;
-					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza);
+					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza, sequenciaModelo, sequenciaDigitada);
 
 					MostrarMensagem(experimentoDoisRealizado.GrauAtual());
 

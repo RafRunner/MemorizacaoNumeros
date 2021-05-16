@@ -2,6 +2,7 @@
 using MemorizacaoNumeros.src.model;
 using MemorizacaoNumeros.src.service;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -300,6 +301,11 @@ namespace MemorizacaoNumeros.src.view {
 				nudCertezaAcerto2.Value = experimentoDois.PontosCertezaAcerto2;
 				nudPontosPorGrau.Value = experimentoDois.PontosPorGrau;
 			}
+		}
+
+		private void btnAbrirPastaRelatorios_Click(object sender, EventArgs e) {
+			var pastaRelatorios = Ambiente.CriaDiretorioAmbiente(GeradorRelatorios.nomePasta);
+			Process.Start(pastaRelatorios.FullName);
 		}
 	}
 }

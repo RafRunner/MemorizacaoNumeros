@@ -75,7 +75,7 @@ namespace MemorizacaoNumeros.src.model {
 			ultimosPontosGanhos = quantidade;
 		}
 
-		public bool RegistrarResposta(bool acertou, bool certeza) {
+		public bool RegistrarResposta(bool acertou, bool certeza, string sequenciaModelo, string sequenciaDigitada) {
 			// Linha de Base
 			if (faseAtual == 0) {
 				tentativaBlocoAtual++;

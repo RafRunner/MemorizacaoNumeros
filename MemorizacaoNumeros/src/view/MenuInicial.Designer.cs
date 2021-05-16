@@ -521,6 +521,7 @@
 			this.btnAbrirPastaRelatorios.TabIndex = 58;
 			this.btnAbrirPastaRelatorios.Text = "Abrir pasta relatórios";
 			this.btnAbrirPastaRelatorios.UseVisualStyleBackColor = true;
+			this.btnAbrirPastaRelatorios.Click += new System.EventHandler(this.btnAbrirPastaRelatorios_Click);
 			// 
 			// btnMaisSobreOSoftware
 			// 

@@ -64,22 +64,35 @@ namespace MemorizacaoNumeros.src.model {
 		private int blocosExecutados = 0;
 
 		// Retorna true se terminamos uma fase/fomos para uma nova
-		public bool RegistrarResposta(bool acertou, bool certeza) {
+		public bool RegistrarResposta(bool acertou, bool certeza, string sequenciaModelo, string sequenciaDigitada) {
+			// Supostamente nunca deve acontecer
+			if (faseAtual > 2) {
+				return true;
+			}
+
+			var origem = $"1{faseAtual}";
+			var comparacaoSequencias = $"Sequência modelo: {sequenciaModelo}, Sequência digitada: {sequenciaDigitada}.";
+			var acerto = acertou ? "acertou" : "errou";
+			var cert = certeza ? "certeza" : "talvez";
+
 			// Pré treino
 			if (faseAtual == 0) {
 				tamanhoAtualSequencia = ExperimentoUm.TamanhoSequenciaInicial;
 
 				if (acertou) {
 					corretasConsecutivasPreTreino++;
+					//RegistrarEvento(new Evento(origem, $"Participante acertou. Acertos consecutivos: {corretasConsecutivasPreTreino}. {comparacaoSequencias}"));
 
 					// O participante acertou quantidade necessária de vezes consecutivas, vamos para a próxima fase
 					if (corretasConsecutivasPreTreino == ExperimentoUm.CriterioAcertoPreTreino) {
+						//RegistrarEvento(new Evento(origem, $"Acertos consecutivos necessários para finalizar Pré treino alcançados."));
 						corretasConsecutivasPreTreino = 0;
 						faseAtual++;
 						return true;
 					}
 				}
 				else {
+					//RegistrarEvento(new Evento(origem, $"Participante errou. {comparacaoSequencias}"));
 					corretasConsecutivasPreTreino = 0;
 				}
 			}
@@ -90,6 +103,8 @@ namespace MemorizacaoNumeros.src.model {
 				if (!certeza) {
 					talvezUltimoBlocoLinhaDeBase++;
 				}
+
+				//RegistrarEvento(new Evento(origem, $"Participante {acerto}. Participante selecionou {cert}. Talvez selecionados: {talvezUltimoBlocoLinhaDeBase}. {comparacaoSequencias}"));
 
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
@@ -143,11 +158,6 @@ namespace MemorizacaoNumeros.src.model {
 						}
 					}
 				}
-			}
-
-			// Supostamente nunca deve acontecer
-			else if (faseAtual > 2) {
-				return true;
 			}
 
 			return false;
