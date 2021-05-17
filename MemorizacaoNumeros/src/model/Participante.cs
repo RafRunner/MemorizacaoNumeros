@@ -44,5 +44,9 @@ namespace MemorizacaoNumeros.src.model {
 			get => curso;
 			set => curso = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Curso do Participante");
 		}
+
+		public override string ToString() {
+			return $"Nome: {Nome}\nIdade: {Idade}\nEscolaridade: {escolaridade}\nCurso: {Curso}\nEmail: {Email}\nTelefone: {Telefone}\nEndereço: {Endereco}";
+		}
 	}
 }

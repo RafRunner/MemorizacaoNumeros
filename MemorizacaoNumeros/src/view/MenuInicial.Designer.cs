@@ -531,6 +531,7 @@
 			this.btnMaisSobreOSoftware.TabIndex = 54;
 			this.btnMaisSobreOSoftware.Text = "Mais sobre esse software";
 			this.btnMaisSobreOSoftware.UseVisualStyleBackColor = true;
+			this.btnMaisSobreOSoftware.Click += new System.EventHandler(this.btnMaisSobreOSoftware_Click);
 			// 
 			// btnGerarRelatoriosAntigos
 			// 
@@ -538,8 +539,9 @@
 			this.btnGerarRelatoriosAntigos.Name = "btnGerarRelatoriosAntigos";
 			this.btnGerarRelatoriosAntigos.Size = new System.Drawing.Size(190, 23);
 			this.btnGerarRelatoriosAntigos.TabIndex = 57;
-			this.btnGerarRelatoriosAntigos.Text = "Gerar novamente relatório";
+			this.btnGerarRelatoriosAntigos.Text = "Regerar relatório antigo";
 			this.btnGerarRelatoriosAntigos.UseVisualStyleBackColor = true;
+			this.btnGerarRelatoriosAntigos.Click += new System.EventHandler(this.btnGerarRelatoriosAntigos_Click);
 			// 
 			// label39
 			// 

@@ -67,6 +67,9 @@ namespace MemorizacaoNumeros.src.view {
 			if (participante.Id != 0) {
 				idParticipante = participante.Id;
 			}
+			else {
+				participante.Id = idParticipante;
+			}
 
 			return participante;
 		}
@@ -81,6 +84,9 @@ namespace MemorizacaoNumeros.src.view {
 			ExperimentadorService.Salvar(experimentador);
 			if (experimentador.Id != 0) {
 				idExperimentador = experimentador.Id;
+			}
+			else {
+				experimentador.Id = idExperimentador;
 			}
 
 			return experimentador;
@@ -103,6 +109,9 @@ namespace MemorizacaoNumeros.src.view {
 			ExperimentoUmService.Salvar(experimentoUm);
 			if (experimentoUm.Id != 0) {
 				idExperimentoUm = experimentoUm.Id;
+			}
+			else {
+				experimentoUm.Id = idExperimentoUm;
 			}
 
 			return experimentoUm;
@@ -128,6 +137,9 @@ namespace MemorizacaoNumeros.src.view {
 			ExperimentoDoisService.Salvar(experimentoDois);
 			if (experimentoDois.Id != 0) {
 				idExperimentoDois = experimentoDois.Id;
+			}
+			else {
+				experimentoDois.Id = idExperimentoDois;
 			}
 
 			return experimentoDois;
@@ -173,17 +185,17 @@ namespace MemorizacaoNumeros.src.view {
 				Participante = participante,
 				Experimentador = experimentador,
 				ExperimentoUmRealizado = experimentoUmRealizado,
-				ExperimentoDoisRealizado = experimentoDoisRealizado
+				ExperimentoDoisRealizado = experimentoDoisRealizado,
+				DateTimeInicio = DateTime.Now
 			};
 
 			var telaBackgroud = new TelaMensagem("", false);
 			telaBackgroud.BackColor = Color.Black;
 			telaBackgroud.Show();
 
-			experimentoRealizado.DateTimeInicio = DateTime.Now;
-
 			new TelaMensagem(experimentoUm.InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView(experimentoRealizado).ShowDialog();
+			new TelaMensagem("Obrigado! Por favor, chamar o experimentador.", false).ShowDialog();
 		}
 
 		private void btnVerParticipantes_Click(object sender, EventArgs e) {
@@ -306,6 +318,36 @@ namespace MemorizacaoNumeros.src.view {
 		private void btnAbrirPastaRelatorios_Click(object sender, EventArgs e) {
 			var pastaRelatorios = Ambiente.CriaDiretorioAmbiente(GeradorRelatorios.nomePasta);
 			Process.Start(pastaRelatorios.FullName);
+		}
+
+		private void GeraRelatorioNovamente(long idExperimentoRealizado) {
+			var experimentoRealizado = ExperimentoRealizadoService.GetById(idExperimentoRealizado);
+
+			if (File.Exists(Ambiente.GetCaminhoAbsoluto(GeradorRelatorios.nomePasta, experimentoRealizado.Nome + ".txt"))) {
+				MessageBox.Show("Esse relatório já está na pasta de relatórios!", "Aviso");
+				return;
+			}
+
+			var geradorRelatorio = new GeradorRelatorios(experimentoRealizado);
+			geradorRelatorio.GerarRelatorio();
+
+			MessageBox.Show("Relatório gerado novamente com sucesso!", "Sucesso");
+		}
+
+		private void btnGerarRelatoriosAntigos_Click(object sender, EventArgs e) {
+			new GridCrud(
+				"Experimentos Realizados",
+				ExperimentoRealizadoService.GetAllAsObj,
+				ExperimentoRealizado.ordemColunas,
+				AbstractService.FilterDataTable,
+				null,
+				ExperimentoRealizadoService.DeletarPorId,
+				GeraRelatorioNovamente
+			);
+		}
+
+		private void btnMaisSobreOSoftware_Click(object sender, EventArgs e) {
+			MessageBox.Show("Desenvolvido por: Rafael Nunes Santna\nCódigo fonte disponível em: https://github.com/RafRunner/MemorizacaoNumeros", "Informações");
 		}
 	}
 }

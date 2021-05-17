@@ -1,8 +1,9 @@
-﻿using MemorizacaoNumeros.src.model;
+﻿using MemorizacaoNumeros.src.arquivos;
+using MemorizacaoNumeros.src.model;
+using MemorizacaoNumeros.src.service;
 using MemorizacaoNumeros.src.util;
 using System;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly ExperimentoDois experimentoDois;
 		private readonly ExperimentoUmRealizado experimentoUmRealizado;
 		private readonly ExperimentoDoisRealizado experimentoDoisRealizado;
+		private readonly ExperimentoRealizado experimentoRealizado;
 
 		private int experimentoAtual = 1;
 
@@ -36,6 +38,8 @@ namespace MemorizacaoNumeros.src.view {
 			var heightRatio = height / 1080.0;
 			var widthRatio = width / 1920.0;
 
+			this.experimentoRealizado = experimentoRealizado;
+
 			this.experimentoUmRealizado = experimentoRealizado.ExperimentoUmRealizado;
 			this.experimentoUm = this.experimentoUmRealizado.ExperimentoUm;
 
@@ -46,13 +50,14 @@ namespace MemorizacaoNumeros.src.view {
 
 			tamanhoFonteOriginal = lblNumero.Font.Size;
 
+			experimentoUmRealizado.DateTimeInicio = DateTime.Now;
+
 			IniciarNovaFase();
 		}
 
 		private async void IniciarNovaFase() {
 			Opacity = 0;
 			await Task.Delay(experimentoUm.TempoTelaPretaInicial * 1000);
-			FadeIn(this, 1);
 
 			IniciarNovoNumero();
 		}
@@ -68,6 +73,8 @@ namespace MemorizacaoNumeros.src.view {
 			btnCerteza.Enabled = true;
 			btnTalvez.Enabled = true;
 
+			FadeIn(this, 1);
+
 			string novoNumero;
 
 			if (experimentoAtual == 1) {
@@ -76,9 +83,13 @@ namespace MemorizacaoNumeros.src.view {
 				// Iniciamos o experimento 2
 				if (novoNumero == null) {
 					experimentoAtual++;
+
 					experimentoDoisRealizado.SetTamanhoSequencia(experimentoUmRealizado.tamanhoMaximoLinhaDeBase);
 					experimentoDoisRealizado.SetTamanhoBlocoTentativas(experimentoUm.TamanhoBlocoTentativas);
+					experimentoDoisRealizado.DateTimeInicio = DateTime.Now;
+
 					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
+
 					IniciarNovaFase();
 					return;
 				}
@@ -88,6 +99,11 @@ namespace MemorizacaoNumeros.src.view {
 
 				// Acabou o experimento
 				if (novoNumero == null) {
+					ExperimentoRealizadoService.Salvar(experimentoRealizado);
+
+					var geradorRelatorio = new GeradorRelatorios(experimentoRealizado);
+					geradorRelatorio.GerarRelatorio();
+
 					Close();
 					return;
 				}
@@ -183,7 +199,6 @@ namespace MemorizacaoNumeros.src.view {
 					else {
 						FadeOut(this, 1);
 						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-						FadeIn(this, 1);
 					}
 				}
 				else {
@@ -202,7 +217,6 @@ namespace MemorizacaoNumeros.src.view {
 					if (!acertou) {
 						FadeOut(this, 1);
 						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
-						FadeIn(this, 1);
 					}
 				}
 				
@@ -216,7 +230,7 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private void tbInput_TextChanged(object sender, EventArgs e) {
-			if (tbInput.Text != "" && Regex.IsMatch(tbInput.Text, "[^0-9]")) {
+			if (tbInput.Text != "" && !StringUtils.EhNumero(tbInput.Text)) {
 				var startAnterior = tbInput.SelectionStart - 1;
 				var lengthAnterior = tbInput.SelectionLength;
 				tbInput.Text = inputAnterior;

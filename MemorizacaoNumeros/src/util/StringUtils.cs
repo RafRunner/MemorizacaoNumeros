@@ -46,6 +46,10 @@ namespace MemorizacaoNumeros.src.util {
 			return valor;
 		}
 
+		public static bool EhNumero(string val) {
+			return Regex.IsMatch(val, "^[0-9]+$");
+		}
+
 		public static bool HasUniqueCharacters(string str) {
 			char[] chArray = str.ToCharArray();
 

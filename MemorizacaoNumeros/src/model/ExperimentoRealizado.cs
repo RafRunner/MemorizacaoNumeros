@@ -8,11 +8,15 @@ namespace MemorizacaoNumeros.src.model {
 		public static readonly string FORMATO_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 		private static readonly string FORMATO_DATE_TIME_ARQUIVO = "yyyy-MM-dd HH-mm-ss";
 
+		public static string[] ordemColunas = new string[] {
+			"Nome",
+		};
+
 		public long IdExperimentador { get; set; }
 		private Experimentador experimentador;
 		public Experimentador Experimentador {
 			get {
-				if (experimentador == null) ExperimentadorService.GetById(IdExperimentador);
+				if (experimentador == null) experimentador = ExperimentadorService.GetById(IdExperimentador);
 				return experimentador;
 			}
 			set {

@@ -1,5 +1,6 @@
 ﻿using MemorizacaoNumeros.src.model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MemorizacaoNumeros.src.service {
 	public class ExperimentoRealizadoService : AbstractService {
@@ -23,7 +24,17 @@ namespace MemorizacaoNumeros.src.service {
 			return GetAll<ExperimentoRealizado>(nomeTabela);
 		}
 
+		public static List<object> GetAllAsObj() {
+			return GetAll().Cast<object>().ToList();
+		}
+
 		public static void Salvar(ExperimentoRealizado experimento) {
+			ExperimentoUmRealizadoService.Salvar(experimento.ExperimentoUmRealizado);
+			ExperimentoDoisRealizadoService.Salvar(experimento.ExperimentoDoisRealizado);
+
+			experimento.IdExperimentoUmRealizado = experimento.ExperimentoUmRealizado.Id;
+			experimento.IdExperimentoDoisRealizado = experimento.ExperimentoDoisRealizado.Id;
+
 			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
 		}
 

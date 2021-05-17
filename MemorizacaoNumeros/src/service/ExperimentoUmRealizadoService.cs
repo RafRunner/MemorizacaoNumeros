@@ -31,6 +31,7 @@ namespace MemorizacaoNumeros.src.service {
 
 			foreach (var experimento in experimentos) {
 				var eventos = EventoService.GetAllByExperimentoUmRealizado(experimento);
+				eventos.Sort();
 				experimento.SetListaEventos(eventos);
 			}
 

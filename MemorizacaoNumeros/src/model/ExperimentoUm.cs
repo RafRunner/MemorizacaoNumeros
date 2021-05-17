@@ -78,5 +78,18 @@ namespace MemorizacaoNumeros.src.model {
 		public int CalculaCriterioReforcoFaseExperimental(int quantidadeReforcosFracos) {
 			return Convert.ToInt32(Math.Ceiling(quantidadeReforcosFracos * ((float)criterioReforcoFaseExperimental / 100)));
 		}
+
+		public override string ToString() {
+			return $"Instrução Inicial: {InstrucaoInicial}\n" +
+				$"Tempo Tela Preta Inicial: {TempoTelaPretaInicial}s\n" +
+				$"Tempo Tela Preta ITI: {TempoTelaPretaITI}s\n" +
+				$"Tempo Apresentação Estímulo: {TempoApresentacaoEstimulo}s\n" +
+				$"Tamanho Bloco Tentativas: {TamanhoBlocoTentativas}\n" +
+				$"Tamanho Sequência Inicial: {TamanhoSequenciaInicial}\n" +
+				$"Critério Acerto Pré Treino: {CriterioAcertoPreTreino} acertos consecutivos\n" +
+				$"Critério Talvez Linha de Base: superior à {CriterioTalvezLinhaDeBase}%\n" +
+				$"Número Blocos Fase Experimental: {NumeroBlocosFaseExperimental}\n" +
+				$"Critério Reforço Fase Experimental: inferior à {CriterioReforcoFaseExperimental}%";
+		}
 	}
 }

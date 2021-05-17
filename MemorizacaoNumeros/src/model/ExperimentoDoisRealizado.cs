@@ -265,7 +265,7 @@ namespace MemorizacaoNumeros.src.model {
 		}
 
 		public string GrauAtual() {
-			return ExperimentoDois.graus[Math.Min(pontos / experimentoDois.PontosPorGrau, ExperimentoDois.graus.Length)];
+			return ExperimentoDois.graus[Math.Min(pontos / experimentoDois.PontosPorGrau, ExperimentoDois.graus.Length - 1)];
 		}
 	}
 }
