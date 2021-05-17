@@ -63,6 +63,41 @@ namespace MemorizacaoNumeros.src.model {
 		private int talvezEstimulosFracos = 0;
 		private int blocosExecutados = 0;
 
+		// Variáveis para o resumo do experimento
+
+		private int acertosPreTreino = 0;
+		private int errosPreTreino = 0;
+
+		// Separados por tamanho da sequência
+		private List<int> acertosTalvezLinhaDeBase = new List<int>() { 0 };
+		private List<int> errosTalvezLinhaDeBase = new List<int>() { 0 };
+		private List<int> acertosCertezaLinhaDeBase = new List<int>() { 0 };
+		private List<int> errosCertezaLinhaDeBase = new List<int>() { 0 };
+
+		private int acertosTalvezFracoExperimental = 0;
+		private int errosTalvezFracoExperimental = 0;
+		private int acertosCertezaFracoExperimental = 0;
+		private int errosCertezaFracoExperimental = 0;
+		private int acertosTalvezForteExperimental = 0;
+		private int errosTalvezForteExperimental = 0;
+		private int acertosCertezaForteExperimental = 0;
+		private int errosCertezaForteExperimental = 0;
+
+		private string NomeFaseAtual {
+			get {
+				if (faseAtual == 0) {
+					return "Pré Treino";
+				}
+				if (faseAtual == 1) {
+					return "Linha de Base";
+				}
+				if (faseAtual == 2) {
+					return "Fase Experimental";
+				}
+				return "Fim do Experimento";
+			}
+		}
+
 		// Retorna true se terminamos uma fase/fomos para uma nova
 		public bool RegistrarResposta(bool acertou, bool certeza, string sequenciaModelo, string sequenciaDigitada) {
 			// Supostamente nunca deve acontecer
@@ -70,7 +105,8 @@ namespace MemorizacaoNumeros.src.model {
 				return true;
 			}
 
-			var origem = $"1{faseAtual}";
+			var origem = NomeFaseAtual;
+			var origemResumo = faseAtual.ToString();
 			var comparacaoSequencias = $"Sequência modelo: {sequenciaModelo}, Sequência digitada: {sequenciaDigitada}.";
 			var acerto = acertou ? "acertou" : "errou";
 			var cert = certeza ? "certeza" : "talvez";
@@ -81,46 +117,93 @@ namespace MemorizacaoNumeros.src.model {
 
 				if (acertou) {
 					corretasConsecutivasPreTreino++;
-					//RegistrarEvento(new Evento(origem, $"Participante acertou. Acertos consecutivos: {corretasConsecutivasPreTreino}. {comparacaoSequencias}"));
+					acertosPreTreino++;
+
+					RegistrarEvento(new Evento(origem, $"Participante acertou. Acertos consecutivos: {corretasConsecutivasPreTreino}. {comparacaoSequencias}"));
 
 					// O participante acertou quantidade necessária de vezes consecutivas, vamos para a próxima fase
 					if (corretasConsecutivasPreTreino == ExperimentoUm.CriterioAcertoPreTreino) {
-						//RegistrarEvento(new Evento(origem, $"Acertos consecutivos necessários para finalizar Pré treino alcançados."));
 						corretasConsecutivasPreTreino = 0;
 						faseAtual++;
+
+						RegistrarEvento(new Evento(origem, $"Acertos consecutivos necessários para finalizar Pré treino alcançados."));
+						RegistrarEvento(new Evento(origemResumo, $"Acertos;Erros: {acertosPreTreino};{errosPreTreino}"));
+
 						return true;
 					}
 				}
 				else {
-					//RegistrarEvento(new Evento(origem, $"Participante errou. {comparacaoSequencias}"));
+					errosPreTreino++;
 					corretasConsecutivasPreTreino = 0;
+
+					RegistrarEvento(new Evento(origem, $"Participante errou. {comparacaoSequencias}"));
 				}
 			}
 			// Linha de Base
 			else if (faseAtual == 1) {
 				tentativaBlocoAtual++;
 
+				var index = tamanhoAtualSequencia - experimentoUm.TamanhoSequenciaInicial;
+
+				if (acertou) {
+					if (certeza) {
+						acertosCertezaLinhaDeBase[index]++;
+					}
+					else {
+						acertosTalvezLinhaDeBase[index]++;
+					}
+				}
+				else {
+					if (certeza) {
+						errosCertezaLinhaDeBase[index]++;
+					}
+					else {
+						errosTalvezLinhaDeBase[index]++;
+					}
+				}
+
 				if (!certeza) {
 					talvezUltimoBlocoLinhaDeBase++;
 				}
 
-				//RegistrarEvento(new Evento(origem, $"Participante {acerto}. Participante selecionou {cert}. Talvez selecionados: {talvezUltimoBlocoLinhaDeBase}. {comparacaoSequencias}"));
+				RegistrarEvento(new Evento(origem, $"Participante {acerto}, selecionou {cert}. {comparacaoSequencias}"));
 
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 
+					RegistrarEvento(new Evento(origem, $"Fim do bloco de tentativas. Tamanho sequência atual: {tamanhoAtualSequencia}"));
+
 					// O participante escolheu talvez acima do trashold
 					if (talvezUltimoBlocoLinhaDeBase >= ExperimentoUm.CalculaCriterioTalvezLinhaDeBase()) {
+						RegistrarEvento(new Evento(origem,
+							$"Quantidade de talvez acima do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Passando para próxima fase"));
+
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
 						talvezUltimoBlocoLinhaDeBase = 0;
 						faseAtual++;
+
+						for (int i = 0; i <= index; i++) {
+							RegistrarEvento(new Evento(origemResumo,
+								$"Tamanho {experimentoUm.TamanhoSequenciaInicial + i}: Acertos certeza;Erros certeza: {acertosCertezaLinhaDeBase[i]};{errosCertezaLinhaDeBase[i]}"));
+							RegistrarEvento(new Evento(origemResumo,
+								$"Tamanho {experimentoUm.TamanhoSequenciaInicial + i}: Acertos talvez;Erros talvez: {acertosTalvezLinhaDeBase[i]};{errosTalvezLinhaDeBase[i]}"));
+						}
+
 						return true;
 					}
 					// O tamanho da sequência aumenta
 					else {
+						RegistrarEvento(new Evento(origem,
+							$"Quantidade de talvez abaixo do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Aumentando tamanho da sequência"));
+
 						tamanhoAtualSequencia++;
 						talvezUltimoBlocoLinhaDeBase = 0;
+
+						acertosCertezaLinhaDeBase.Add(0);
+						acertosTalvezLinhaDeBase.Add(0);
+						errosCertezaLinhaDeBase.Add(0);
+						errosTalvezLinhaDeBase.Add(0);
 					}
 				}
 			}
@@ -130,30 +213,85 @@ namespace MemorizacaoNumeros.src.model {
 				tentativaBlocoAtual++;
 
 				if (tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase) {
+					if (acertou) {
+						if (certeza) {
+							acertosCertezaFracoExperimental++;
+						}
+						else {
+							acertosTalvezFracoExperimental++;
+						}
+					}
+					else {
+						if (certeza) {
+							errosCertezaFracoExperimental++;
+						}
+						else {
+							errosTalvezFracoExperimental++;
+						}
+					}
+				}
+				else {
+					if (acertou) {
+						if (certeza) {
+							acertosCertezaForteExperimental++;
+						}
+						else {
+							acertosTalvezForteExperimental++;
+						}
+					}
+					else {
+						if (certeza) {
+							errosCertezaForteExperimental++;
+						}
+						else {
+							errosTalvezForteExperimental++;
+						}
+					}
+				}
+
+				if (tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase) {
 					quantidadeEstimulosFracos++;
 					if (!certeza) {
 						talvezEstimulosFracos++;
 					}
 				}
 
+				var forca = tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase ? "Fraco" : "Forte";
+
+				RegistrarEvento(new Evento(origem,$"Estímulo {forca}. Participante {acerto}, selecionou {cert}. {comparacaoSequencias}"));
+
 				// Acabamos de terminar um bloco
 				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
 					blocosExecutados++;
 					tentativaBlocoAtual = 0;
+
+					RegistrarEvento(new Evento(origem, $"Fim do bloco {blocosExecutados}"));
 
 					// Terminamos o número de blocos previstos
 					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
 						blocosExecutados = 0;
 
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
+							RegistrarEvento(new Evento(origem,
+								$"Talvez selecionados em estímulos fracos insuficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Aumentando a variação de dígitos"));
+
 							quantidadeEstimulosFracos = 0;
 							talvezEstimulosFracos = 0;
 							digitosASeremVariados++;
 						}
 						else {
+							RegistrarEvento(new Evento(origem,
+								$"Talvez selecionados em estímulos fracos suficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Fim do Experimento Um"));
+
 							quantidadeEstimulosFracos = 0;
 							talvezEstimulosFracos = 0;
 							faseAtual++;
+
+							RegistrarEvento(new Evento(origemResumo, $"Acertos certeza fraco;Erros certeza fraco: {acertosCertezaFracoExperimental};{errosCertezaFracoExperimental}"));
+							RegistrarEvento(new Evento(origemResumo, $"Acertos talvez fraco;Erros talvez fraco: {acertosTalvezFracoExperimental};{errosTalvezFracoExperimental}"));
+							RegistrarEvento(new Evento(origemResumo, $"Acertos certeza forte;Erros certeza forte: {acertosCertezaForteExperimental};{errosCertezaForteExperimental}"));
+							RegistrarEvento(new Evento(origemResumo, $"Acertos talvez forte;Erros talvez forte: {acertosTalvezForteExperimental};{errosTalvezForteExperimental}"));
+
 							return true;
 						}
 					}

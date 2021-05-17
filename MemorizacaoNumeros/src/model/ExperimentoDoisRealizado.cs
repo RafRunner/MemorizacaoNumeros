@@ -75,18 +75,88 @@ namespace MemorizacaoNumeros.src.model {
 			ultimosPontosGanhos = quantidade;
 		}
 
+		// Variáveis para o resumo do experimento
+
+		private int acertosCertezaLinhaDeBase;
+		private int errosCertezaLinhaDeBase;
+		private int acertosTalvezLinhaDeBase;
+		private int errosTalvezLinhaDeBase;
+
+		private int acertosCertezaCondicao1;
+		private int errosCertezaCondicao1;
+		private int acertosTalvezCondicao1;
+		private int errosTalvezCondicao1;
+
+		private int acertosCertezaCondicao2;
+		private int errosCertezaCondicao2;
+		private int acertosTalvezCondicao2;
+		private int errosTalvezCondicao2;
+
+		private string NomeFaseAtual {
+			get {
+				if (faseAtual == 0) {
+					return "Pré Treino";
+				}
+				if (faseAtual == 1) {
+					return "Linha de Base";
+				}
+				if (faseAtual == 2) {
+					return "Fase Experimental";
+				}
+				return "Fim do Experimento";
+			}
+		}
+
+
 		public bool RegistrarResposta(bool acertou, bool certeza, string sequenciaModelo, string sequenciaDigitada) {
+			// Nunca deve acontecer
+			if (faseAtual > 2) {
+				return true;
+			}
+
+			var origem = NomeFaseAtual;
+			var origemResumo = faseAtual.ToString();
+			var comparacaoSequencias = $"Sequência modelo: {sequenciaModelo}, Sequência digitada: {sequenciaDigitada}.";
+			var acerto = acertou ? "acertou" : "errou";
+			var cert = certeza ? "certeza" : "talvez";
+
+			RegistrarEvento(new Evento(origem, $"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}"));
+
 			// Linha de Base
 			if (faseAtual == 0) {
 				tentativaBlocoAtual++;
+
+				if (acertou) {
+					if (certeza) {
+						acertosCertezaLinhaDeBase++;
+					}
+					else {
+						acertosTalvezLinhaDeBase++;
+					}
+				}
+				else {
+					if (certeza) {
+						errosCertezaLinhaDeBase++;
+					}
+					else {
+						errosTalvezLinhaDeBase++;
+					}
+				}
 
 				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
+					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosLinhaDeBase}"));
+
 					if (blocoAtual == experimentoDois.QuantidadeBlocosLinhaDeBase) {
 						blocoAtual = 0;
 						faseAtual++;
+
+						RegistrarEvento(new Evento(origem, "Fim da Linha de Base"));
+
+						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaLinhaDeBase};{errosCertezaLinhaDeBase}"));
+						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezLinhaDeBase};{errosTalvezLinhaDeBase}"));
 
 						return true;
 					}
@@ -97,17 +167,21 @@ namespace MemorizacaoNumeros.src.model {
 			else if (faseAtual == 1) {
 				if (acertou) {
 					if (certeza) {
+						acertosCertezaCondicao1++;
 						SomarPontos(experimentoDois.PontosCertezaAcerto1);
 					}
 					else {
+						acertosTalvezCondicao1++;
 						SomarPontos(experimentoDois.PontosTalvezAcerto1);
 					}
 				}
 				else {
 					if (certeza) {
+						errosCertezaCondicao1++;
 						SomarPontos(experimentoDois.PontosCertezaErro1);
 					}
 					else {
+						errosTalvezCondicao1++;
 						SomarPontos(experimentoDois.PontosTalvezErro1);
 					}
 				}
@@ -118,9 +192,16 @@ namespace MemorizacaoNumeros.src.model {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
+					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao1}"));
+
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao1) {
 						blocoAtual = 0;
 						faseAtual++;
+
+						RegistrarEvento(new Evento(origem, "Fim da Condição 1"));
+
+						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaCondicao1};{errosCertezaCondicao1}"));
+						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezCondicao1};{errosTalvezCondicao1}"));
 
 						return true;
 					}
@@ -131,17 +212,21 @@ namespace MemorizacaoNumeros.src.model {
 			else if (faseAtual == 2) {
 				if (acertou) {
 					if (certeza) {
+						acertosCertezaCondicao2++;
 						SomarPontos(experimentoDois.PontosCertezaAcerto2);
 					}
 					else {
+						acertosTalvezCondicao2++;
 						SomarPontos(experimentoDois.PontosTalvezAcerto2);
 					}
 				}
 				else {
 					if (certeza) {
+						errosCertezaCondicao2++;
 						SomarPontos(experimentoDois.PontosCertezaErro2);
 					}
 					else {
+						errosTalvezCondicao2++;
 						SomarPontos(experimentoDois.PontosTalvezErro2);
 					}
 				}
@@ -152,18 +237,20 @@ namespace MemorizacaoNumeros.src.model {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
+					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao2}"));
+
 					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao2) {
 						blocoAtual = 0;
 						faseAtual++;
 
+						RegistrarEvento(new Evento(origem, "Fim da Condição 2"));
+
+						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaCondicao2};{errosCertezaCondicao2}"));
+						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezCondicao2};{errosTalvezCondicao2}"));
+
 						return true;
 					}
 				}
-			}
-
-			// Nunca deve acontecer
-			else if (faseAtual > 2) {
-				return true;
 			}
 
 			return false;
