@@ -72,7 +72,7 @@ namespace MemorizacaoNumeros.src.model {
 		}
 
 		public string GetNomeArquivo() {
-			return $"{DateTimeInicio.ToString(FORMATO_DATE_TIME_ARQUIVO)} - {Participante.Nome} - {Experimentador.Nome}";
+			return $"{DateTimeInicio.ToString(FORMATO_DATE_TIME_ARQUIVO)} - {Participante.Nome} - {Experimentador.Nome}.txt";
 		}
 
 		public string Nome {

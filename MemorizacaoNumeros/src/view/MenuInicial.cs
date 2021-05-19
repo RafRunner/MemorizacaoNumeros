@@ -322,13 +322,13 @@ namespace MemorizacaoNumeros.src.view {
 
 		private void GeraRelatorioNovamente(long idExperimentoRealizado) {
 			var experimentoRealizado = ExperimentoRealizadoService.GetById(idExperimentoRealizado);
+			var geradorRelatorio = new GeradorRelatorios(experimentoRealizado);
 
-			if (File.Exists(Ambiente.GetCaminhoAbsoluto(GeradorRelatorios.nomePasta, experimentoRealizado.Nome + ".txt"))) {
+			if (geradorRelatorio.ExperimentoJaTemRelatorioNaPasta()) {
 				MessageBox.Show("Esse relatório já está na pasta de relatórios!", "Aviso");
 				return;
 			}
 
-			var geradorRelatorio = new GeradorRelatorios(experimentoRealizado);
 			geradorRelatorio.GerarRelatorio();
 
 			MessageBox.Show("Relatório gerado novamente com sucesso!", "Sucesso");

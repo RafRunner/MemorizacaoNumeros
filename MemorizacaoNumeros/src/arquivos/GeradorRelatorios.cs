@@ -19,9 +19,13 @@ namespace MemorizacaoNumeros.src.arquivos {
 			this.experimento = experimento;
 		}
 
+		public bool ExperimentoJaTemRelatorioNaPasta() {
+			return File.Exists(Ambiente.GetCaminhoAbsoluto(nomePasta, experimento.GetNomeArquivo()));
+		}
+
 		public void GerarRelatorio() {
 			Ambiente.CriaDiretorioAmbiente(nomePasta);
-			var nomeArquivo = experimento.GetNomeArquivo() + ".txt";
+			var nomeArquivo = experimento.GetNomeArquivo(;
 			var caminhoCompleto = Ambiente.GetCaminhoAbsoluto(nomePasta, nomeArquivo);
 
 			GeraCabecalho();
