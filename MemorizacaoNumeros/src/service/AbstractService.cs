@@ -83,7 +83,7 @@ namespace MemorizacaoNumeros.src.service {
 
 			return itens.FindAll(item => {
 				foreach (var p in type.GetProperties()) {
-					if (p.GetValue(item).ToString().ToLower().Contains(textoDeBusca)) {
+					if (p.GetValue(item).ToString().ToLower().Contains(textoDeBusca.ToLower())) {
 						return true;
 					}
 				}
