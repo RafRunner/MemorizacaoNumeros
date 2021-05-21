@@ -25,7 +25,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 
 		public void GerarRelatorio() {
 			Ambiente.CriaDiretorioAmbiente(nomePasta);
-			var nomeArquivo = experimento.GetNomeArquivo(;
+			var nomeArquivo = experimento.GetNomeArquivo();
 			var caminhoCompleto = Ambiente.GetCaminhoAbsoluto(nomePasta, nomeArquivo);
 
 			GeraCabecalho();
