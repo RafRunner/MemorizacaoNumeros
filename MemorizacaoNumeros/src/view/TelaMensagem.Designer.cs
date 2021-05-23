@@ -30,10 +30,10 @@
 			// lblMensagem
 			// 
 			this.lblMensagem.AutoSize = true;
-			this.lblMensagem.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMensagem.Font = new System.Drawing.Font("Microsoft YaHei", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblMensagem.Location = new System.Drawing.Point(363, 180);
 			this.lblMensagem.Name = "lblMensagem";
-			this.lblMensagem.Size = new System.Drawing.Size(188, 41);
+			this.lblMensagem.Size = new System.Drawing.Size(206, 46);
 			this.lblMensagem.TabIndex = 0;
 			this.lblMensagem.Text = "Mensagem";
 			// 
@@ -54,6 +54,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.Control;
 			this.ClientSize = new System.Drawing.Size(1920, 1061);
 			this.Controls.Add(this.btnOk);
 			this.Controls.Add(this.lblMensagem);

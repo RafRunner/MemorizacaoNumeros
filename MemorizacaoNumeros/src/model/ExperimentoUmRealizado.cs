@@ -28,6 +28,10 @@ namespace MemorizacaoNumeros.src.model {
 
 		private List<Evento> eventos = new List<Evento>();
 
+		public void RegistrarEvento(string descricao) {
+			RegistrarEvento(new Evento(NomeFaseAtual, descricao));
+		}
+
 		public void RegistrarEvento(Evento evento) {
 			evento.Horario = Convert.ToInt64((DateTime.Now - DateTimeInicio).TotalSeconds);
 			eventos.Add(evento);

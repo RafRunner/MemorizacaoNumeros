@@ -58,7 +58,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 
 				var horarioEvento = horaInicio.AddSeconds(evento.Horario);
 
-				relatorio.Append(horarioEvento.ToString(formatoHora)).Append(" - ").AppendLine(evento.Texto);
+				relatorio.Append(horarioEvento.ToString(formatoHora)).Append(" - ").Append(evento.Origem).Append(" - ").AppendLine(evento.Texto);
 			}
 		}
 

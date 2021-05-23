@@ -33,6 +33,7 @@
 			this.timerFade = new System.Windows.Forms.Timer(this.components);
 			this.pnMensagem = new System.Windows.Forms.Panel();
 			this.pnInput = new System.Windows.Forms.Panel();
+			this.btnInvisivel = new System.Windows.Forms.Button();
 			this.pnNumero.SuspendLayout();
 			this.pnMensagem.SuspendLayout();
 			this.pnInput.SuspendLayout();
@@ -42,7 +43,7 @@
 			// 
 			this.pnNumero.BackColor = System.Drawing.SystemColors.Desktop;
 			this.pnNumero.Controls.Add(this.lblNumero);
-			this.pnNumero.Location = new System.Drawing.Point(768, 275);
+			this.pnNumero.Location = new System.Drawing.Point(768, 750);
 			this.pnNumero.Name = "pnNumero";
 			this.pnNumero.Size = new System.Drawing.Size(384, 179);
 			this.pnNumero.TabIndex = 1;
@@ -127,10 +128,18 @@
 			this.pnInput.BackColor = System.Drawing.SystemColors.Window;
 			this.pnInput.Controls.Add(this.tbInput);
 			this.pnInput.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-			this.pnInput.Location = new System.Drawing.Point(768, 750);
+			this.pnInput.Location = new System.Drawing.Point(768, 275);
 			this.pnInput.Name = "pnInput";
 			this.pnInput.Size = new System.Drawing.Size(384, 179);
 			this.pnInput.TabIndex = 5;
+			// 
+			// btnInvisivel
+			// 
+			this.btnInvisivel.Location = new System.Drawing.Point(10000, 315);
+			this.btnInvisivel.Name = "btnInvisivel";
+			this.btnInvisivel.Size = new System.Drawing.Size(75, 23);
+			this.btnInvisivel.TabIndex = 6;
+			this.btnInvisivel.UseVisualStyleBackColor = true;
 			// 
 			// ExperimentoView
 			// 
@@ -138,6 +147,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.AppWorkspace;
 			this.ClientSize = new System.Drawing.Size(1920, 1061);
+			this.Controls.Add(this.btnInvisivel);
 			this.Controls.Add(this.pnInput);
 			this.Controls.Add(this.pnMensagem);
 			this.Controls.Add(this.btnTalvez);
@@ -169,5 +179,6 @@
 		private System.Windows.Forms.Timer timerFade;
 		private System.Windows.Forms.Panel pnMensagem;
 		private System.Windows.Forms.Panel pnInput;
+		private System.Windows.Forms.Button btnInvisivel;
 	}
 }

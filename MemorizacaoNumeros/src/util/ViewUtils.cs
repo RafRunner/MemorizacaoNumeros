@@ -84,8 +84,8 @@ namespace MemorizacaoNumeros.src.util {
 
             foreach (var word in words) {
                 if (TextRenderer.MeasureText(currentLine + word, label.Font).Width > widthGoal) {
-                    brokenText += "\r\n";
-                    currentLine = "";
+                    currentLine = word + " ";
+                    brokenText += "\r\n" + word + " ";
                     continue;
                 }
 

@@ -22,8 +22,8 @@ namespace MemorizacaoNumeros.src.view {
 
 		private int experimentoAtual = 1;
 
-		private string inputAnterior = "";
 		private float tamanhoFonteOriginal;
+		private bool tbInputEnabled = false;
 
 		// Variáveis do timer de fade
 		private bool fadingIn;
@@ -46,6 +46,12 @@ namespace MemorizacaoNumeros.src.view {
 			this.experimentoDoisRealizado = experimentoRealizado.ExperimentoDoisRealizado;
 			this.experimentoDois = this.experimentoDoisRealizado.ExperimentoDois;
 
+			Opacity = 0;
+			btnCerteza.Visible = false;
+			btnTalvez.Visible = false;
+			pnInput.Visible = false;
+			tbInput.Text = "";
+
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
 			tamanhoFonteOriginal = lblNumero.Font.Size;
@@ -59,16 +65,15 @@ namespace MemorizacaoNumeros.src.view {
 			Opacity = 0;
 			await Task.Delay(experimentoUm.TempoTelaPretaInicial * 1000);
 
+			if (experimentoAtual == 1 && experimentoUmRealizado.faseAtual == 1) {
+				new TelaMensagem(experimentoUm.InstrucaoLinhaDeBase, true).ShowDialog();
+			}
+
 			IniciarNovoNumero();
 		}
 
 		private async void IniciarNovoNumero() {
-			tbInput.Text = "";
-
 			pnNumero.Visible = true;
-			btnCerteza.Visible = false;
-			btnTalvez.Visible = false;
-			pnInput.Visible = false;
 
 			btnCerteza.Enabled = true;
 			btnTalvez.Enabled = true;
@@ -108,7 +113,9 @@ namespace MemorizacaoNumeros.src.view {
 					return;
 				}
 
-				MostrarMensagem(experimentoDoisRealizado.GrauAtual());
+				if (experimentoDoisRealizado.faseAtual > 0) {
+					MostrarMensagem(experimentoDoisRealizado.GrauAtual());
+				}
 			}
 
 			lblNumero.Font = new Font(lblNumero.Font.Name, tamanhoFonteOriginal, lblNumero.Font.Style);
@@ -125,43 +132,50 @@ namespace MemorizacaoNumeros.src.view {
 				X = (pnNumero.Size.Width - lblNumero.Size.Width) / 2
 			};
 
+			RegistrarEvento($"Inciando apresentação de um novo número: {novoNumero}");
+
 			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
 
-			if (experimentoAtual == 1) {
-				pnNumero.Visible = false;
+			pnNumero.Visible = false;
 
-				if (experimentoUmRealizado.faseAtual != 0) {
-					SortearPosicaoBotoes();
-					btnCerteza.Visible = true;
-					btnTalvez.Visible = true;
-				}
-				else {
-					pnInput.Visible = true;
-					tbInput.Focus();
-				}
+			if (experimentoAtual == 1 && experimentoUmRealizado.faseAtual == 0) {
+				PreparaParaReceberInput();
 			}
 			else {
 				SortearPosicaoBotoes();
-				pnNumero.Visible = false;
 				btnCerteza.Visible = true;
 				btnTalvez.Visible = true;
+				btnInvisivel.Focus();
 			}
 		}
 
-		private void btnCerteza_Click(object sender, EventArgs e) {
-			if (!btnTalvez.Enabled) return;
-
-			btnTalvez.Enabled = false;
+		private void PreparaParaReceberInput() {
+			tbInputEnabled = true;
 			pnInput.Visible = true;
 			tbInput.Focus();
 		}
 
+		private void btnCerteza_Click(object sender, EventArgs e) {
+			if (!btnTalvez.Enabled) {
+				tbInput.Focus();
+				return;
+			}
+
+			RegistrarEvento("Participante selecionou 'Certeza'");
+
+			btnTalvez.Enabled = false;
+			PreparaParaReceberInput();
+		}
+
 		private void btnTalvez_Click(object sender, EventArgs e) {
-			if (!btnCerteza.Enabled) return;
+			if (!btnCerteza.Enabled) {
+				tbInput.Focus();
+				return;
+			}
+			RegistrarEvento("Participante selecionou 'Talvez'");
 
 			btnCerteza.Enabled = false;
-			pnInput.Visible = true;
-			tbInput.Focus();
+			PreparaParaReceberInput();
 		}
 
 		private void SortearPosicaoBotoes() {
@@ -175,13 +189,34 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private async void tbInput_KeyDown(object sender, KeyEventArgs e) {
+			// Deixandoas teclas de função serem lidadas pelo sistema
+			if (e.KeyCode >= Keys.F1 && e.KeyCode <= Keys.F9) {
+				return;
+			}
+
+			// Enable à mão
+			if (!tbInputEnabled) {
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+			// Todo input que não for enter ou número é ignorado. Isso inclui navegação e correção da sequência
+			if (e.KeyData != Keys.Enter && !((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) || (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9))) {
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
 			if (e.KeyData == Keys.Enter) {
 				// Enter foi pressionado
 				var sequenciaDigitada = tbInput.Text;
 
 				if (string.IsNullOrWhiteSpace(sequenciaDigitada)) return;
 
-				tbInput.Enabled = false;
+				ApagarResposta();
+
+				tbInputEnabled = false;
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
@@ -205,8 +240,6 @@ namespace MemorizacaoNumeros.src.view {
 					var faseAtual = experimentoDoisRealizado.faseAtual;
 					novaFase = experimentoDoisRealizado.RegistrarResposta(acertou, certeza, sequenciaModelo, sequenciaDigitada);
 
-					MostrarMensagem(experimentoDoisRealizado.GrauAtual());
-
 					if (faseAtual > 0) {
 						await MostrarMensagemTempo($"+{experimentoDoisRealizado.ultimosPontosGanhos} pontos", experimentoUm.TempoTelaPretaITI);
 					}
@@ -214,13 +247,12 @@ namespace MemorizacaoNumeros.src.view {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
 					}
 
-					if (!acertou) {
+					if (!acertou && certeza) {
 						FadeOut(this, 1);
 						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
 					}
 				}
 				
-				tbInput.Enabled = true;
 				if (novaFase) {
 					IniciarNovaFase();
 				} else {
@@ -229,15 +261,26 @@ namespace MemorizacaoNumeros.src.view {
 			}
 		}
 
+		private async void ApagarResposta() {
+			btnInvisivel.Focus();
+			await Task.Delay(1000);
+			tbInput.Text = "";
+			pnInput.Visible = false;
+			btnCerteza.Visible = false;
+			btnTalvez.Visible = false;
+		}
+
 		private void tbInput_TextChanged(object sender, EventArgs e) {
-			if (tbInput.Text != "" && !StringUtils.EhNumero(tbInput.Text)) {
-				var startAnterior = tbInput.SelectionStart - 1;
-				var lengthAnterior = tbInput.SelectionLength;
-				tbInput.Text = inputAnterior;
-				tbInput.SelectionStart = startAnterior;
-				tbInput.SelectionLength = lengthAnterior;
-			} else {
-				inputAnterior = tbInput.Text;
+			if (tbInput.Text.Length == 0) return;
+			RegistrarEvento($"{tbInput.Text[tbInput.Text.Length - 1]} digitado");
+		}
+
+		private void RegistrarEvento(string evento) {
+			if (experimentoAtual == 1) {
+				experimentoUmRealizado.RegistrarEvento(evento);
+			}
+			else {
+				experimentoDoisRealizado.RegistrarEvento(evento);
 			}
 		}
 

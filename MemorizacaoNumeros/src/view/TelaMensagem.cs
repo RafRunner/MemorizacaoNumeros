@@ -25,18 +25,18 @@ namespace MemorizacaoNumeros.src.view {
 			lblMensagem.Text = mensagem;
 			lblMensagem.Location = new Point((width - lblMensagem.Width) / 2, lblMensagem.Location.Y);
 
+			ViewUtils.Justify(lblMensagem);
+
 			if (mostrarBotao) {
 				ViewUtils.CorrigeTamanhoPosicaoFonte(btnOk, heightRatio, widthRatio);
 				btnOk.Location = new Point {
 					X = btnOk.Location.X,
-					Y = lblMensagem.Location.Y + lblMensagem.Height
+					Y = lblMensagem.Location.Y + lblMensagem.Height + 20
 				};
 			}
 			else {
 				btnOk.Visible = false;
 			}
-
-			ViewUtils.Justify(lblMensagem);
 		}
 
 		private void btnOk_Click(object sender, EventArgs e) {

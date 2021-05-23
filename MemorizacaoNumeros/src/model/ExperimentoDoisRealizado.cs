@@ -28,6 +28,10 @@ namespace MemorizacaoNumeros.src.model {
 
 		private List<Evento> eventos = new List<Evento>();
 
+		public void RegistrarEvento(string descricao) {
+			RegistrarEvento(new Evento(NomeFaseAtual, descricao));
+		}
+
 		public void RegistrarEvento(Evento evento) {
 			evento.Horario = Convert.ToInt64((DateTime.Now - DateTimeInicio).TotalSeconds);
 			eventos.Add(evento);
@@ -95,13 +99,13 @@ namespace MemorizacaoNumeros.src.model {
 		private string NomeFaseAtual {
 			get {
 				if (faseAtual == 0) {
-					return "Pré Treino";
-				}
-				if (faseAtual == 1) {
 					return "Linha de Base";
 				}
+				if (faseAtual == 1) {
+					return "Condição 1";
+				}
 				if (faseAtual == 2) {
-					return "Fase Experimental";
+					return "Condição 2";
 				}
 				return "Fim do Experimento";
 			}

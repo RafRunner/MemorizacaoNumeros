@@ -1,6 +1,7 @@
 ﻿using MemorizacaoNumeros.src.arquivos;
 using MemorizacaoNumeros.src.model;
 using MemorizacaoNumeros.src.service;
+using MemorizacaoNumeros.src.util;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -34,7 +35,7 @@ namespace MemorizacaoNumeros.src.view {
 		private void SalvarConfigAtual() {
 			var configAtual = $"{idParticipante};{idExperimentador};{idExperimentoUm};{idExperimentoDois}";
 
-			var arquivoCache = Ambiente.CriaDiretorioAmbiente(PASTA_CACHE) + $"\\{ARQUIVO_ULTIMA_CONFIG}";
+			var arquivoCache = Ambiente.CriaDiretorioAmbiente(PASTA_CACHE) + $@"\{ARQUIVO_ULTIMA_CONFIG}";
 			File.WriteAllText(arquivoCache, configAtual);
 		}
 
@@ -95,6 +96,7 @@ namespace MemorizacaoNumeros.src.view {
 		private ExperimentoUm CriaExperimentoUmPelosCampos() {
 			var experimentoUm = new ExperimentoUm {
 				InstrucaoInicial = tbInstrucao1.Text,
+				InstrucaoLinhaDeBase = tbInstrucaoLinhaDeBase.Text,
 				TempoTelaPretaInicial = Convert.ToInt32(nudTelaPretaInicial1.Value),
 				TempoTelaPretaITI = Convert.ToInt32(nudTelaPretaITI.Value),
 				TempoApresentacaoEstimulo = Convert.ToInt32(nudTempoEstimulo.Value),
@@ -195,7 +197,7 @@ namespace MemorizacaoNumeros.src.view {
 
 			new TelaMensagem(experimentoUm.InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView(experimentoRealizado).ShowDialog();
-			new TelaMensagem("Obrigado! Por favor, chamar o experimentador.", false).ShowDialog();
+			new TelaMensagem("Fim do Experimento! Por favor, chamar o experimentador.", false).ShowDialog();
 		}
 
 		private void btnVerParticipantes_Click(object sender, EventArgs e) {
@@ -269,6 +271,7 @@ namespace MemorizacaoNumeros.src.view {
 				idExperimentoUm = idExperimento;
 
 				tbInstrucao1.Text = experimentoUm.InstrucaoInicial;
+				tbInstrucaoLinhaDeBase.Text = experimentoUm.InstrucaoLinhaDeBase;
 				nudTelaPretaInicial1.Value = experimentoUm.TempoTelaPretaInicial;
 				nudTelaPretaITI.Value = experimentoUm.TempoTelaPretaITI;
 				nudTempoEstimulo.Value = experimentoUm.TempoApresentacaoEstimulo;

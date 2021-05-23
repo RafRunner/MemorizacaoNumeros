@@ -52,6 +52,8 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.label16 = new System.Windows.Forms.Label();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.tbInstrucaoLinhaDeBase = new System.Windows.Forms.RichTextBox();
+			this.label41 = new System.Windows.Forms.Label();
 			this.btnVerExperimentos2 = new System.Windows.Forms.Button();
 			this.btnIniciarExperimento = new System.Windows.Forms.Button();
 			this.panel4 = new System.Windows.Forms.Panel();
@@ -410,6 +412,8 @@
 			// panel3
 			// 
 			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel3.Controls.Add(this.tbInstrucaoLinhaDeBase);
+			this.panel3.Controls.Add(this.label41);
 			this.panel3.Controls.Add(this.btnVerExperimentos2);
 			this.panel3.Controls.Add(this.btnIniciarExperimento);
 			this.panel3.Controls.Add(this.panel4);
@@ -467,14 +471,32 @@
 			this.panel3.Controls.Add(this.label10);
 			this.panel3.Location = new System.Drawing.Point(362, 13);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(829, 682);
+			this.panel3.Size = new System.Drawing.Size(1021, 682);
 			this.panel3.TabIndex = 18;
+			// 
+			// tbInstrucaoLinhaDeBase
+			// 
+			this.tbInstrucaoLinhaDeBase.Location = new System.Drawing.Point(262, 63);
+			this.tbInstrucaoLinhaDeBase.Name = "tbInstrucaoLinhaDeBase";
+			this.tbInstrucaoLinhaDeBase.Size = new System.Drawing.Size(242, 176);
+			this.tbInstrucaoLinhaDeBase.TabIndex = 63;
+			this.tbInstrucaoLinhaDeBase.Text = "";
+			// 
+			// label41
+			// 
+			this.label41.AutoSize = true;
+			this.label41.Location = new System.Drawing.Point(262, 43);
+			this.label41.Name = "label41";
+			this.label41.Size = new System.Drawing.Size(127, 16);
+			this.label41.TabIndex = 62;
+			this.label41.Text = "Intrução Linha de Base";
 			// 
 			// btnVerExperimentos2
 			// 
-			this.btnVerExperimentos2.Location = new System.Drawing.Point(393, 639);
+			this.btnVerExperimentos2.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnVerExperimentos2.Location = new System.Drawing.Point(527, 637);
 			this.btnVerExperimentos2.Name = "btnVerExperimentos2";
-			this.btnVerExperimentos2.Size = new System.Drawing.Size(136, 23);
+			this.btnVerExperimentos2.Size = new System.Drawing.Size(188, 30);
 			this.btnVerExperimentos2.TabIndex = 61;
 			this.btnVerExperimentos2.Text = "Ver Cadastrados Ex. 2";
 			this.btnVerExperimentos2.UseVisualStyleBackColor = true;
@@ -483,9 +505,9 @@
 			// btnIniciarExperimento
 			// 
 			this.btnIniciarExperimento.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnIniciarExperimento.Location = new System.Drawing.Point(573, 611);
+			this.btnIniciarExperimento.Location = new System.Drawing.Point(765, 582);
 			this.btnIniciarExperimento.Name = "btnIniciarExperimento";
-			this.btnIniciarExperimento.Size = new System.Drawing.Size(231, 51);
+			this.btnIniciarExperimento.Size = new System.Drawing.Size(242, 51);
 			this.btnIniciarExperimento.TabIndex = 60;
 			this.btnIniciarExperimento.Text = "Iniciar Experimento";
 			this.btnIniciarExperimento.UseVisualStyleBackColor = true;
@@ -498,16 +520,16 @@
 			this.panel4.Controls.Add(this.btnAbrirPastaRelatorios);
 			this.panel4.Controls.Add(this.btnMaisSobreOSoftware);
 			this.panel4.Controls.Add(this.btnGerarRelatoriosAntigos);
-			this.panel4.Location = new System.Drawing.Point(564, 229);
+			this.panel4.Location = new System.Drawing.Point(765, 274);
 			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(253, 239);
+			this.panel4.Size = new System.Drawing.Size(242, 266);
 			this.panel4.TabIndex = 59;
 			// 
 			// label40
 			// 
 			this.label40.AutoSize = true;
 			this.label40.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label40.Location = new System.Drawing.Point(76, 6);
+			this.label40.Location = new System.Drawing.Point(64, 10);
 			this.label40.Name = "label40";
 			this.label40.Size = new System.Drawing.Size(114, 28);
 			this.label40.TabIndex = 56;
@@ -515,9 +537,9 @@
 			// 
 			// btnAbrirPastaRelatorios
 			// 
-			this.btnAbrirPastaRelatorios.Location = new System.Drawing.Point(37, 55);
+			this.btnAbrirPastaRelatorios.Location = new System.Drawing.Point(32, 64);
 			this.btnAbrirPastaRelatorios.Name = "btnAbrirPastaRelatorios";
-			this.btnAbrirPastaRelatorios.Size = new System.Drawing.Size(190, 23);
+			this.btnAbrirPastaRelatorios.Size = new System.Drawing.Size(179, 23);
 			this.btnAbrirPastaRelatorios.TabIndex = 58;
 			this.btnAbrirPastaRelatorios.Text = "Abrir pasta relatórios";
 			this.btnAbrirPastaRelatorios.UseVisualStyleBackColor = true;
@@ -525,9 +547,9 @@
 			// 
 			// btnMaisSobreOSoftware
 			// 
-			this.btnMaisSobreOSoftware.Location = new System.Drawing.Point(40, 206);
+			this.btnMaisSobreOSoftware.Location = new System.Drawing.Point(32, 203);
 			this.btnMaisSobreOSoftware.Name = "btnMaisSobreOSoftware";
-			this.btnMaisSobreOSoftware.Size = new System.Drawing.Size(190, 23);
+			this.btnMaisSobreOSoftware.Size = new System.Drawing.Size(179, 23);
 			this.btnMaisSobreOSoftware.TabIndex = 54;
 			this.btnMaisSobreOSoftware.Text = "Mais sobre esse software";
 			this.btnMaisSobreOSoftware.UseVisualStyleBackColor = true;
@@ -535,9 +557,9 @@
 			// 
 			// btnGerarRelatoriosAntigos
 			// 
-			this.btnGerarRelatoriosAntigos.Location = new System.Drawing.Point(40, 132);
+			this.btnGerarRelatoriosAntigos.Location = new System.Drawing.Point(32, 136);
 			this.btnGerarRelatoriosAntigos.Name = "btnGerarRelatoriosAntigos";
-			this.btnGerarRelatoriosAntigos.Size = new System.Drawing.Size(190, 23);
+			this.btnGerarRelatoriosAntigos.Size = new System.Drawing.Size(179, 23);
 			this.btnGerarRelatoriosAntigos.TabIndex = 57;
 			this.btnGerarRelatoriosAntigos.Text = "Regerar relatório antigo";
 			this.btnGerarRelatoriosAntigos.UseVisualStyleBackColor = true;
@@ -547,7 +569,7 @@
 			// 
 			this.label39.AutoSize = true;
 			this.label39.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label39.Location = new System.Drawing.Point(3, 442);
+			this.label39.Location = new System.Drawing.Point(6, 468);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(111, 25);
 			this.label39.TabIndex = 55;
@@ -555,9 +577,10 @@
 			// 
 			// btnVerExperimentos1
 			// 
-			this.btnVerExperimentos1.Location = new System.Drawing.Point(238, 639);
+			this.btnVerExperimentos1.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnVerExperimentos1.Location = new System.Drawing.Point(527, 585);
 			this.btnVerExperimentos1.Name = "btnVerExperimentos1";
-			this.btnVerExperimentos1.Size = new System.Drawing.Size(136, 23);
+			this.btnVerExperimentos1.Size = new System.Drawing.Size(188, 29);
 			this.btnVerExperimentos1.TabIndex = 18;
 			this.btnVerExperimentos1.Text = "Ver Cadastrados Ex. 1";
 			this.btnVerExperimentos1.UseVisualStyleBackColor = true;
@@ -565,9 +588,10 @@
 			// 
 			// btnSalvarExperimento
 			// 
-			this.btnSalvarExperimento.Location = new System.Drawing.Point(19, 639);
+			this.btnSalvarExperimento.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSalvarExperimento.Location = new System.Drawing.Point(527, 530);
 			this.btnSalvarExperimento.Name = "btnSalvarExperimento";
-			this.btnSalvarExperimento.Size = new System.Drawing.Size(190, 23);
+			this.btnSalvarExperimento.Size = new System.Drawing.Size(188, 35);
 			this.btnSalvarExperimento.TabIndex = 17;
 			this.btnSalvarExperimento.Text = "Cadastrar Experimento";
 			this.btnSalvarExperimento.UseVisualStyleBackColor = true;
@@ -576,7 +600,7 @@
 			// label38
 			// 
 			this.label38.AutoSize = true;
-			this.label38.Location = new System.Drawing.Point(40, 562);
+			this.label38.Location = new System.Drawing.Point(43, 588);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(14, 16);
 			this.label38.TabIndex = 53;
@@ -585,7 +609,7 @@
 			// label37
 			// 
 			this.label37.AutoSize = true;
-			this.label37.Location = new System.Drawing.Point(40, 532);
+			this.label37.Location = new System.Drawing.Point(43, 558);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(14, 16);
 			this.label37.TabIndex = 52;
@@ -594,7 +618,7 @@
 			// label36
 			// 
 			this.label36.AutoSize = true;
-			this.label36.Location = new System.Drawing.Point(17, 504);
+			this.label36.Location = new System.Drawing.Point(20, 530);
 			this.label36.Name = "label36";
 			this.label36.Size = new System.Drawing.Size(58, 16);
 			this.label36.TabIndex = 51;
@@ -602,49 +626,49 @@
 			// 
 			// nudTalvezErro2
 			// 
-			this.nudTalvezErro2.Location = new System.Drawing.Point(393, 560);
+			this.nudTalvezErro2.Location = new System.Drawing.Point(396, 586);
 			this.nudTalvezErro2.Name = "nudTalvezErro2";
 			this.nudTalvezErro2.Size = new System.Drawing.Size(90, 22);
 			this.nudTalvezErro2.TabIndex = 37;
 			// 
 			// nudTalvezAcerto2
 			// 
-			this.nudTalvezAcerto2.Location = new System.Drawing.Point(294, 559);
+			this.nudTalvezAcerto2.Location = new System.Drawing.Point(297, 585);
 			this.nudTalvezAcerto2.Name = "nudTalvezAcerto2";
 			this.nudTalvezAcerto2.Size = new System.Drawing.Size(80, 22);
 			this.nudTalvezAcerto2.TabIndex = 50;
 			// 
 			// nudCertezaErro2
 			// 
-			this.nudCertezaErro2.Location = new System.Drawing.Point(184, 559);
+			this.nudCertezaErro2.Location = new System.Drawing.Point(187, 585);
 			this.nudCertezaErro2.Name = "nudCertezaErro2";
 			this.nudCertezaErro2.Size = new System.Drawing.Size(90, 22);
 			this.nudCertezaErro2.TabIndex = 49;
 			// 
 			// nudCertezaAcerto2
 			// 
-			this.nudCertezaAcerto2.Location = new System.Drawing.Point(84, 560);
+			this.nudCertezaAcerto2.Location = new System.Drawing.Point(87, 586);
 			this.nudCertezaAcerto2.Name = "nudCertezaAcerto2";
 			this.nudCertezaAcerto2.Size = new System.Drawing.Size(81, 22);
 			this.nudCertezaAcerto2.TabIndex = 48;
 			// 
 			// nudTalvezErro1
 			// 
-			this.nudTalvezErro1.Location = new System.Drawing.Point(393, 529);
+			this.nudTalvezErro1.Location = new System.Drawing.Point(396, 555);
 			this.nudTalvezErro1.Name = "nudTalvezErro1";
 			this.nudTalvezErro1.Size = new System.Drawing.Size(90, 22);
 			this.nudTalvezErro1.TabIndex = 47;
 			// 
 			// nudTalvezAcerto1
 			// 
-			this.nudTalvezAcerto1.Location = new System.Drawing.Point(294, 529);
+			this.nudTalvezAcerto1.Location = new System.Drawing.Point(297, 555);
 			this.nudTalvezAcerto1.Name = "nudTalvezAcerto1";
 			this.nudTalvezAcerto1.Size = new System.Drawing.Size(80, 22);
 			this.nudTalvezAcerto1.TabIndex = 46;
 			// 
 			// nudCertezaErro1
 			// 
-			this.nudCertezaErro1.Location = new System.Drawing.Point(184, 529);
+			this.nudCertezaErro1.Location = new System.Drawing.Point(187, 555);
 			this.nudCertezaErro1.Name = "nudCertezaErro1";
 			this.nudCertezaErro1.Size = new System.Drawing.Size(90, 22);
 			this.nudCertezaErro1.TabIndex = 45;
@@ -652,7 +676,7 @@
 			// label35
 			// 
 			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(291, 503);
+			this.label35.Location = new System.Drawing.Point(294, 529);
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(83, 16);
 			this.label35.TabIndex = 44;
@@ -661,7 +685,7 @@
 			// label28
 			// 
 			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(182, 503);
+			this.label28.Location = new System.Drawing.Point(185, 529);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(92, 16);
 			this.label28.TabIndex = 43;
@@ -670,7 +694,7 @@
 			// label26
 			// 
 			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(391, 503);
+			this.label26.Location = new System.Drawing.Point(394, 529);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(92, 16);
 			this.label26.TabIndex = 41;
@@ -679,7 +703,7 @@
 			// label27
 			// 
 			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(331, 478);
+			this.label27.Location = new System.Drawing.Point(334, 504);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(100, 16);
 			this.label27.TabIndex = 39;
@@ -687,7 +711,7 @@
 			// 
 			// nudCertezaAcerto1
 			// 
-			this.nudCertezaAcerto1.Location = new System.Drawing.Point(84, 530);
+			this.nudCertezaAcerto1.Location = new System.Drawing.Point(87, 556);
 			this.nudCertezaAcerto1.Name = "nudCertezaAcerto1";
 			this.nudCertezaAcerto1.Size = new System.Drawing.Size(81, 22);
 			this.nudCertezaAcerto1.TabIndex = 36;
@@ -695,7 +719,7 @@
 			// label29
 			// 
 			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(81, 504);
+			this.label29.Location = new System.Drawing.Point(84, 530);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(83, 16);
 			this.label29.TabIndex = 35;
@@ -704,7 +728,7 @@
 			// label30
 			// 
 			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(121, 478);
+			this.label30.Location = new System.Drawing.Point(124, 504);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(106, 16);
 			this.label30.TabIndex = 33;
@@ -712,7 +736,7 @@
 			// 
 			// nudPontosPorGrau
 			// 
-			this.nudPontosPorGrau.Location = new System.Drawing.Point(19, 611);
+			this.nudPontosPorGrau.Location = new System.Drawing.Point(22, 637);
 			this.nudPontosPorGrau.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -725,7 +749,7 @@
 			// label31
 			// 
 			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(17, 592);
+			this.label31.Location = new System.Drawing.Point(20, 618);
 			this.label31.Name = "label31";
 			this.label31.Size = new System.Drawing.Size(93, 16);
 			this.label31.TabIndex = 31;
@@ -733,7 +757,7 @@
 			// 
 			// nudBlocosCondicao2
 			// 
-			this.nudBlocosCondicao2.Location = new System.Drawing.Point(297, 380);
+			this.nudBlocosCondicao2.Location = new System.Drawing.Point(527, 408);
 			this.nudBlocosCondicao2.Name = "nudBlocosCondicao2";
 			this.nudBlocosCondicao2.Size = new System.Drawing.Size(161, 22);
 			this.nudBlocosCondicao2.TabIndex = 30;
@@ -741,7 +765,7 @@
 			// label32
 			// 
 			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(294, 360);
+			this.label32.Location = new System.Drawing.Point(524, 388);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(151, 16);
 			this.label32.TabIndex = 29;
@@ -749,7 +773,7 @@
 			// 
 			// nudBlocosCondicao1
 			// 
-			this.nudBlocosCondicao1.Location = new System.Drawing.Point(297, 324);
+			this.nudBlocosCondicao1.Location = new System.Drawing.Point(527, 352);
 			this.nudBlocosCondicao1.Name = "nudBlocosCondicao1";
 			this.nudBlocosCondicao1.Size = new System.Drawing.Size(161, 22);
 			this.nudBlocosCondicao1.TabIndex = 28;
@@ -757,7 +781,7 @@
 			// label33
 			// 
 			this.label33.AutoSize = true;
-			this.label33.Location = new System.Drawing.Point(294, 304);
+			this.label33.Location = new System.Drawing.Point(524, 332);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(151, 16);
 			this.label33.TabIndex = 27;
@@ -765,7 +789,7 @@
 			// 
 			// nudBlocosLinhaDeBase
 			// 
-			this.nudBlocosLinhaDeBase.Location = new System.Drawing.Point(297, 272);
+			this.nudBlocosLinhaDeBase.Location = new System.Drawing.Point(527, 300);
 			this.nudBlocosLinhaDeBase.Name = "nudBlocosLinhaDeBase";
 			this.nudBlocosLinhaDeBase.Size = new System.Drawing.Size(161, 22);
 			this.nudBlocosLinhaDeBase.TabIndex = 26;
@@ -773,7 +797,7 @@
 			// label34
 			// 
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(294, 252);
+			this.label34.Location = new System.Drawing.Point(524, 280);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(164, 16);
 			this.label34.TabIndex = 25;
@@ -781,7 +805,7 @@
 			// 
 			// nudBlocosFaseExperimental
 			// 
-			this.nudBlocosFaseExperimental.Location = new System.Drawing.Point(634, 171);
+			this.nudBlocosFaseExperimental.Location = new System.Drawing.Point(824, 171);
 			this.nudBlocosFaseExperimental.Name = "nudBlocosFaseExperimental";
 			this.nudBlocosFaseExperimental.Size = new System.Drawing.Size(183, 22);
 			this.nudBlocosFaseExperimental.TabIndex = 24;
@@ -789,7 +813,7 @@
 			// label25
 			// 
 			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(631, 150);
+			this.label25.Location = new System.Drawing.Point(821, 150);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(186, 16);
 			this.label25.TabIndex = 23;
@@ -797,7 +821,7 @@
 			// 
 			// nudReforcoFaseExperimental
 			// 
-			this.nudReforcoFaseExperimental.Location = new System.Drawing.Point(634, 116);
+			this.nudReforcoFaseExperimental.Location = new System.Drawing.Point(824, 116);
 			this.nudReforcoFaseExperimental.Name = "nudReforcoFaseExperimental";
 			this.nudReforcoFaseExperimental.Size = new System.Drawing.Size(183, 22);
 			this.nudReforcoFaseExperimental.TabIndex = 22;
@@ -805,7 +829,7 @@
 			// label24
 			// 
 			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(631, 95);
+			this.label24.Location = new System.Drawing.Point(821, 95);
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(164, 16);
 			this.label24.TabIndex = 21;
@@ -813,7 +837,7 @@
 			// 
 			// nudTalvezLinhaDeBase
 			// 
-			this.nudTalvezLinhaDeBase.Location = new System.Drawing.Point(634, 63);
+			this.nudTalvezLinhaDeBase.Location = new System.Drawing.Point(824, 63);
 			this.nudTalvezLinhaDeBase.Name = "nudTalvezLinhaDeBase";
 			this.nudTalvezLinhaDeBase.Size = new System.Drawing.Size(183, 22);
 			this.nudTalvezLinhaDeBase.TabIndex = 20;
@@ -821,7 +845,7 @@
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(631, 43);
+			this.label23.Location = new System.Drawing.Point(821, 43);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(133, 16);
 			this.label23.TabIndex = 19;
@@ -829,7 +853,7 @@
 			// 
 			// nudAcertosPreTreino
 			// 
-			this.nudAcertosPreTreino.Location = new System.Drawing.Point(453, 171);
+			this.nudAcertosPreTreino.Location = new System.Drawing.Point(663, 171);
 			this.nudAcertosPreTreino.Name = "nudAcertosPreTreino";
 			this.nudAcertosPreTreino.Size = new System.Drawing.Size(144, 22);
 			this.nudAcertosPreTreino.TabIndex = 18;
@@ -837,7 +861,7 @@
 			// label22
 			// 
 			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(450, 151);
+			this.label22.Location = new System.Drawing.Point(660, 151);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(104, 16);
 			this.label22.TabIndex = 17;
@@ -845,7 +869,7 @@
 			// 
 			// nudSequenciaInicial
 			// 
-			this.nudSequenciaInicial.Location = new System.Drawing.Point(453, 116);
+			this.nudSequenciaInicial.Location = new System.Drawing.Point(663, 116);
 			this.nudSequenciaInicial.Name = "nudSequenciaInicial";
 			this.nudSequenciaInicial.Size = new System.Drawing.Size(144, 22);
 			this.nudSequenciaInicial.TabIndex = 16;
@@ -853,7 +877,7 @@
 			// label21
 			// 
 			this.label21.AutoSize = true;
-			this.label21.Location = new System.Drawing.Point(450, 96);
+			this.label21.Location = new System.Drawing.Point(660, 96);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(147, 16);
 			this.label21.TabIndex = 15;
@@ -861,7 +885,7 @@
 			// 
 			// nudTamanhoBloco
 			// 
-			this.nudTamanhoBloco.Location = new System.Drawing.Point(453, 63);
+			this.nudTamanhoBloco.Location = new System.Drawing.Point(663, 63);
 			this.nudTamanhoBloco.Name = "nudTamanhoBloco";
 			this.nudTamanhoBloco.Size = new System.Drawing.Size(144, 22);
 			this.nudTamanhoBloco.TabIndex = 14;
@@ -869,7 +893,7 @@
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(450, 43);
+			this.label20.Location = new System.Drawing.Point(660, 43);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(107, 16);
 			this.label20.TabIndex = 13;
@@ -877,7 +901,7 @@
 			// 
 			// nudTempoEstimulo
 			// 
-			this.nudTempoEstimulo.Location = new System.Drawing.Point(297, 171);
+			this.nudTempoEstimulo.Location = new System.Drawing.Point(527, 171);
 			this.nudTempoEstimulo.Name = "nudTempoEstimulo";
 			this.nudTempoEstimulo.Size = new System.Drawing.Size(120, 22);
 			this.nudTempoEstimulo.TabIndex = 12;
@@ -885,7 +909,7 @@
 			// label19
 			// 
 			this.label19.AutoSize = true;
-			this.label19.Location = new System.Drawing.Point(294, 151);
+			this.label19.Location = new System.Drawing.Point(524, 151);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(92, 16);
 			this.label19.TabIndex = 11;
@@ -893,7 +917,7 @@
 			// 
 			// nudTelaPretaITI
 			// 
-			this.nudTelaPretaITI.Location = new System.Drawing.Point(297, 115);
+			this.nudTelaPretaITI.Location = new System.Drawing.Point(527, 115);
 			this.nudTelaPretaITI.Name = "nudTelaPretaITI";
 			this.nudTelaPretaITI.Size = new System.Drawing.Size(120, 22);
 			this.nudTelaPretaITI.TabIndex = 10;
@@ -901,7 +925,7 @@
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(294, 95);
+			this.label18.Location = new System.Drawing.Point(524, 95);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(111, 16);
 			this.label18.TabIndex = 9;
@@ -909,7 +933,7 @@
 			// 
 			// nudTelaPretaInicial1
 			// 
-			this.nudTelaPretaInicial1.Location = new System.Drawing.Point(297, 63);
+			this.nudTelaPretaInicial1.Location = new System.Drawing.Point(527, 63);
 			this.nudTelaPretaInicial1.Name = "nudTelaPretaInicial1";
 			this.nudTelaPretaInicial1.Size = new System.Drawing.Size(120, 22);
 			this.nudTelaPretaInicial1.TabIndex = 8;
@@ -917,7 +941,7 @@
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(294, 43);
+			this.label17.Location = new System.Drawing.Point(524, 43);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(130, 16);
 			this.label17.TabIndex = 7;
@@ -925,16 +949,16 @@
 			// 
 			// tbInstrucao2
 			// 
-			this.tbInstrucao2.Location = new System.Drawing.Point(8, 272);
+			this.tbInstrucao2.Location = new System.Drawing.Point(8, 297);
 			this.tbInstrucao2.Name = "tbInstrucao2";
-			this.tbInstrucao2.Size = new System.Drawing.Size(269, 141);
+			this.tbInstrucao2.Size = new System.Drawing.Size(496, 141);
 			this.tbInstrucao2.TabIndex = 6;
 			this.tbInstrucao2.Text = "";
 			// 
 			// label13
 			// 
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(8, 252);
+			this.label13.Location = new System.Drawing.Point(8, 277);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(86, 16);
 			this.label13.TabIndex = 5;
@@ -944,7 +968,7 @@
 			// 
 			this.tbInstrucao1.Location = new System.Drawing.Point(8, 63);
 			this.tbInstrucao1.Name = "tbInstrucao1";
-			this.tbInstrucao1.Size = new System.Drawing.Size(269, 141);
+			this.tbInstrucao1.Size = new System.Drawing.Size(245, 176);
 			this.tbInstrucao1.TabIndex = 4;
 			this.tbInstrucao1.Text = "";
 			// 
@@ -961,7 +985,7 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(3, 217);
+			this.label11.Location = new System.Drawing.Point(3, 242);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(158, 28);
 			this.label11.TabIndex = 2;
@@ -981,7 +1005,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1203, 707);
+			this.ClientSize = new System.Drawing.Size(1397, 707);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);
@@ -1117,5 +1141,7 @@
 		private System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.Button btnIniciarExperimento;
 		private System.Windows.Forms.Button btnVerExperimentos2;
+		private System.Windows.Forms.RichTextBox tbInstrucaoLinhaDeBase;
+		private System.Windows.Forms.Label label41;
 	}
 }

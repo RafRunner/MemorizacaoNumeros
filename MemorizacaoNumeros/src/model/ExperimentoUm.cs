@@ -6,6 +6,7 @@ namespace MemorizacaoNumeros.src.model {
 
 		public static string[] ordemColunas = new string[] {
 			"InstrucaoInicial",
+			"InstrucaoLinhaDeBase",
 			"TempoTelaPretaInicial",
 			"TempoTelaPretaITI",
 			"TempoApresentacaoEstimulo",
@@ -51,6 +52,12 @@ namespace MemorizacaoNumeros.src.model {
 		public int CriterioAcertoPreTreino {
 			get => criterioAcertoPreTreino;
 			set => criterioAcertoPreTreino = NumericUtils.ValidarNatural(value, "Critério acerto Pré-Treino");
+		}
+
+		private string instrucaoLinhaDeBase;
+		public string InstrucaoLinhaDeBase {
+			get => instrucaoLinhaDeBase;
+			set => instrucaoLinhaDeBase = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Instrução da Linha de Base");
 		}
 
 		private int criterioTalvezLinhaDeBase;
