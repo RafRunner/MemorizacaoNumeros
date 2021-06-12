@@ -831,9 +831,9 @@
 			this.label24.AutoSize = true;
 			this.label24.Location = new System.Drawing.Point(821, 95);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(164, 16);
+			this.label24.Size = new System.Drawing.Size(116, 16);
 			this.label24.TabIndex = 21;
-			this.label24.Text = "Reforço Fase Experimental(%)";
+			this.label24.Text = "Critério repetição(%)";
 			// 
 			// nudTalvezLinhaDeBase
 			// 
@@ -847,9 +847,9 @@
 			this.label23.AutoSize = true;
 			this.label23.Location = new System.Drawing.Point(821, 43);
 			this.label23.Name = "label23";
-			this.label23.Size = new System.Drawing.Size(133, 16);
+			this.label23.Size = new System.Drawing.Size(172, 16);
 			this.label23.TabIndex = 19;
-			this.label23.Text = "Talvez Linha de Base(%)";
+			this.label23.Text = "Critério talvez Linha de Base(%)";
 			// 
 			// nudAcertosPreTreino
 			// 
