@@ -17,23 +17,23 @@ namespace MemorizacaoNumeros.src.service {
 		}
 
 		public static List<Evento> GetAllByExperimentoUmRealizado(ExperimentoUmRealizado experimento) {
-			return GetByObj<Evento>($"SELECT * FROM {nomeTabela} WHERE IdExpeimentoUmRealizado = @Id", experimento);
+			return GetByObj<Evento>($"SELECT * FROM {nomeTabela} WHERE IdExperimentoUmRealizado = @Id", experimento);
 		}
 
 		public static List<Evento> GetAllByExperimentoDoisRealizado(ExperimentoDoisRealizado experimento) {
-			return GetByObj<Evento>($"SELECT * FROM {nomeTabela} WHERE IdExpeimentoDoisRealizado = @Id", experimento);
+			return GetByObj<Evento>($"SELECT * FROM {nomeTabela} WHERE IdExperimentoDoisRealizado = @Id", experimento);
 		}
 
-		public static void Salvar(Evento experimento) {
-			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
+		public static void Salvar(Evento evento) {
+			Salvar(evento, nomeTabela, sqlInsert, sqlUpdate);
 		}
 
 		public static void DeletarPorId(long id) {
 			DeletarPorId(id, nomeTabela);
 		}
 
-		public static void Deletar(Evento experimento) {
-			Deletar(experimento, nomeTabela);
+		public static void Deletar(Evento evento) {
+			Deletar(evento, nomeTabela);
 		}
 	}
 }

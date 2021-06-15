@@ -471,7 +471,7 @@
 			this.panel3.Controls.Add(this.label10);
 			this.panel3.Location = new System.Drawing.Point(362, 13);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(1021, 682);
+			this.panel3.Size = new System.Drawing.Size(1039, 682);
 			this.panel3.TabIndex = 18;
 			// 
 			// tbInstrucaoLinhaDeBase
@@ -831,9 +831,9 @@
 			this.label24.AutoSize = true;
 			this.label24.Location = new System.Drawing.Point(821, 95);
 			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(116, 16);
+			this.label24.Size = new System.Drawing.Size(213, 16);
 			this.label24.TabIndex = 21;
-			this.label24.Text = "Critério repetição(%)";
+			this.label24.Text = "Critério repetição Fase Experimental(%)";
 			// 
 			// nudTalvezLinhaDeBase
 			// 
@@ -1005,7 +1005,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1397, 707);
+			this.ClientSize = new System.Drawing.Size(1413, 707);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);

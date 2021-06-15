@@ -20,7 +20,7 @@ namespace MemorizacaoNumeros.src.service {
 			}
 
 			var eventos = EventoService.GetAllByExperimentoUmRealizado(experimento);
-
+			eventos.Sort();
 			experimento.SetListaEventos(eventos);
 
 			return experimento;
@@ -42,6 +42,7 @@ namespace MemorizacaoNumeros.src.service {
 			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
 
 			foreach (var evento in experimento.GetListaEventos()) {
+				evento.IdExperimentoUmRealizado = experimento.Id;
 				EventoService.Salvar(evento);
 			}
 		}

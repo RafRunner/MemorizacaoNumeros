@@ -14,20 +14,22 @@ namespace MemorizacaoNumeros.src.model {
 
 		public string Origem { get; set; }
 
+		// Para poderem ser ordenados
+		public int Indice { get; set; }
+
 		public long IdExperimentoUmRealizado { get; set; }
 
 		public long IdExperimentoDoisRealizado { get; set; }
 
-		//Na verdade é apenas o offset em segundos a partir do início do experimento
+		//Na verdade é apenas o offset em milisegundos a partir do início do experimento
 		public long Horario { get; set; }
 
-		// Para ordenar os eventos por id e, logo, cronologicamente
 		public int CompareTo(Evento other) {
 			if (other == null) {
 				return 1;
 			}
 
-			return Id.CompareTo(other.Id);
+			return Indice.CompareTo(other.Indice);
 		}
 	}
 }

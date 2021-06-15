@@ -56,7 +56,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 			foreach (var evento in eventos) {
 				if (StringUtils.EhNumero(evento.Origem.Substring(0, 1))) continue;
 
-				var horarioEvento = horaInicio.AddSeconds(evento.Horario);
+				var horarioEvento = horaInicio.AddMilliseconds(evento.Horario);
 
 				relatorio.Append(horarioEvento.ToString(formatoHora)).Append(" - ").Append(evento.Origem).Append(" - ").AppendLine(evento.Texto);
 			}
@@ -85,11 +85,23 @@ namespace MemorizacaoNumeros.src.arquivos {
 			AppendSeparador();
 		}
 
-		private void AppendEventosResumo(List<Evento> eventos) {
+		private void AppendEventosResumoExp1(List<Evento> eventos) {
 			foreach (var evento in eventos) {
 				if (!StringUtils.EhNumero(evento.Origem.Substring(0, 1))) continue;
 
-				relatorio.Append(evento.Origem).Append(" - ").AppendLine(evento.Texto);
+				var faseAtual = Convert.ToInt32(evento.Origem);
+
+				relatorio.Append(ExperimentoUmRealizado.GetNomeResumoFase(faseAtual)).Append(" - ").AppendLine(evento.Texto);
+			}
+		}
+
+		private void AppendEventosResumoExp2(List<Evento> eventos) {
+			foreach (var evento in eventos) {
+				if (!StringUtils.EhNumero(evento.Origem.Substring(0, 1))) continue;
+
+				var faseAtual = Convert.ToInt32(evento.Origem);
+
+				relatorio.Append(ExperimentoDoisRealizado.GetNomeResumoFase(faseAtual)).Append(" - ").AppendLine(evento.Texto);
 			}
 		}
 
@@ -100,11 +112,11 @@ namespace MemorizacaoNumeros.src.arquivos {
 			relatorio.AppendLine("Resumo dos resultados:")
 			.AppendLine("\nExperimento Um:");
 
-			AppendEventosResumo(eventosExperimentoUm);
+			AppendEventosResumoExp1(eventosExperimentoUm);
 
 			relatorio.AppendLine("\nExperimento Dois:");
 
-			AppendEventosResumo(eventosExperimentoDois);
+			AppendEventosResumoExp2(eventosExperimentoDois);
 		}
 	}
 }

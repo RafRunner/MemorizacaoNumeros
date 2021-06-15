@@ -1,7 +1,6 @@
 ﻿using MemorizacaoNumeros.src.arquivos;
 using MemorizacaoNumeros.src.model;
 using MemorizacaoNumeros.src.service;
-using MemorizacaoNumeros.src.util;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -24,6 +23,7 @@ namespace MemorizacaoNumeros.src.view {
 			InitializeComponent();
 
 			cbEscolaridadeParticipante.Items.AddRange(Participante.escolaridades);
+			cbEscolaridadeParticipante.SelectedIndex = 0;
 
 			CarregarUltimaConfig();
 		}
@@ -197,7 +197,10 @@ namespace MemorizacaoNumeros.src.view {
 
 			new TelaMensagem(experimentoUm.InstrucaoInicial, true).ShowDialog();
 			new ExperimentoView(experimentoRealizado).ShowDialog();
-			new TelaMensagem("Fim do Experimento! Por favor, chamar o experimentador.", false).ShowDialog();
+
+			var grauFinal = experimentoDoisRealizado.GrauAtual();
+
+			new TelaMensagem($"Fim do Experimento! O seu grau final foi {grauFinal}!\nPor favor, chamar o experimentador.", false).ShowDialog();
 		}
 
 		private void btnVerParticipantes_Click(object sender, EventArgs e) {

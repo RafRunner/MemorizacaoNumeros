@@ -50,13 +50,14 @@ namespace MemorizacaoNumeros.src.view {
 			btnCerteza.Visible = false;
 			btnTalvez.Visible = false;
 			pnInput.Visible = false;
+			pnMensagem.Visible = false;
 			tbInput.Text = "";
 
 			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
 
 			tamanhoFonteOriginal = lblNumero.Font.Size;
 
-			experimentoUmRealizado.DateTimeInicio = DateTime.Now;
+			this.experimentoUmRealizado.DateTimeInicio = DateTime.Now;
 
 			IniciarNovaFase();
 		}
@@ -73,13 +74,6 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private async void IniciarNovoNumero() {
-			pnNumero.Visible = true;
-
-			btnCerteza.Enabled = true;
-			btnTalvez.Enabled = true;
-
-			FadeIn(this, 1);
-
 			string novoNumero;
 
 			if (experimentoAtual == 1) {
@@ -93,6 +87,7 @@ namespace MemorizacaoNumeros.src.view {
 					experimentoDoisRealizado.SetTamanhoBlocoTentativas(experimentoUm.TamanhoBlocoTentativas);
 					experimentoDoisRealizado.DateTimeInicio = DateTime.Now;
 
+					Opacity = 0;
 					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
 
 					IniciarNovaFase();
@@ -133,6 +128,13 @@ namespace MemorizacaoNumeros.src.view {
 			};
 
 			RegistrarEvento($"Inciando apresentação de um novo número: {novoNumero}");
+
+			pnNumero.Visible = true;
+
+			btnCerteza.Enabled = true;
+			btnTalvez.Enabled = true;
+
+			FadeIn(this, 1);
 
 			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
 

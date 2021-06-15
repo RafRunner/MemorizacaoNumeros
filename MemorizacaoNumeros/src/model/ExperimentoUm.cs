@@ -96,7 +96,7 @@ namespace MemorizacaoNumeros.src.model {
 				$"Critério Acerto Pré Treino: {CriterioAcertoPreTreino} acertos consecutivos\n" +
 				$"Critério Talvez Linha de Base: superior à {CriterioTalvezLinhaDeBase}%\n" +
 				$"Número Blocos Fase Experimental: {NumeroBlocosFaseExperimental}\n" +
-				$"Critério Reforço Fase Experimental: inferior à {CriterioReforcoFaseExperimental}%";
+				$"Critério Repetição Fase Experimental: inferior à {CriterioReforcoFaseExperimental}%";
 		}
 	}
 }

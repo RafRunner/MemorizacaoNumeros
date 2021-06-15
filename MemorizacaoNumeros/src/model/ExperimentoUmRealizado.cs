@@ -1,10 +1,9 @@
 ﻿using MemorizacaoNumeros.src.service;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace MemorizacaoNumeros.src.model {
-	public class ExperimentoUmRealizado : EntidadeDeBanco {
+	public class ExperimentoUmRealizado : IExperimentoRealizado {
 
 		public long IdExperimentoUm { get; set; }
 		private ExperimentoUm experimentoUm;
@@ -17,32 +16,6 @@ namespace MemorizacaoNumeros.src.model {
 				IdExperimentoUm = GetId(value);
 				experimentoUm = value;
 			}
-		}
-
-		public string DataHoraInicio { get; set; }
-
-		public DateTime DateTimeInicio {
-			get => Convert.ToDateTime(DataHoraInicio, new CultureInfo("pt-BR"));
-			set => DataHoraInicio = value.ToString(ExperimentoRealizado.FORMATO_DATE_TIME);
-		}
-
-		private List<Evento> eventos = new List<Evento>();
-
-		public void RegistrarEvento(string descricao) {
-			RegistrarEvento(new Evento(NomeFaseAtual, descricao));
-		}
-
-		public void RegistrarEvento(Evento evento) {
-			evento.Horario = Convert.ToInt64((DateTime.Now - DateTimeInicio).TotalSeconds);
-			eventos.Add(evento);
-		}
-
-		public List<Evento> GetListaEventos() {
-			return eventos;
-		}
-
-		public void SetListaEventos(List<Evento> eventos) {
-			this.eventos = eventos;
 		}
 
 		// Inicio da parte do comportamento do experimento
@@ -87,7 +60,7 @@ namespace MemorizacaoNumeros.src.model {
 		private int acertosCertezaForteExperimental = 0;
 		private int errosCertezaForteExperimental = 0;
 
-		private string NomeFaseAtual {
+		public override string NomeFaseAtual {
 			get {
 				if (faseAtual == 0) {
 					return "Pré Treino";
@@ -100,6 +73,16 @@ namespace MemorizacaoNumeros.src.model {
 				}
 				return "Fim do Experimento";
 			}
+		}
+
+		public static string GetNomeResumoFase(int numeroFase) {
+			if (numeroFase == 0) {
+				return "PT";
+			}
+			if (numeroFase == 1) {
+				return "LB";
+			}
+			return "FE";
 		}
 
 		// Retorna true se terminamos uma fase/fomos para uma nova

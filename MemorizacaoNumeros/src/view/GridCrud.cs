@@ -1,5 +1,6 @@
 ﻿using MemorizacaoNumeros.src.util;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -14,8 +15,6 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly Action<long> funcaoEditar;
 		private readonly Action<long> funcaoDeletar;
 		private readonly Action<long> funcaoSelecionar;
-
-		private static readonly string colunaOculta = "Id";
 
 		public GridCrud(
 			string nomeRegistros,
@@ -50,11 +49,19 @@ namespace MemorizacaoNumeros.src.view {
 			}
 
 			dataGrid.DataSource = tabelaCompleta;
-			dataGrid.Columns[colunaOculta].Visible = false;
 
-			for (int i = 0; i < ordemColunas.Length; i++) {
-				dataGrid.Columns[ordemColunas[i]].DisplayIndex = i;
-				dataGrid.Columns[ordemColunas[i]].Width = 200;
+			var colunaEnum = dataGrid.Columns.GetEnumerator();
+			while (colunaEnum.MoveNext()) {
+				var coluna = (DataGridViewColumn) colunaEnum.Current;
+				var indexColuna = Array.IndexOf(ordemColunas, coluna.HeaderText);
+
+				if (indexColuna == -1) {
+					coluna.Visible = false;
+				}
+				else {
+					coluna.DisplayIndex = indexColuna;
+					coluna.Width = 250;
+				}
 			}
 
 			ShowDialog();
@@ -62,7 +69,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private bool VerifiqueQuantidadeColunasSelecionadasEAvise() {
 			if (dataGrid.SelectedRows.Count == 0) {
-				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros} (selecione toda a linha clicanco na primeira coluna (a vazia)) para editar!", "Atenção");
+				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros}. Selecione toda a linha clicanco na primeira coluna (a vazia)!", "Atenção");
 				return false;
 			}
 			else {
