@@ -1,6 +1,5 @@
 ﻿using MemorizacaoNumeros.src.util;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -50,6 +49,8 @@ namespace MemorizacaoNumeros.src.view {
 
 			dataGrid.DataSource = tabelaCompleta;
 
+			var tamanhoHeaders = Math.Max(200, (dataGrid.Width - 40) / ordemColunas.Length);
+
 			var colunaEnum = dataGrid.Columns.GetEnumerator();
 			while (colunaEnum.MoveNext()) {
 				var coluna = (DataGridViewColumn) colunaEnum.Current;
@@ -60,7 +61,7 @@ namespace MemorizacaoNumeros.src.view {
 				}
 				else {
 					coluna.DisplayIndex = indexColuna;
-					coluna.Width = 250;
+					coluna.Width = tamanhoHeaders;
 				}
 			}
 
@@ -102,6 +103,7 @@ namespace MemorizacaoNumeros.src.view {
 			if (!VerifiqueQuantidadeColunasSelecionadasEAvise()) {
 				return;
 			}
+
 			funcaoSelecionar.Invoke(ViewUtils.GetIdColunaSelecionada(dataGrid));
 			Close();
 		}
@@ -123,6 +125,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private void textBoxFiltro_TextChanged_1(object sender, EventArgs e) {
 			var textoDeBusca = textBoxFiltro.Text;
+
 			if (string.IsNullOrWhiteSpace(textoDeBusca)) {
 				dataGrid.DataSource = tabelaCompleta;
 				return;
