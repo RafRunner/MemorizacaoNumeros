@@ -36,6 +36,7 @@
 			this.lblMensagem.Size = new System.Drawing.Size(206, 46);
 			this.lblMensagem.TabIndex = 0;
 			this.lblMensagem.Text = "Mensagem";
+			this.lblMensagem.Click += new System.EventHandler(this.lblMensagem_Click);
 			// 
 			// btnOk
 			// 

@@ -63,7 +63,7 @@ namespace MemorizacaoNumeros.src.model {
 		private int criterioTalvezLinhaDeBase;
 		public int CriterioTalvezLinhaDeBase { 
 			get => criterioTalvezLinhaDeBase;
-			set => criterioTalvezLinhaDeBase = NumericUtils.ValidarNaturalDentroDeLimite(value, 100, "Critério talvez Linha de Base");
+			set => criterioTalvezLinhaDeBase = NumericUtils.ValidarDentroDeLimite(value, 1, 100, "Critério talvez Linha de Base");
 		}
 
 		private int numeroBlocosFaseExperimental;
@@ -75,7 +75,7 @@ namespace MemorizacaoNumeros.src.model {
 		private int criterioReforcoFaseExperimental;
 		public int CriterioReforcoFaseExperimental { 
 			get => criterioReforcoFaseExperimental;
-			set => criterioReforcoFaseExperimental = NumericUtils.ValidarNaturalDentroDeLimite(value, 100, "Critério Reforço Fase Experimental");
+			set => criterioReforcoFaseExperimental = NumericUtils.ValidarDentroDeLimite(value, 0, 100, "Critério Reforço Fase Experimental");
 		}
 
 		public int CalculaCriterioTalvezLinhaDeBase() {

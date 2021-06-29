@@ -35,9 +35,6 @@ namespace MemorizacaoNumeros.src.view {
 			Location = new Point(0, 0);
 			Size = new Size(width, height);
 
-			var heightRatio = height / 1080.0;
-			var widthRatio = width / 1920.0;
-
 			this.experimentoRealizado = experimentoRealizado;
 
 			this.experimentoUmRealizado = experimentoRealizado.ExperimentoUmRealizado;
@@ -53,7 +50,7 @@ namespace MemorizacaoNumeros.src.view {
 			pnMensagem.Visible = false;
 			tbInput.Text = "";
 
-			ViewUtils.CorrigeEscalaTodosOsFilhos(this, heightRatio, widthRatio);
+			ViewUtils.CorrigeEscalaTodosOsFilhos(this);
 
 			tamanhoFonteOriginal = lblNumero.Font.Size;
 

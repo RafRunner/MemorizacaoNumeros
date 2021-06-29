@@ -10,6 +10,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private readonly string nomeRegistros;
 		private readonly Func<List<object>> funcaoCarregaDados;
+		private readonly string[] ordemColunas;
 		private readonly Func<List<object>, string, List<object>> funcaoFiltro;
 		private readonly Action<long> funcaoEditar;
 		private readonly Action<long> funcaoDeletar;
@@ -17,16 +18,17 @@ namespace MemorizacaoNumeros.src.view {
 
 		public GridCrud(
 			string nomeRegistros,
-			Func<List<object>> funcaoCarregaDados, 
+			Func<List<object>> funcaoCarregaDados,
 			string[] ordemColunas,
-			Func<List<object>, string, List<object>> funcaoFiltro, 
-			Action<long> funcaoEditar, 
+			Func<List<object>, string, List<object>> funcaoFiltro,
+			Action<long> funcaoEditar,
 			Action<long> funcaoDeletar,
 			Action<long> funcaoSelecionar) {
 
 			InitializeComponent();
 
 			this.nomeRegistros = nomeRegistros;
+			this.ordemColunas = ordemColunas;
 			this.tabelaCompleta = funcaoCarregaDados();
 
 			if (tabelaCompleta.Count == 0) {
@@ -47,13 +49,24 @@ namespace MemorizacaoNumeros.src.view {
 				buttonEditar.Visible = false;
 			}
 
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
+
+			dataGrid.CellDoubleClick += new DataGridViewCellEventHandler((sender, e) => {
+				funcaoSelecionar.Invoke(long.Parse(dataGrid.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+				Close();
+			});
+
+			ShowDialog();
+		}
+
+		private void ReloadDataSource(List<object> tabela) {
+			dataGrid.DataSource = tabela;
 
 			var tamanhoHeaders = Math.Max(200, (dataGrid.Width - 40) / ordemColunas.Length);
 
 			var colunaEnum = dataGrid.Columns.GetEnumerator();
 			while (colunaEnum.MoveNext()) {
-				var coluna = (DataGridViewColumn) colunaEnum.Current;
+				var coluna = (DataGridViewColumn)colunaEnum.Current;
 				var indexColuna = Array.IndexOf(ordemColunas, coluna.HeaderText);
 
 				if (indexColuna == -1) {
@@ -64,13 +77,11 @@ namespace MemorizacaoNumeros.src.view {
 					coluna.Width = tamanhoHeaders;
 				}
 			}
-
-			ShowDialog();
 		}
 
 		private bool VerifiqueQuantidadeColunasSelecionadasEAvise() {
 			if (dataGrid.SelectedRows.Count == 0) {
-				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros}. Selecione toda a linha clicanco na primeira coluna (a vazia)!", "Atenção");
+				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros}!", "Atenção");
 				return false;
 			}
 			else {
@@ -85,7 +96,7 @@ namespace MemorizacaoNumeros.src.view {
 
 			funcaoEditar.Invoke(ViewUtils.GetIdColunaSelecionada(dataGrid));
 			tabelaCompleta = funcaoCarregaDados();
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
 		}
 
 		private void ButtonDeletar_Click(object sender, EventArgs e) {
@@ -95,7 +106,7 @@ namespace MemorizacaoNumeros.src.view {
 
 			funcaoDeletar.Invoke(ViewUtils.GetIdColunaSelecionada(dataGrid));
 			tabelaCompleta = funcaoCarregaDados();
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
 			MessageBox.Show($"{nomeRegistros} deletado com sucesso!", "Sucesso");
 		}
 
@@ -108,26 +119,20 @@ namespace MemorizacaoNumeros.src.view {
 			Close();
 		}
 
-		private void textBoxFiltro_KeyDown(object sender, KeyEventArgs e) {
+		private void TextBoxFiltro_KeyDown(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
-				var textoDeBusca = textBoxFiltro.Text;
-				if (string.IsNullOrWhiteSpace(textoDeBusca)) {
-					dataGrid.DataSource = tabelaCompleta;
-					return;
-				}
-
-				dataGrid.DataSource = funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca);
+				ReloadDataSource(funcaoFiltro.Invoke(tabelaCompleta, textBoxFiltro.Text));
 			}
 		}
 
-		private void textBoxFiltro_TextChanged_1(object sender, EventArgs e) {
+		private void TextBoxFiltro_TextChanged(object sender, EventArgs e) {
 			var textoDeBusca = textBoxFiltro.Text;
 
 			if (string.IsNullOrWhiteSpace(textoDeBusca)) {
-				dataGrid.DataSource = tabelaCompleta;
+				ReloadDataSource(tabelaCompleta);
 				return;
 			}
 
@@ -135,7 +140,7 @@ namespace MemorizacaoNumeros.src.view {
 				return;
 			}
 
-			dataGrid.DataSource = funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca);
+			ReloadDataSource(funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca));
 		}
 	}
 }

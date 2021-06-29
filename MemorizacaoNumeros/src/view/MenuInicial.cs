@@ -191,7 +191,7 @@ namespace MemorizacaoNumeros.src.view {
 				DateTimeInicio = DateTime.Now
 			};
 
-			var telaBackgroud = new TelaMensagem("", false);
+			var telaBackgroud = new TelaMensagem("");
 			telaBackgroud.BackColor = Color.Black;
 			telaBackgroud.Show();
 
@@ -200,7 +200,8 @@ namespace MemorizacaoNumeros.src.view {
 
 			var grauFinal = experimentoDoisRealizado.GrauAtual();
 
-			new TelaMensagem($"Fim do Experimento! O seu grau final foi {grauFinal}!\nPor favor, chamar o experimentador.", false).ShowDialog();
+			new TelaMensagem($"Fim do Experimento! O seu grau final foi {grauFinal}!\nPor favor, chamar o experimentador.").ShowDialog();
+			telaBackgroud.Close();
 		}
 
 		private void btnVerParticipantes_Click(object sender, EventArgs e) {

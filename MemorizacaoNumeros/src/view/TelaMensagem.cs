@@ -9,16 +9,17 @@ namespace MemorizacaoNumeros.src.view {
 		private readonly int height = Screen.PrimaryScreen.Bounds.Height;
 		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
 
-		public TelaMensagem(string mensagem, bool mostrarBotao) {
+		private readonly bool continuarAoClickarMensagem;
+
+		public TelaMensagem(string mensagem, bool mostrarBotao = false, bool continuarAoClickarMensagem = false) {
 			InitializeComponent();
+
+			this.continuarAoClickarMensagem = continuarAoClickarMensagem;
 
 			Location = new Point(0, 0);
 			Size = new Size(width, height);
 
-			var heightRatio = height / 1080.0;
-			var widthRatio = width / 1920.0;
-
-			ViewUtils.CorrigeTamanhoPosicaoFonte(lblMensagem, heightRatio, widthRatio);
+			ViewUtils.CorrigeTamanhoPosicaoFonte(lblMensagem);
 
 			lblMensagem.MaximumSize = new Size((int)(width * 0.8), 0);
 			lblMensagem.AutoSize = true;
@@ -28,7 +29,7 @@ namespace MemorizacaoNumeros.src.view {
 			ViewUtils.Justify(lblMensagem);
 
 			if (mostrarBotao) {
-				ViewUtils.CorrigeTamanhoPosicaoFonte(btnOk, heightRatio, widthRatio);
+				ViewUtils.CorrigeTamanhoPosicaoFonte(btnOk);
 				btnOk.Location = new Point {
 					X = btnOk.Location.X,
 					Y = lblMensagem.Location.Y + lblMensagem.Height + 20
@@ -41,6 +42,12 @@ namespace MemorizacaoNumeros.src.view {
 
 		private void btnOk_Click(object sender, EventArgs e) {
 			Close();
+		}
+
+		private void lblMensagem_Click(object sender, EventArgs e) {
+			if (continuarAoClickarMensagem) {
+				Close();
+			}
 		}
 	}
 }

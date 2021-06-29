@@ -627,6 +627,16 @@
 			// nudTalvezErro2
 			// 
 			this.nudTalvezErro2.Location = new System.Drawing.Point(396, 586);
+			this.nudTalvezErro2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudTalvezErro2.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudTalvezErro2.Name = "nudTalvezErro2";
 			this.nudTalvezErro2.Size = new System.Drawing.Size(90, 22);
 			this.nudTalvezErro2.TabIndex = 37;
@@ -634,6 +644,16 @@
 			// nudTalvezAcerto2
 			// 
 			this.nudTalvezAcerto2.Location = new System.Drawing.Point(297, 585);
+			this.nudTalvezAcerto2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudTalvezAcerto2.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudTalvezAcerto2.Name = "nudTalvezAcerto2";
 			this.nudTalvezAcerto2.Size = new System.Drawing.Size(80, 22);
 			this.nudTalvezAcerto2.TabIndex = 50;
@@ -641,6 +661,16 @@
 			// nudCertezaErro2
 			// 
 			this.nudCertezaErro2.Location = new System.Drawing.Point(187, 585);
+			this.nudCertezaErro2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudCertezaErro2.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudCertezaErro2.Name = "nudCertezaErro2";
 			this.nudCertezaErro2.Size = new System.Drawing.Size(90, 22);
 			this.nudCertezaErro2.TabIndex = 49;
@@ -648,6 +678,16 @@
 			// nudCertezaAcerto2
 			// 
 			this.nudCertezaAcerto2.Location = new System.Drawing.Point(87, 586);
+			this.nudCertezaAcerto2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudCertezaAcerto2.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudCertezaAcerto2.Name = "nudCertezaAcerto2";
 			this.nudCertezaAcerto2.Size = new System.Drawing.Size(81, 22);
 			this.nudCertezaAcerto2.TabIndex = 48;
@@ -655,6 +695,16 @@
 			// nudTalvezErro1
 			// 
 			this.nudTalvezErro1.Location = new System.Drawing.Point(396, 555);
+			this.nudTalvezErro1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudTalvezErro1.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudTalvezErro1.Name = "nudTalvezErro1";
 			this.nudTalvezErro1.Size = new System.Drawing.Size(90, 22);
 			this.nudTalvezErro1.TabIndex = 47;
@@ -662,6 +712,16 @@
 			// nudTalvezAcerto1
 			// 
 			this.nudTalvezAcerto1.Location = new System.Drawing.Point(297, 555);
+			this.nudTalvezAcerto1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudTalvezAcerto1.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudTalvezAcerto1.Name = "nudTalvezAcerto1";
 			this.nudTalvezAcerto1.Size = new System.Drawing.Size(80, 22);
 			this.nudTalvezAcerto1.TabIndex = 46;
@@ -669,6 +729,16 @@
 			// nudCertezaErro1
 			// 
 			this.nudCertezaErro1.Location = new System.Drawing.Point(187, 555);
+			this.nudCertezaErro1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudCertezaErro1.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudCertezaErro1.Name = "nudCertezaErro1";
 			this.nudCertezaErro1.Size = new System.Drawing.Size(90, 22);
 			this.nudCertezaErro1.TabIndex = 45;
@@ -712,6 +782,16 @@
 			// nudCertezaAcerto1
 			// 
 			this.nudCertezaAcerto1.Location = new System.Drawing.Point(87, 556);
+			this.nudCertezaAcerto1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.nudCertezaAcerto1.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
 			this.nudCertezaAcerto1.Name = "nudCertezaAcerto1";
 			this.nudCertezaAcerto1.Size = new System.Drawing.Size(81, 22);
 			this.nudCertezaAcerto1.TabIndex = 36;

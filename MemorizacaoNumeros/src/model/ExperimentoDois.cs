@@ -33,29 +33,13 @@ namespace MemorizacaoNumeros.src.model {
 			set => quantidadeBlocosCondicao1 = NumericUtils.ValidarNatural(value, "Quantidade Blocos da Condição 1");
 		}
 
-		private int pontosTalvezErro1;
-		public int PontosTalvezErro1 {
-			get => pontosTalvezErro1;
-			set => pontosTalvezErro1 = NumericUtils.ValidarNaoNegativo(value, "Pontos Talvez Erro Condição 1");
-		}
+		public int PontosTalvezErro1 { get; set; }
 
-		private int pontosTalvezAcerto1;
-		public int PontosTalvezAcerto1 {
-			get => pontosTalvezAcerto1;
-			set => pontosTalvezAcerto1 = NumericUtils.ValidarNaoNegativo(value, "Pontos Talvez Acerto Condição 1");
-		}
+		public int PontosTalvezAcerto1 { get; set; }
 
-		private int pontosCertezaErro1;
-		public int PontosCertezaErro1 {
-			get => pontosCertezaErro1;
-			set => pontosCertezaErro1 = NumericUtils.ValidarNaoNegativo(value, "Pontos Certeza Erro Condição 1");
-		}
+		public int PontosCertezaErro1 { get; set; }
 
-		private int pontosCertezaAcerto1;
-		public int PontosCertezaAcerto1 {
-			get => pontosCertezaAcerto1;
-			set => pontosCertezaAcerto1 = NumericUtils.ValidarNaoNegativo(value, "Pontos Certeza Acerto Condição 1");
-		}
+		public int PontosCertezaAcerto1 { get; set; }
 
 		private int quantidadeBlocosCondicao2;
 		public int QuantidadeBlocosCondicao2 {
@@ -63,29 +47,13 @@ namespace MemorizacaoNumeros.src.model {
 			set => quantidadeBlocosCondicao2 = NumericUtils.ValidarNatural(value, "Quantidade Blocos da Condição 2");
 		}
 
-		private int pontosTalvezErro2;
-		public int PontosTalvezErro2 {
-			get => pontosTalvezErro2;
-			set => pontosTalvezErro2 = NumericUtils.ValidarNaoNegativo(value, "Pontos Talvez Erro Condição 2");
-		}
+		public int PontosTalvezErro2 { get; set; }
 
-		private int pontosTalvezAcerto2;
-		public int PontosTalvezAcerto2 {
-			get => pontosTalvezAcerto2;
-			set => pontosTalvezAcerto2 = NumericUtils.ValidarNaoNegativo(value, "Pontos Talvez Acerto Condição 2");
-		}
+		public int PontosTalvezAcerto2 { get; set; }
 
-		private int pontosCertezaErro2;
-		public int PontosCertezaErro2 {
-			get => pontosCertezaErro2;
-			set => pontosCertezaErro2 = NumericUtils.ValidarNaoNegativo(value, "Pontos Certeza Erro Condição 2");
-		}
+		public int PontosCertezaErro2 { get; set; }
 
-		private int pontosCertezaAcerto2;
-		public int PontosCertezaAcerto2 {
-			get => pontosCertezaAcerto2;
-			set => pontosCertezaAcerto2 = NumericUtils.ValidarNaoNegativo(value, "Pontos Certeza Acerto Condição 2");
-		}
+		public int PontosCertezaAcerto2 { get; set; }
 
 		private int pontosPorGrau;
 		public int PontosPorGrau {

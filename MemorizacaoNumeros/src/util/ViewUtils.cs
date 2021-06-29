@@ -6,30 +6,46 @@ using System.Windows.Forms;
 
 namespace MemorizacaoNumeros.src.util {
 	public class ViewUtils {
-		public static long GetIdSelecionadoInListView(ListView listView) {
-			return Convert.ToInt64(listView.SelectedItems[0].SubItems[1].Text);
-		}
 
-		public static string SelecionaArquivoComFiltro(FileDialog fileDialog, string filter = null) {
-			string retorno = string.Empty;
-			if (filter != null) {
-				fileDialog.Filter = filter;
-			}
-			DialogResult result = fileDialog.ShowDialog();
-			if (result == DialogResult.OK) {
-				retorno = fileDialog.FileName;
-			}
-			fileDialog.Filter = string.Empty;
-			return retorno;
-		}
+        public static readonly double heightRatio = Screen.PrimaryScreen.Bounds.Height / 1080.0;
+        public static readonly double widthRatio = Screen.PrimaryScreen.Bounds.Width / 1920.0;
 
-		public static void CorrigeTamanhoPosicaoFonte(Control controle, double heightRatio, double widthRatio) {
-			controle.Height = Convert.ToInt32(controle.Height * heightRatio);
-			controle.Width = Convert.ToInt32(controle.Width * widthRatio);
-			controle.Location = new Point {
-				X = Convert.ToInt32(controle.Location.X * widthRatio),
-				Y = Convert.ToInt32(controle.Location.Y * heightRatio)
-			};
+        public static long GetIdSelecionadoInListView(ListView listView) {
+            return Convert.ToInt64(listView.SelectedItems[0].SubItems[1].Text);
+        }
+
+        public static string SelecionaArquivoComFiltro(FileDialog fileDialog, string filter = null) {
+            string retorno = string.Empty;
+            if (filter != null) {
+                fileDialog.Filter = filter;
+            }
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK) {
+                retorno = fileDialog.FileName;
+            }
+            fileDialog.Filter = string.Empty;
+            return retorno;
+        }
+
+        public static void CorrigeTamanhoPosicao(Control controle) {
+            if (heightRatio == 1.0 && widthRatio == 1.0) {
+                return;
+            }
+
+            controle.Height = Convert.ToInt32(controle.Height * heightRatio);
+            controle.Width = Convert.ToInt32(controle.Width * widthRatio);
+            controle.Location = new Point {
+                X = Convert.ToInt32(controle.Location.X * widthRatio),
+                Y = Convert.ToInt32(controle.Location.Y * heightRatio)
+            };
+        }
+
+        public static void CorrigeTamanhoPosicaoFonte(Control controle) {
+            if (heightRatio == 1.0 && widthRatio == 1.0) {
+                return;
+            }
+
+            CorrigeTamanhoPosicao(controle);
             controle.Font = new Font(controle.Font.Name, Convert.ToInt32(controle.Font.Size * heightRatio), controle.Font.Style);
         }
 
@@ -48,9 +64,13 @@ namespace MemorizacaoNumeros.src.util {
             }
         }
 
-        public static void CorrigeEscalaTodosOsFilhos(Control root, double heightRatio, double widthRatio) {
+        public static void CorrigeEscalaTodosOsFilhos(Control root) {
+            if (heightRatio == 1.0 && widthRatio == 1.0) {
+                return;
+            }
+
             foreach (Control filho in GetAllFilhos(root)) {
-                CorrigeTamanhoPosicaoFonte(filho, heightRatio, widthRatio);
+                CorrigeTamanhoPosicaoFonte(filho);
             }
         }
 
@@ -94,7 +114,7 @@ namespace MemorizacaoNumeros.src.util {
             }
 
             return brokenText;
-		}
+        }
 
         private static string StretchToWidth(string text, Label label) {
             if (text.Length < 2)

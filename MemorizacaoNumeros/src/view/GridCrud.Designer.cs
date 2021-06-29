@@ -42,6 +42,7 @@
 			this.dataGrid.Name = "dataGrid";
 			this.dataGrid.ReadOnly = true;
 			this.dataGrid.RowHeadersWidth = 40;
+			this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGrid.Size = new System.Drawing.Size(904, 471);
 			this.dataGrid.TabIndex = 0;
 			// 
@@ -53,8 +54,8 @@
 			this.textBoxFiltro.Name = "textBoxFiltro";
 			this.textBoxFiltro.Size = new System.Drawing.Size(611, 29);
 			this.textBoxFiltro.TabIndex = 1;
-			this.textBoxFiltro.TextChanged += new System.EventHandler(this.textBoxFiltro_TextChanged_1);
-			this.textBoxFiltro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFiltro_KeyDown);
+			this.textBoxFiltro.TextChanged += new System.EventHandler(this.TextBoxFiltro_TextChanged);
+			this.textBoxFiltro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxFiltro_KeyDown);
 			// 
 			// buttonEditar
 			// 
