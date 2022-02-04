@@ -75,7 +75,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 
 			AppendSeparador();
 
-			var inicioExperimentoDois = experimento.ExperimentoUmRealizado.DateTimeInicio;
+			var inicioExperimentoDois = experimento.ExperimentoDoisRealizado.DateTimeInicio;
 
 			relatorio.Append("Experimento Dois iniciado (após leitura da instrução) às ").AppendLine(inicioExperimentoDois.ToString(formatoHora))
 			.AppendLine("Eventos do Experimento Dois:\n");
