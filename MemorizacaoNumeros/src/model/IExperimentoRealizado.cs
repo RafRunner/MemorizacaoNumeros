@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemorizacaoNumeros.src.service;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -21,6 +22,14 @@ namespace MemorizacaoNumeros.src.model {
 			evento.Horario = Convert.ToInt64((DateTime.Now - DateTimeInicio).TotalMilliseconds);
 			evento.Indice = eventos.Count;
 			eventos.Add(evento);
+
+			if (this.GetType() == typeof(ExperimentoUmRealizado)) {
+				evento.IdExperimentoUmRealizado = Id;
+			}
+			else {
+				evento.IdExperimentoDoisRealizado = Id;
+			}
+			EventoService.Salvar(evento);
 		}
 
 		public List<Evento> GetListaEventos() {

@@ -92,7 +92,6 @@ namespace MemorizacaoNumeros.src.model {
 				return true;
 			}
 
-			var origem = NomeFaseAtual;
 			var origemResumo = faseAtual.ToString();
 			var comparacaoSequencias = $"Sequência modelo: {sequenciaModelo}, Sequência digitada: {sequenciaDigitada}.";
 			var acerto = acertou ? "acertou" : "errou";
@@ -106,14 +105,14 @@ namespace MemorizacaoNumeros.src.model {
 					corretasConsecutivasPreTreino++;
 					acertosPreTreino++;
 
-					RegistrarEvento(new Evento(origem, $"Participante acertou. Acertos consecutivos: {corretasConsecutivasPreTreino}. {comparacaoSequencias}"));
+					RegistrarEvento($"Participante acertou. Acertos consecutivos: {corretasConsecutivasPreTreino}. {comparacaoSequencias}");
 
 					// O participante acertou quantidade necessária de vezes consecutivas, vamos para a próxima fase
-					if (corretasConsecutivasPreTreino == ExperimentoUm.CriterioAcertoPreTreino) {
+					if (corretasConsecutivasPreTreino >= ExperimentoUm.CriterioAcertoPreTreino) {
 						corretasConsecutivasPreTreino = 0;
 						faseAtual++;
 
-						RegistrarEvento(new Evento(origem, $"Acertos consecutivos necessários para finalizar Pré treino alcançados."));
+						RegistrarEvento($"Acertos consecutivos necessários para finalizar Pré treino alcançados.");
 						RegistrarEvento(new Evento(origemResumo, $"Acertos;Erros: {acertosPreTreino};{errosPreTreino}"));
 
 						return true;
@@ -123,7 +122,7 @@ namespace MemorizacaoNumeros.src.model {
 					errosPreTreino++;
 					corretasConsecutivasPreTreino = 0;
 
-					RegistrarEvento(new Evento(origem, $"Participante errou. {comparacaoSequencias}"));
+					RegistrarEvento($"Participante errou. {comparacaoSequencias}");
 				}
 			}
 			// Linha de Base
@@ -153,18 +152,17 @@ namespace MemorizacaoNumeros.src.model {
 					talvezUltimoBlocoLinhaDeBase++;
 				}
 
-				RegistrarEvento(new Evento(origem, $"Participante {acerto}, selecionou {cert}. {comparacaoSequencias}"));
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}. {comparacaoSequencias}");
 
 				// Acabamos de terminar um bloco
-				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual >= ExperimentoUm.TamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 
-					RegistrarEvento(new Evento(origem, $"Fim do bloco de tentativas. Tamanho sequência atual: {tamanhoAtualSequencia}"));
+					RegistrarEvento($"Fim do bloco de tentativas. Tamanho sequência atual: {tamanhoAtualSequencia}");
 
 					// O participante escolheu talvez acima do trashold
 					if (talvezUltimoBlocoLinhaDeBase >= ExperimentoUm.CalculaCriterioTalvezLinhaDeBase()) {
-						RegistrarEvento(new Evento(origem,
-							$"Quantidade de talvez acima do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Passando para próxima fase"));
+						RegistrarEvento($"Quantidade de talvez acima do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Passando para próxima fase");
 
 						tamanhoMaximoLinhaDeBase = tamanhoAtualSequencia;
 						talvezUltimoBlocoLinhaDeBase = 0;
@@ -181,8 +179,7 @@ namespace MemorizacaoNumeros.src.model {
 					}
 					// O tamanho da sequência aumenta
 					else {
-						RegistrarEvento(new Evento(origem,
-							$"Quantidade de talvez abaixo do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Aumentando tamanho da sequência"));
+						RegistrarEvento($"Quantidade de talvez abaixo do critério ({talvezUltimoBlocoLinhaDeBase}/{ExperimentoUm.TamanhoBlocoTentativas}). Aumentando tamanho da sequência");
 
 						tamanhoAtualSequencia++;
 						talvezUltimoBlocoLinhaDeBase = 0;
@@ -245,30 +242,28 @@ namespace MemorizacaoNumeros.src.model {
 
 				var forca = tamanhoAtualSequencia > tamanhoMaximoLinhaDeBase ? "Fraco" : "Forte";
 
-				RegistrarEvento(new Evento(origem,$"Estímulo {forca}. Participante {acerto}, selecionou {cert}. {comparacaoSequencias}"));
+				RegistrarEvento($"Estímulo {forca}. Participante {acerto}, selecionou {cert}. {comparacaoSequencias}");
 
 				// Acabamos de terminar um bloco
-				if (tentativaBlocoAtual == ExperimentoUm.TamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual >= ExperimentoUm.TamanhoBlocoTentativas) {
 					blocosExecutados++;
 					tentativaBlocoAtual = 0;
 
-					RegistrarEvento(new Evento(origem, $"Fim do bloco {blocosExecutados}"));
+					RegistrarEvento($"Fim do bloco {blocosExecutados}");
 
 					// Terminamos o número de blocos previstos
-					if (blocosExecutados == ExperimentoUm.NumeroBlocosFaseExperimental) {
+					if (blocosExecutados >= ExperimentoUm.NumeroBlocosFaseExperimental) {
 						blocosExecutados = 0;
 
 						if (talvezEstimulosFracos < ExperimentoUm.CalculaCriterioReforcoFaseExperimental(quantidadeEstimulosFracos)) {
-							RegistrarEvento(new Evento(origem,
-								$"Talvez selecionados em estímulos fracos insuficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Aumentando a variação de dígitos"));
+							RegistrarEvento($"Talvez selecionados em estímulos fracos insuficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Aumentando a variação de dígitos");
 
 							quantidadeEstimulosFracos = 0;
 							talvezEstimulosFracos = 0;
 							digitosASeremVariados++;
 						}
 						else {
-							RegistrarEvento(new Evento(origem,
-								$"Talvez selecionados em estímulos fracos suficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Fim do Experimento Um"));
+							RegistrarEvento($"Talvez selecionados em estímulos fracos suficientes ({talvezEstimulosFracos}/{quantidadeEstimulosFracos}). Fim do Experimento Um");
 
 							quantidadeEstimulosFracos = 0;
 							talvezEstimulosFracos = 0;
@@ -308,7 +303,6 @@ namespace MemorizacaoNumeros.src.model {
 				}
 			}
 
-			// Experimento acabou
 			return geradorNumeros.GerarNumero(tamanhoAtualSequencia);
 		}
 	}

@@ -26,7 +26,7 @@ namespace MemorizacaoNumeros.src.model {
 		public int pontos = 0;
 		public int ultimosPontosGanhos = 0;
 
-		// Eferivamente uma constante, não é constante pois não sabemos ao criar o objeto.
+		// Efetivamente uma constante, não é constante pois não sabemos ao criar o objeto.
 		private int tamanhoSequencia = 0;
 		// Deve ser informado pelo experimento Um
 		private int tamanhoBlocoTentativas = 0;
@@ -99,13 +99,10 @@ namespace MemorizacaoNumeros.src.model {
 				return true;
 			}
 
-			var origem = NomeFaseAtual;
 			var origemResumo = faseAtual.ToString();
 			var comparacaoSequencias = $"Sequência modelo: {sequenciaModelo}, Sequência digitada: {sequenciaDigitada}.";
 			var acerto = acertou ? "acertou" : "errou";
 			var cert = certeza ? "certeza" : "talvez";
-
-			RegistrarEvento(new Evento(origem, $"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}"));
 
 			// Linha de Base
 			if (faseAtual == 0) {
@@ -127,18 +124,19 @@ namespace MemorizacaoNumeros.src.model {
 						errosTalvezLinhaDeBase++;
 					}
 				}
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}. {comparacaoSequencias}");
 
-				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual >= tamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
-					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosLinhaDeBase}"));
+					RegistrarEvento($"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosLinhaDeBase}");
 
-					if (blocoAtual == experimentoDois.QuantidadeBlocosLinhaDeBase) {
+					if (blocoAtual >= experimentoDois.QuantidadeBlocosLinhaDeBase) {
 						blocoAtual = 0;
 						faseAtual++;
 
-						RegistrarEvento(new Evento(origem, "Fim da Linha de Base"));
+						RegistrarEvento("Fim da Linha de Base");
 
 						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaLinhaDeBase};{errosCertezaLinhaDeBase}"));
 						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezLinhaDeBase};{errosTalvezLinhaDeBase}"));
@@ -170,20 +168,21 @@ namespace MemorizacaoNumeros.src.model {
 						SomarPontos(experimentoDois.PontosTalvezErro1);
 					}
 				}
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}");
 
 				tentativaBlocoAtual++;
 
-				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual >= tamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
-					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao1}"));
+					RegistrarEvento($"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao1}");
 
-					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao1) {
+					if (blocoAtual >= experimentoDois.QuantidadeBlocosCondicao1) {
 						blocoAtual = 0;
 						faseAtual++;
 
-						RegistrarEvento(new Evento(origem, "Fim da Condição 1"));
+						RegistrarEvento("Fim da Condição 1");
 
 						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaCondicao1};{errosCertezaCondicao1}"));
 						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezCondicao1};{errosTalvezCondicao1}"));
@@ -215,20 +214,21 @@ namespace MemorizacaoNumeros.src.model {
 						SomarPontos(experimentoDois.PontosTalvezErro2);
 					}
 				}
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}");
 
 				tentativaBlocoAtual++;
 
-				if (tentativaBlocoAtual == tamanhoBlocoTentativas) {
+				if (tentativaBlocoAtual >= tamanhoBlocoTentativas) {
 					tentativaBlocoAtual = 0;
 					blocoAtual++;
 
-					RegistrarEvento(new Evento(origem, $"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao2}"));
+					RegistrarEvento($"Fim do bloco de número {blocoAtual}/{experimentoDois.QuantidadeBlocosCondicao2}");
 
-					if (blocoAtual == experimentoDois.QuantidadeBlocosCondicao2) {
+					if (blocoAtual >= experimentoDois.QuantidadeBlocosCondicao2) {
 						blocoAtual = 0;
 						faseAtual++;
 
-						RegistrarEvento(new Evento(origem, "Fim da Condição 2"));
+						RegistrarEvento("Fim da Condição 2");
 
 						RegistrarEvento(new Evento(origemResumo, $"Acertos certeza;Erros certeza: {acertosCertezaCondicao2};{errosCertezaCondicao2}"));
 						RegistrarEvento(new Evento(origemResumo, $"Acertos talvez;Erros talvez: {acertosTalvezCondicao2};{errosTalvezCondicao2}"));

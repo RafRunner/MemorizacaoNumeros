@@ -40,11 +40,6 @@ namespace MemorizacaoNumeros.src.service {
 
 		public static void Salvar(ExperimentoDoisRealizado experimento) {
 			Salvar(experimento, nomeTabela, sqlInsert, sqlUpdate);
-
-			foreach (var evento in experimento.GetListaEventos()) {
-				evento.IdExperimentoDoisRealizado = experimento.Id;
-				EventoService.Salvar(evento);
-			}
 		}
 
 		public static void DeletarPorId(long id) {

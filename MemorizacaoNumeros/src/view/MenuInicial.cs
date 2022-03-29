@@ -105,7 +105,7 @@ namespace MemorizacaoNumeros.src.view {
 				CriterioAcertoPreTreino = Convert.ToInt32(nudAcertosPreTreino.Value),
 				CriterioTalvezLinhaDeBase = Convert.ToInt32(nudTalvezLinhaDeBase.Value),
 				NumeroBlocosFaseExperimental = Convert.ToInt32(nudBlocosFaseExperimental.Value),
-				CriterioReforcoFaseExperimental = Convert.ToInt32(nudReforcoFaseExperimental.Value)
+				CriterioReforcoFaseExperimental = 0,
 			};
 
 			ExperimentoUmService.Salvar(experimentoUm);
@@ -191,8 +191,9 @@ namespace MemorizacaoNumeros.src.view {
 				DateTimeInicio = DateTime.Now
 			};
 
-			var telaBackgroud = new TelaMensagem("");
-			telaBackgroud.BackColor = Color.Black;
+			var telaBackgroud = new TelaMensagem("") {
+				BackColor = Color.Black
+			};
 			telaBackgroud.Show();
 
 			new TelaMensagem(experimentoUm.InstrucaoInicial, true).ShowDialog();
@@ -284,7 +285,6 @@ namespace MemorizacaoNumeros.src.view {
 				nudAcertosPreTreino.Value = experimentoUm.CriterioAcertoPreTreino;
 				nudTalvezLinhaDeBase.Value = experimentoUm.CriterioTalvezLinhaDeBase;
 				nudBlocosFaseExperimental.Value = experimentoUm.NumeroBlocosFaseExperimental;
-				nudReforcoFaseExperimental.Value = experimentoUm.CriterioReforcoFaseExperimental;
 			}
 		}
 
@@ -336,7 +336,12 @@ namespace MemorizacaoNumeros.src.view {
 				return;
 			}
 
-			geradorRelatorio.GerarRelatorio();
+			try {
+				geradorRelatorio.GerarRelatorio();
+			} catch(NullReferenceException) {
+				MessageBox.Show("Esse relatório não pode ser gerado novamente! Provavelmente algo na configuração dele foi deletado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				return;
+			}
 
 			MessageBox.Show("Relatório gerado novamente com sucesso!", "Sucesso");
 		}

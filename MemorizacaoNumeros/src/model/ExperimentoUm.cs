@@ -95,8 +95,7 @@ namespace MemorizacaoNumeros.src.model {
 				$"Tamanho Sequência Inicial: {TamanhoSequenciaInicial}\n" +
 				$"Critério Acerto Pré Treino: {CriterioAcertoPreTreino} acertos consecutivos\n" +
 				$"Critério Talvez Linha de Base: superior à {CriterioTalvezLinhaDeBase}%\n" +
-				$"Número Blocos Fase Experimental: {NumeroBlocosFaseExperimental}\n" +
-				$"Critério Repetição Fase Experimental: inferior à {CriterioReforcoFaseExperimental}%";
+				$"Número Blocos Fase Experimental: {NumeroBlocosFaseExperimental}";
 		}
 	}
 }

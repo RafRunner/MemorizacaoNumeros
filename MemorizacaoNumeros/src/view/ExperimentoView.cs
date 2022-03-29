@@ -56,6 +56,7 @@ namespace MemorizacaoNumeros.src.view {
 
 			this.experimentoUmRealizado.DateTimeInicio = DateTime.Now;
 
+			ExperimentoUmRealizadoService.Salvar(experimentoUmRealizado);
 			IniciarNovaFase();
 		}
 
@@ -83,6 +84,7 @@ namespace MemorizacaoNumeros.src.view {
 					experimentoDoisRealizado.SetTamanhoSequencia(experimentoUmRealizado.tamanhoMaximoLinhaDeBase);
 					experimentoDoisRealizado.SetTamanhoBlocoTentativas(experimentoUm.TamanhoBlocoTentativas);
 					experimentoDoisRealizado.DateTimeInicio = DateTime.Now;
+					ExperimentoDoisRealizadoService.Salvar(experimentoDoisRealizado);
 
 					Opacity = 0;
 					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
@@ -128,9 +130,6 @@ namespace MemorizacaoNumeros.src.view {
 
 			pnNumero.Visible = true;
 
-			btnCerteza.Enabled = true;
-			btnTalvez.Enabled = true;
-
 			FadeIn(this, 1);
 
 			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
@@ -144,6 +143,8 @@ namespace MemorizacaoNumeros.src.view {
 				SortearPosicaoBotoes();
 				btnCerteza.Visible = true;
 				btnTalvez.Visible = true;
+				btnCerteza.Enabled = true;
+				btnTalvez.Enabled = true;
 				btnInvisivel.Focus();
 			}
 		}
@@ -242,11 +243,10 @@ namespace MemorizacaoNumeros.src.view {
 					if (faseAtual > 0) {
 						await MostrarMensagemTempo($"+{experimentoDoisRealizado.ultimosPontosGanhos} pontos", experimentoUm.TempoTelaPretaITI);
 					}
-					else if (acertou) {
+					else if (acertou || !certeza) {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
 					}
-
-					if (!acertou && certeza) {
+					else {
 						FadeOut(this, 1);
 						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
 					}

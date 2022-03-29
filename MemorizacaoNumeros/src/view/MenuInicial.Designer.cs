@@ -91,8 +91,6 @@
 			this.label34 = new System.Windows.Forms.Label();
 			this.nudBlocosFaseExperimental = new System.Windows.Forms.NumericUpDown();
 			this.label25 = new System.Windows.Forms.Label();
-			this.nudReforcoFaseExperimental = new System.Windows.Forms.NumericUpDown();
-			this.label24 = new System.Windows.Forms.Label();
 			this.nudTalvezLinhaDeBase = new System.Windows.Forms.NumericUpDown();
 			this.label23 = new System.Windows.Forms.Label();
 			this.nudAcertosPreTreino = new System.Windows.Forms.NumericUpDown();
@@ -131,7 +129,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosCondicao1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosLinhaDeBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosFaseExperimental)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.nudReforcoFaseExperimental)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudTalvezLinhaDeBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudAcertosPreTreino)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudSequenciaInicial)).BeginInit();
@@ -447,8 +444,6 @@
 			this.panel3.Controls.Add(this.label34);
 			this.panel3.Controls.Add(this.nudBlocosFaseExperimental);
 			this.panel3.Controls.Add(this.label25);
-			this.panel3.Controls.Add(this.nudReforcoFaseExperimental);
-			this.panel3.Controls.Add(this.label24);
 			this.panel3.Controls.Add(this.nudTalvezLinhaDeBase);
 			this.panel3.Controls.Add(this.label23);
 			this.panel3.Controls.Add(this.nudAcertosPreTreino);
@@ -748,27 +743,27 @@
 			this.label35.AutoSize = true;
 			this.label35.Location = new System.Drawing.Point(294, 529);
 			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(83, 16);
+			this.label35.Size = new System.Drawing.Size(91, 16);
 			this.label35.TabIndex = 44;
-			this.label35.Text = "Tatos Corretos";
+			this.label35.Text = "Transc. Corretas";
 			// 
 			// label28
 			// 
 			this.label28.AutoSize = true;
 			this.label28.Location = new System.Drawing.Point(185, 529);
 			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(92, 16);
+			this.label28.Size = new System.Drawing.Size(100, 16);
 			this.label28.TabIndex = 43;
-			this.label28.Text = "Tatos Incorretos";
+			this.label28.Text = "Transc. Incorretas";
 			// 
 			// label26
 			// 
 			this.label26.AutoSize = true;
 			this.label26.Location = new System.Drawing.Point(394, 529);
 			this.label26.Name = "label26";
-			this.label26.Size = new System.Drawing.Size(92, 16);
+			this.label26.Size = new System.Drawing.Size(100, 16);
 			this.label26.TabIndex = 41;
-			this.label26.Text = "Tatos Incorretos";
+			this.label26.Text = "Transc. Incorretas";
 			// 
 			// label27
 			// 
@@ -801,9 +796,9 @@
 			this.label29.AutoSize = true;
 			this.label29.Location = new System.Drawing.Point(84, 530);
 			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(83, 16);
+			this.label29.Size = new System.Drawing.Size(91, 16);
 			this.label29.TabIndex = 35;
-			this.label29.Text = "Tatos Corretos";
+			this.label29.Text = "Transc. Corretas";
 			// 
 			// label30
 			// 
@@ -899,25 +894,9 @@
 			this.label25.TabIndex = 23;
 			this.label25.Text = "Número Blocos Fase Experimental";
 			// 
-			// nudReforcoFaseExperimental
-			// 
-			this.nudReforcoFaseExperimental.Location = new System.Drawing.Point(824, 116);
-			this.nudReforcoFaseExperimental.Name = "nudReforcoFaseExperimental";
-			this.nudReforcoFaseExperimental.Size = new System.Drawing.Size(183, 22);
-			this.nudReforcoFaseExperimental.TabIndex = 22;
-			// 
-			// label24
-			// 
-			this.label24.AutoSize = true;
-			this.label24.Location = new System.Drawing.Point(821, 95);
-			this.label24.Name = "label24";
-			this.label24.Size = new System.Drawing.Size(213, 16);
-			this.label24.TabIndex = 21;
-			this.label24.Text = "Critério repetição Fase Experimental(%)";
-			// 
 			// nudTalvezLinhaDeBase
 			// 
-			this.nudTalvezLinhaDeBase.Location = new System.Drawing.Point(824, 63);
+			this.nudTalvezLinhaDeBase.Location = new System.Drawing.Point(824, 116);
 			this.nudTalvezLinhaDeBase.Name = "nudTalvezLinhaDeBase";
 			this.nudTalvezLinhaDeBase.Size = new System.Drawing.Size(183, 22);
 			this.nudTalvezLinhaDeBase.TabIndex = 20;
@@ -925,7 +904,7 @@
 			// label23
 			// 
 			this.label23.AutoSize = true;
-			this.label23.Location = new System.Drawing.Point(821, 43);
+			this.label23.Location = new System.Drawing.Point(821, 95);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(172, 16);
 			this.label23.TabIndex = 19;
@@ -933,15 +912,15 @@
 			// 
 			// nudAcertosPreTreino
 			// 
-			this.nudAcertosPreTreino.Location = new System.Drawing.Point(663, 171);
+			this.nudAcertosPreTreino.Location = new System.Drawing.Point(824, 63);
 			this.nudAcertosPreTreino.Name = "nudAcertosPreTreino";
-			this.nudAcertosPreTreino.Size = new System.Drawing.Size(144, 22);
+			this.nudAcertosPreTreino.Size = new System.Drawing.Size(183, 22);
 			this.nudAcertosPreTreino.TabIndex = 18;
 			// 
 			// label22
 			// 
 			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(660, 151);
+			this.label22.Location = new System.Drawing.Point(821, 43);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(104, 16);
 			this.label22.TabIndex = 17;
@@ -1095,7 +1074,7 @@
 			this.MaximizeBox = false;
 			this.Name = "MenuInicial";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Menu Inicial";
+			this.Text = "Investigação Autoclítico Descritivo";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuInicial_FormClosing);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
@@ -1119,7 +1098,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosCondicao1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosLinhaDeBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudBlocosFaseExperimental)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.nudReforcoFaseExperimental)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudTalvezLinhaDeBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudAcertosPreTreino)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudSequenciaInicial)).EndInit();
@@ -1181,8 +1159,6 @@
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.NumericUpDown nudBlocosFaseExperimental;
 		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.NumericUpDown nudReforcoFaseExperimental;
-		private System.Windows.Forms.Label label24;
 		private System.Windows.Forms.NumericUpDown nudTalvezLinhaDeBase;
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.NumericUpDown nudAcertosPreTreino;
