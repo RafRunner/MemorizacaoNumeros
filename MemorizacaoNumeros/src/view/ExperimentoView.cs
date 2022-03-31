@@ -130,7 +130,7 @@ namespace MemorizacaoNumeros.src.view {
 
 			pnNumero.Visible = true;
 
-			FadeIn(this, 1);
+			await FadeIn(this, 1);
 
 			await Task.Delay(experimentoUm.TempoApresentacaoEstimulo * 1000);
 
@@ -232,8 +232,7 @@ namespace MemorizacaoNumeros.src.view {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
 					}
 					else {
-						FadeOut(this, 1);
-						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+						await FadeOut(this, experimentoUm.TempoTelaPretaITI);
 					}
 				}
 				else {
@@ -247,8 +246,7 @@ namespace MemorizacaoNumeros.src.view {
 						await MostrarMensagemTempo("Correto!", experimentoUm.TempoTelaPretaITI);
 					}
 					else {
-						FadeOut(this, 1);
-						await Task.Delay(experimentoUm.TempoTelaPretaITI * 1000);
+						await FadeOut(this, experimentoUm.TempoTelaPretaITI);
 					}
 				}
 				
@@ -304,39 +302,27 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		// TODO: melhorar essa parte do fade para ser mais genérica, útil e segura
-		private void FadeIn(Form whatToFade, int seconds) {
-			fadingIn = true;
-			Fade(whatToFade, seconds);
+		private async Task FadeIn(Form whatToFade, int seconds) {
+			await Fade(whatToFade, seconds, true);
+			whatToFade.Opacity = 1.0;
 		}
 
-		private void FadeOut(Form whatToFade, int seconds) {
-			fadingIn = false;
-			Fade(whatToFade, seconds);
+		private async Task FadeOut(Form whatToFade, int seconds) {
+			await Fade(whatToFade, seconds, false);
+			whatToFade.Opacity = 0.0;
 		}
 
-		private void Fade(Form whatToFade, int seconds) {
+		private async Task Fade(Form whatToFade, int seconds, bool fadingIn) {
+			this.fadingIn = fadingIn;
 			this.whatToFade = whatToFade;
-			timerFade.Interval = seconds * 1000 / (int)(1 / 0.025);
+			timerFade.Interval = 1 * 1000 / (int)(1 / 0.025);
 			timerFade.Start();
+			await Task.Delay(seconds * 1000);
+			timerFade.Stop();
 		}
 
 		private void timerFade_Tick(object sender, EventArgs e) {
-			if (fadingIn) {
-				if (whatToFade.Opacity < 1.0) {
-					whatToFade.Opacity += 0.025;
-				}
-				else {
-					timerFade.Stop();
-				}
-			}
-			else {
-				if (whatToFade.Opacity > 0) {
-					whatToFade.Opacity -= 0.025;
-				}
-				else {
-					timerFade.Stop();
-				}
-			}
+			whatToFade.Opacity = fadingIn ? Math.Min(whatToFade.Opacity + 0.025, 1.0) : Math.Max(whatToFade.Opacity - 0.025, 0.0);
 		}
 	}
 }
