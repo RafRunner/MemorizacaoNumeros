@@ -14,8 +14,9 @@ namespace MemorizacaoNumeros.src.model {
 
 		private List<Evento> eventos = new List<Evento>();
 
-		public void RegistrarEvento(string descricao) {
-			RegistrarEvento(new Evento(NomeFaseAtual, descricao));
+		public void RegistrarEvento(string descricao, bool debug = false) {
+			var origem = debug ? "debug" : NomeFaseAtual;
+			RegistrarEvento(new Evento(origem, descricao));
 		}
 
 		public void RegistrarEvento(Evento evento) {

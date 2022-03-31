@@ -62,6 +62,7 @@ namespace MemorizacaoNumeros.src.view {
 
 		private async void IniciarNovaFase() {
 			Opacity = 0;
+			RegistrarEvento($"Tela preta para uma nova fase. Opacidade: {Opacity}", true);
 			await Task.Delay(experimentoUm.TempoTelaPretaInicial * 1000);
 
 			if (experimentoAtual == 1 && experimentoUmRealizado.faseAtual == 1) {
@@ -87,6 +88,7 @@ namespace MemorizacaoNumeros.src.view {
 					ExperimentoDoisRealizadoService.Salvar(experimentoDoisRealizado);
 
 					Opacity = 0;
+					RegistrarEvento($"Tela preta para instrução do experimento dois. Opacidade: {Opacity}", true);
 					new TelaMensagem(experimentoDois.InstrucaoInicial, true).ShowDialog();
 
 					IniciarNovaFase();
@@ -189,8 +191,14 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private async void tbInput_KeyDown(object sender, KeyEventArgs e) {
+			// Medidas de desespero
+			if (e.KeyData == Keys.F9) {
+				Opacity = 1.0;
+				RegistrarEvento($"Forçando a tela a clarear. Opacidade: {Opacity}", true);
+			}
+
 			// Deixandoas teclas de função serem lidadas pelo sistema
-			if (e.KeyCode >= Keys.F1 && e.KeyCode <= Keys.F9) {
+			if (e.KeyCode >= Keys.F1 && e.KeyCode <= Keys.F12) {
 				return;
 			}
 
@@ -272,12 +280,12 @@ namespace MemorizacaoNumeros.src.view {
 			RegistrarEvento($"{tbInput.Text[tbInput.Text.Length - 1]} digitado");
 		}
 
-		private void RegistrarEvento(string evento) {
+		private void RegistrarEvento(string evento, bool debug = false) {
 			if (experimentoAtual == 1) {
-				experimentoUmRealizado.RegistrarEvento(evento);
+				experimentoUmRealizado.RegistrarEvento(evento, debug);
 			}
 			else {
-				experimentoDoisRealizado.RegistrarEvento(evento);
+				experimentoDoisRealizado.RegistrarEvento(evento, debug);
 			}
 		}
 
@@ -303,13 +311,17 @@ namespace MemorizacaoNumeros.src.view {
 
 		// TODO: melhorar essa parte do fade para ser mais genérica, útil e segura
 		private async Task FadeIn(Form whatToFade, int seconds) {
+			RegistrarEvento($"Iniciando fade in. Opacidade: {Opacity}", true);
 			await Fade(whatToFade, seconds, true);
 			whatToFade.Opacity = 1.0;
+			RegistrarEvento($"Finalizando fade in, Opacidade deve ser igual a 1.0. Opacidade: {Opacity}", true);
 		}
 
 		private async Task FadeOut(Form whatToFade, int seconds) {
+			RegistrarEvento($"Iniciando fade out. Opacidade: ${Opacity}", true);
 			await Fade(whatToFade, seconds, false);
 			whatToFade.Opacity = 0.0;
+			RegistrarEvento($"Finalizando fade out, Opacidade deve ser igual a 0.0. Opacidade: {Opacity}", true);
 		}
 
 		private async Task Fade(Form whatToFade, int seconds, bool fadingIn) {

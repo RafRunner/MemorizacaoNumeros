@@ -17,9 +17,9 @@ namespace MemorizacaoNumeros.src.model {
 		// Para poderem ser ordenados
 		public int Indice { get; set; }
 
-		public long IdExperimentoUmRealizado { get; set; }
+		public long? IdExperimentoUmRealizado { get; set; }
 
-		public long IdExperimentoDoisRealizado { get; set; }
+		public long? IdExperimentoDoisRealizado { get; set; }
 
 		//Na verdade é apenas o offset em milisegundos a partir do início do experimento
 		public long Horario { get; set; }

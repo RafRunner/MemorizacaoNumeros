@@ -54,7 +54,7 @@ namespace MemorizacaoNumeros.src.arquivos {
 
 		private void AppendEventos(List<Evento> eventos, DateTime horaInicio) {
 			foreach (var evento in eventos) {
-				if (StringUtils.EhNumero(evento.Origem.Substring(0, 1))) continue;
+				if (StringUtils.EhNumero(evento.Origem.Substring(0, 1)) || evento.Origem.Equals("debug")) continue;
 
 				var horarioEvento = horaInicio.AddMilliseconds(evento.Horario);
 
