@@ -359,7 +359,7 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private void btnMaisSobreOSoftware_Click(object sender, EventArgs e) {
-			MessageBox.Show("Desenvolvido por: Rafael Nunes Santna\nCódigo fonte disponível em: https://github.com/RafRunner/MemorizacaoNumeros", "Informações");
+			MessageBox.Show("Desenvolvido por: Rafael Nunes Santna\nVersão: 1.3.0\nCódigo fonte disponível em: https://github.com/RafRunner/MemorizacaoNumeros", "Informações");
 		}
 	}
 }

@@ -249,7 +249,7 @@ namespace MemorizacaoNumeros.src.model {
 					blocosExecutados++;
 					tentativaBlocoAtual = 0;
 
-					RegistrarEvento($"Fim do bloco {blocosExecutados}");
+					RegistrarEvento($"Fim do bloco {blocosExecutados}/{ExperimentoUm.TamanhoBlocoTentativas}");
 
 					// Terminamos o número de blocos previstos
 					if (blocosExecutados >= ExperimentoUm.NumeroBlocosFaseExperimental) {

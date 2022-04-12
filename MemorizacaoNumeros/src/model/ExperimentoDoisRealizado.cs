@@ -168,7 +168,7 @@ namespace MemorizacaoNumeros.src.model {
 						SomarPontos(experimentoDois.PontosTalvezErro1);
 					}
 				}
-				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}");
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. Grau: {GrauAtual()}. {comparacaoSequencias}");
 
 				tentativaBlocoAtual++;
 
@@ -214,7 +214,7 @@ namespace MemorizacaoNumeros.src.model {
 						SomarPontos(experimentoDois.PontosTalvezErro2);
 					}
 				}
-				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. {comparacaoSequencias}");
+				RegistrarEvento($"Participante {acerto}, selecionou {cert}, ganhou {ultimosPontosGanhos} pontos. Grau: {GrauAtual()}. {comparacaoSequencias}");
 
 				tentativaBlocoAtual++;
 

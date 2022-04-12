@@ -318,7 +318,7 @@ namespace MemorizacaoNumeros.src.view {
 		}
 
 		private async Task FadeOut(Form whatToFade, int seconds) {
-			RegistrarEvento($"Iniciando fade out. Opacidade: ${Opacity}", true);
+			RegistrarEvento($"Iniciando fade out. Opacidade: {Opacity}", true);
 			await Fade(whatToFade, seconds, false);
 			whatToFade.Opacity = 0.0;
 			RegistrarEvento($"Finalizando fade out, Opacidade deve ser igual a 0.0. Opacidade: {Opacity}", true);
